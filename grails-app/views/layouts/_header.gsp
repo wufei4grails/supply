@@ -59,7 +59,12 @@
   .container > hr {
     margin: 60px 0;
   }
-
+  
+  .custom-error-message{
+      color: #b94a48;
+      list-style: none;
+      margin-left: -25px;
+    }
 
 
   /* Customize the navbar links to be fill the entire space of the .navbar */

@@ -25,7 +25,7 @@
         </div><!--/span-->
         <div class="span9">
 
-          <g:form class="form-horizontal" controller="user" action="doCompanyStoreCreate" method="post">
+          <g:form data-validate="parsley" class="form-horizontal" controller="user" action="doCompanyStoreCreate" method="post">
             <fieldset>
               <div id="legend" class="">
                 <legend class="">分配门店账号</legend>
@@ -43,7 +43,7 @@
                 <!-- Text input-->
                 <label class="control-label" for="input01">门店名称</label>
                 <div class="controls">
-                  <input type="text" name="store_name" placeholder="请输入门店名称" class="input-xlarge">
+                  <input data-error-message="门店名称不能为空" data-required="true" type="text" name="store_name" placeholder="请输入门店名称" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
