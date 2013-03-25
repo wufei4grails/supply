@@ -2,7 +2,6 @@ package supply
 
 class UserController {
     
-    def scaffold = User
   
     def login = {}
     def index() { }
@@ -17,11 +16,26 @@ class UserController {
     
     //门店列表
     def companyStoreList(){
-        render(view: "/company/user/companyStoreList")
+        
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def map = [storeInstanceList: Store.list(params), storeInstanceTotal: Store.count()]
+        render(view: "/company/user/companyStoreList", model:map)
     }
     
-    def companyStoreCreate(){
+    def reqCompanyStoreCreate(){
         render(view: "/company/user/companyStoreCreate")
+    }
+    
+    def doCompanyStoreCreate(){
+        
+        def store = new Store(params)
+        store.store_type = "store"
+        if (!store.save(flush: true)) {
+            
+        }
+        flash.message = "分配门店账号成功！"
+        redirect(action: "reqCompanyStoreCreate")
+        
     }
     
     

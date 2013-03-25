@@ -8,110 +8,121 @@
 <html>
   <head>
     <meta name="layout" content="main"/>
-  <r:require modules="bootstrap"/>
 
-</head>
-<body>
+  </head>
+  <body>
 
-  <div class="container">
+    <div class="container">
 
-    <g:render template="/layouts/company_header"/>
+      <g:render template="/layouts/header"/>
 
 
-    <div class="row-fluid">
-      <div class="span3">
-        <div class="well sidebar-nav">
-          <g:render template="/layouts/leftmenu"/>
-        </div><!--/.well -->
-      </div><!--/span-->
-      <div class="span9">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <g:render template="/layouts/leftmenu"/>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
 
-        <form class="form-horizontal">
-          <fieldset>
-            <div id="legend" class="">
-              <legend class="">分配门店账号</legend>
-            </div>
-            <div class="control-group">
-
-              <!-- Text input-->
-              <label class="control-label" for="input01">用户名</label>
-              <div class="controls">
-                <input type="text" placeholder="请输入用户名" class="input-xlarge">
-                <p class="help-block"></p>
+          <g:form class="form-horizontal" controller="user" action="doCompanyStoreCreate" method="post">
+            <fieldset>
+              <div id="legend" class="">
+                <legend class="">分配门店账号</legend>
               </div>
-            </div>
 
-            <div class="control-group">
+              <g:if test="${flash.message}">
+                <div class="alert alert-error">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>${flash.message}</strong>
+                </div>
+              </g:if>
 
-              <!-- Text input-->
-              <label class="control-label" for="input01">密码</label>
-              <div class="controls">
-                <input type="text" placeholder="请输入密码" class="input-xlarge">
-                <p class="help-block"></p>
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">门店名称</label>
+                <div class="controls">
+                  <input type="text" name="store_name" placeholder="请输入门店名称" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
               </div>
-            </div>
-            
-            <div class="control-group">
 
-              <!-- Text input-->
-              <label class="control-label" for="input01">固定电话</label>
-              <div class="controls">
-                <input type="text" placeholder="请输入固定电话" class="input-xlarge">
-                <p class="help-block"></p>
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">门店地址</label>
+                <div class="controls">
+                  <input type="text" name="address" placeholder="请输入门店地址" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
               </div>
-            </div>
-            
-            <div class="control-group">
 
-              <!-- Text input-->
-              <label class="control-label" for="input01">手机号码</label>
-              <div class="controls">
-                <input type="text" placeholder="请输入手机号码" class="input-xlarge">
-                <p class="help-block"></p>
+
+              <div class="control-group">
+                <!-- Text input-->
+                <label class="control-label" for="input01">用户名</label>
+                <div class="controls">
+                  <input type="text" placeholder="请输入用户名" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
               </div>
-            </div>
 
-            <div class="control-group">
+              <div class="control-group">
 
-              <!-- Text input-->
-              <label class="control-label" for="input01">门店名称</label>
-              <div class="controls">
-                <input type="text" placeholder="请输入门店名称" class="input-xlarge">
-                <p class="help-block"></p>
+                <!-- Text input-->
+                <label class="control-label" for="input01">密码</label>
+                <div class="controls">
+                  <input type="text" placeholder="请输入密码" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
               </div>
-            </div>
 
-            <div class="control-group">
+              <div class="control-group">
 
-              <!-- Text input-->
-              <label class="control-label" for="input01">门店地址</label>
-              <div class="controls">
-                <input type="text" placeholder="请输入门店地址" class="input-xlarge">
-                <p class="help-block"></p>
+                <!-- Text input-->
+                <label class="control-label" for="input01">固定电话</label>
+                <div class="controls">
+                  <input type="text" placeholder="请输入固定电话" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
               </div>
-            </div>
 
-            <div class="control-group">
-              <label class="control-label"></label>
+              <div class="control-group">
 
-              <!-- Button -->
-              <div class="controls">
-                <button class="btn btn-primary">提交</button>
+                <!-- Text input-->
+                <label class="control-label" for="input01">手机号码</label>
+                <div class="controls">
+                  <input type="text" placeholder="请输入手机号码" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
               </div>
-            </div>
-
-          </fieldset>
-        </form>
-
-      </div><!--/span-->
-    </div><!--/row-->
 
 
-    <g:render template="/layouts/company_footer"/>
 
-  </div> <!-- /container -->
 
-</body>
+
+              <div class="control-group">
+                <label class="control-label"></label>
+
+                <!-- Button -->
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+              </div>
+
+            </fieldset>
+          </g:form>
+
+        </div><!--/span-->
+      </div><!--/row-->
+
+
+      <g:render template="/layouts/company_footer"/>
+
+    </div> <!-- /container -->
+
+  </body>
 
 </html>
 

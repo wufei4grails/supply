@@ -21,10 +21,7 @@
     <div class="row-fluid">
       <div class="span3">
         <div class="well sidebar-nav">
-          <ul class="nav nav-list">
-            <!--<li class="nav-header">Sidebar</li>-->
-            <li class="active"><a href="orderList">订单列表</a></li>
-          </ul>
+          <g:render template="/layouts/leftmenu"/>
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">

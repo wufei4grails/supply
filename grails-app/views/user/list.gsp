@@ -2,7 +2,6 @@
   To change this template, choose Tools | Templates
   and open the template in the editor.
 -->
-<%@ page import="supply.User" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>

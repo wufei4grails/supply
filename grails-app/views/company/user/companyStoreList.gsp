@@ -2,18 +2,16 @@
   To change this template, choose Tools | Templates
   and open the template in the editor.
 -->
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
   <head>
     <meta name="layout" content="main"/>
-  <r:require modules="bootstrap"/>
 
 </head>
 <body>
 
-  <div class="container">
+  <div class="container" id="page">
 
     <g:render template="/layouts/header"/>
 
@@ -21,11 +19,7 @@
     <div class="row-fluid">
       <div class="span3">
         <div class="well sidebar-nav">
-          <ul class="nav nav-list">
-            <!--<li class="nav-header">Sidebar</li>-->
-            <li class="active"><a href="storeList">门店列表</a></li>
-            <li><a href="storeCreate">分配门店账号</a></li>
-          </ul>
+          <g:render template="/layouts/leftmenu"/>
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
@@ -43,46 +37,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>中粮蜀山店</td>
-              <td>赵大国</td>
-              <td>16789098765</td>
-              <td>天柱路118＃</td>
+            <g:each in="${storeInstanceList}" status="i" var="store">
+              <tr>
+              <td>${fieldValue(bean: store, field: "store_name")}</td>
+              <td>${fieldValue(bean: store, field: "contact_person")}</td>
+              <td>${fieldValue(bean: store, field: "contact_phone")}</td>
+              <td>${fieldValue(bean: store, field: "address")}</td>
               <!--<td>查看</td>-->
             </tr>
-            <tr>
-              <td>中粮梦园店</td>
-              <td>小沈阳</td>
-              <td>13378765678</td>
-              <td>天通路333＃</td>
-              <!--<td>查看</td>-->
-            </tr>
-            <tr>
-              <td>中粮政务店</td>
-              <td>大脚婶</td>
-              <td>13378765678</td>
-              <td>习友路2234＃</td>
-              <!--<td>查看</td>-->
-            </tr>
-            <tr>
-              <td>中粮经开区店</td>
-              <td>张良</td>
-              <td>13378765678</td>
-              <td>小文路234＃</td>
-              <!--<td>查看</td>-->
-            </tr>
+            </g:each>
+            
           </tbody>
         </table>
-        <div class="pagination pagination-right">
-          <ul>
-            <li><a href="#">上一页</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">下一页</a></li>
-          </ul>
+        <div  class="pagination pagination-right new-pagination">
+          <util:remotePaginate controller="user" action="companyStoreList" total="${storeInstanceTotal}" update="page" />
         </div>
       </div><!--/span-->
     </div><!--/row-->

@@ -10,7 +10,7 @@ class User {
     String login
     String password
     String name
-    String type //用户类型(company,store)
+    String user_type //用户类型(company,store)
     
   
     String toString(){

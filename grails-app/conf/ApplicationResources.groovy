@@ -11,4 +11,8 @@ modules = {
         resource url:'kindeditor-4.1.5/kindeditor-min.js'
         resource url:'kindeditor-4.1.5/lang/zh_CN.js'
     }
+    
+    parsley {
+        resource url:'resource/Parsley.js-1.1.15/parsley.js'
+    }
 }

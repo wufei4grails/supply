@@ -32,12 +32,12 @@ class LoginController {
             session.loginPOJO = loginPOJO;
             flash.message = "Hello ${user.name}!"
                     
-            if(user.type == "company"){
+            if(user.user_type == "company"){
                 
                 redirect(controller:"company", action:"orderManager")
                 return
             }
-            if(user.type == "store"){
+            if(user.user_type == "store"){
                 flash.message = "门店账号不在此登陆."
                 redirect(controller:"login",action: "companyLogin", params: params)
                 return
@@ -69,11 +69,11 @@ class LoginController {
             session.user = user
             flash.message = "Hello ${user.name}!"
                     
-            if(user.type == "store"){
+            if(user.user_type == "store"){
                 redirect(controller:"store", action:"orderManager")
                 return
             }
-            if(user.type == "company"){
+            if(user.user_type == "company"){
                 flash.message = "企业账号不在此登陆."
                 redirect(controller:"login",action: "storeLogin", params: params)
                 return

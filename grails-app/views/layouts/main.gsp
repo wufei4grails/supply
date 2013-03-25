@@ -3,6 +3,7 @@
    <head>
       <g:layoutTitle/>
       <r:require modules="bootstrap"/>
+      <r:require modules="parsley"/>
       <r:layoutResources/>
       <style>
     .pagination-right {

@@ -14,7 +14,7 @@ class RoleService {
             and{
                 roles {
                     and{
-                        eq("rolename",user.type)
+                        eq("rolename",user.user_type)
                     }
                         
                 }
@@ -30,11 +30,11 @@ class RoleService {
     def getSecondRoleMenu(User user,Menu menu){
         def m = Menu.createCriteria()
         def menulist = m.list(sort:"sort", order:"desc") {
-            like("menuid",menu.menuid+"%")      
+            like("menuid",menu.menuid[0..2]+"%")      
             and{
                 roles {
                     and{
-                        eq("rolename",user.type)
+                        eq("rolename",user.user_type)
                     }
                         
                 }
