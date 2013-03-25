@@ -33,7 +33,6 @@ class LoginController {
             flash.message = "Hello ${user.name}!"
                     
             if(user.type == "company"){
-                loginPOJO.menulist = roleService.getFirstRoleMenu(user);
                 
                 redirect(controller:"company", action:"orderManager")
                 return
@@ -71,7 +70,6 @@ class LoginController {
             flash.message = "Hello ${user.name}!"
                     
             if(user.type == "store"){
-                loginPOJO.menulist = roleService.getFirstRoleMenu(user);
                 redirect(controller:"store", action:"orderManager")
                 return
             }

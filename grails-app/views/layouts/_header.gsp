@@ -10,7 +10,7 @@
 
       <h5 style="float: right;">
         <g:loginControl/> 
-        <g:secondMenu/> 
+        
       </h5>
     </div>
   </div>
@@ -22,14 +22,8 @@
       <div class="container">
         <ul class="nav">
           <!--<li ><a href="#">首页</a></li>-->
-          <g:each in="${session.loginPOJO.menulist}" status="i" var="menuInstance">
-            <g:if test='${menuInstance.level==1}'>
-              <li ><g:link action='${fieldValue(bean: menuInstance, field: "action")}' controller='${fieldValue(bean: menuInstance, field: "controller")}'>${fieldValue(bean: menuInstance, field: "menuname")}</g:link></li>
-            </g:if>
-          </g:each>
-
-
-
+          <g:firstmenu/> 
+           
 <!--          <g:if test="">
     <li class="active"><g:link action="orderManager" controller="company">订单管理</g:link></li>
     <li><a href="company/goodsManager">商品管理</a></li>

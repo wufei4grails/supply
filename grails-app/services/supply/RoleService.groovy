@@ -6,9 +6,10 @@ class RoleService {
 
     }
     
+    //根据用户角色获取一级菜单
     def getFirstRoleMenu(User user){
         def m = Menu.createCriteria()
-        def menulist = m.list {
+        def menulist = m.list(sort:"sort", order:"desc") {
                     
             and{
                 roles {
@@ -22,11 +23,27 @@ class RoleService {
                     
                     
         }
+        return menulist;
+    }
+    
+    
+    def getSecondRoleMenu(User user,Menu menu){
+        def m = Menu.createCriteria()
+        def menulist = m.list(sort:"sort", order:"desc") {
+            like("menuid",menu.menuid+"%")      
+            and{
+                roles {
+                    and{
+                        eq("rolename",user.type)
+                    }
+                        
+                }
+                eq("level",2)
                 
-        menulist.each{menu->
-            println(menu.menuname);
+            }
+                    
+                    
         }
-        
         return menulist;
     }
 }

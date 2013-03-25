@@ -11,7 +11,5 @@ package supply
  */
 class LoginPOJO {
     User user;
-    List menulist
-    Menu curMenu;
 }
 
