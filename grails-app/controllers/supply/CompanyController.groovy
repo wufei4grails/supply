@@ -1,7 +1,7 @@
 package supply
 
 class CompanyController {
-    
+    //test git
     
     def index() { 
         redirect(controller:"user",action: "login", params: params)
