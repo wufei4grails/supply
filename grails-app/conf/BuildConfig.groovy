@@ -52,11 +52,13 @@ grails.project.dependency.resolution = {
         runtime ":quartz:1.0-RC5"
         compile ":jcaptcha:1.2.1"
 //        runtime ":google-chart:0.5.2"
-        compile ":ajax-uploader:1.1"
+//       compile ":ajax-uploader:1.1"
 //        compile ":dojo:1.7.2.0"
-        compile ":jquery-validation-ui:1.4.2"
-        compile ":remote-pagination:0.4.2"
+//        compile ":jquery-validation-ui:1.4.2"
+        compile ":remote-pagination:0.4.2" //pager
         compile ":fields:1.3"
+//        compile ":fixtures:1.2" //构建初始数据
+        compile ":mail:1.0.1"
 //        compile ":shiro:1.1.4"
 //        compile (":bootstrap-file-upload:2.1.1"){
 //            excludes 'svn' //This plugin is not compatible with bootstrap 2.2.*

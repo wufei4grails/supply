@@ -6,5 +6,7 @@ class Role {
     }
     
     String rolename;//company,store
-    static hasMany = [menus:Menu]
+    static hasMany = [menus:Menu,users:User]
+    static belongsTo = User
+    
 }

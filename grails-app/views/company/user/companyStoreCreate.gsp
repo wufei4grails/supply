@@ -41,7 +41,7 @@
               <div class="control-group">
 
                 <!-- Text input-->
-                <label class="control-label" for="input01">门店名称</label>
+                <label class="control-label" for="input01">门店名称<font color="red">&nbsp;*</font></label>
                 <div class="controls">
                   <input data-error-message="门店名称不能为空" data-required="true" type="text" name="store_name" placeholder="请输入门店名称" class="input-xlarge">
                   <p class="help-block"></p>
@@ -51,9 +51,31 @@
               <div class="control-group">
 
                 <!-- Text input-->
-                <label class="control-label" for="input01">门店地址</label>
+                <label class="control-label" for="input01">门店地址<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input type="text" name="address" placeholder="请输入门店地址" class="input-xlarge">
+                  <input data-error-message="门店地址不能为空" data-required="true" type="text" name="address" placeholder="请输入门店地址" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
+              </div>
+              
+              
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">联系人<font color="red">&nbsp;*</font></label>
+                <div class="controls">
+                  <input data-error-message="联系人不能为空" data-required="true" type="text" name="contact_person" placeholder="请输入联系人" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
+              </div>
+              
+              
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">门店电话<font color="red">&nbsp;*</font></label>
+                <div class="controls">
+                  <input data-type="number" data-type-number-message="门店电话格式不正确" data-required-message="门店电话不能为空" data-required="true" type="text" name="contact_phone" placeholder="请输入门店电话" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
@@ -61,9 +83,9 @@
 
               <div class="control-group">
                 <!-- Text input-->
-                <label class="control-label" for="input01">用户名</label>
+                <label class="control-label" for="input01">用户名<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input type="text" placeholder="请输入用户名" class="input-xlarge">
+                  <input data-error-message="用户名不能为空" data-required="true" type="text" name="login" placeholder="请输入用户名" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
@@ -71,32 +93,26 @@
               <div class="control-group">
 
                 <!-- Text input-->
-                <label class="control-label" for="input01">密码</label>
+                <label class="control-label" for="input01">密码<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input type="text" placeholder="请输入密码" class="input-xlarge">
+                  <input  data-required-message="密码不能为空"  data-required="true" type="password" id="password" name="password" placeholder="请输入密码" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
-
+              
+              
               <div class="control-group">
 
                 <!-- Text input-->
-                <label class="control-label" for="input01">固定电话</label>
+                <label class="control-label" for="input01">再输入一次密码<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input type="text" placeholder="请输入固定电话" class="input-xlarge">
+                  <input data-equalto-message="两次密码输入的不一致" data-required-message="密码不能为空" data-equalto="#password" data-required="true" type="password" id="repassword" name="repassword" placeholder="请输入密码" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
 
-              <div class="control-group">
 
-                <!-- Text input-->
-                <label class="control-label" for="input01">手机号码</label>
-                <div class="controls">
-                  <input type="text" placeholder="请输入手机号码" class="input-xlarge">
-                  <p class="help-block"></p>
-                </div>
-              </div>
+
 
 
 

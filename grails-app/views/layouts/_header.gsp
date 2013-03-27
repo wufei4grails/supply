@@ -60,7 +60,7 @@
     margin: 60px 0;
   }
   
-  .custom-error-message{
+  .parsley-error-list li{
       color: #b94a48;
       list-style: none;
       margin-left: -25px;

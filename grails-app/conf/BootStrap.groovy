@@ -9,33 +9,6 @@ class BootStrap {
     def init = { servletContext ->
         switch(GrailsUtil.environment){
         case "development":
-            def jdoe = new User(login:"admin", password:"111111", name:"John8888888888 Doe",user_type:"company")
-            jdoe.save()
-            
-            def jdoe1 = new User(login:"store", password:"111111", name:"John7777777 Doe",user_type:"store")
-            jdoe1.save()
-        
-            
-            def list = ["Java", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript",, "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript", "JavaScript", "Java", "Groovy", "JavaScript"]
-            def i =0 ;
-            list.each{language->
-                def u = new User(login:language+i, password:"111111", name:language+i,user_type:"store")
-                i++;
-                u.save() 
-            }
-            
-            
-            
-            def storelist = ["s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1","s1"]
-            def j =0;
-            storelist.each{store->
-                def storeDB = new Store(store_name:store+j,address:"2323",store_type:"store")
-                j++;
-                storeDB.save()
-            }
-            
-            
-            
             
             
             //初始化菜单
@@ -62,7 +35,30 @@ class BootStrap {
             companyrole.addToMenus(m2_2);
             companyrole.addToMenus(m2_2_1);
             companyrole.addToMenus(m3);
-            companyrole.save();
+//            companyrole.save();
+            
+            
+            def companySotre = new Store(store_name:"企业",store_type:"company",address:"");
+            def admin = new User(login:"admin", password:"111111",name:"wufei",user_type:"company")
+            
+            admin.addToRoles(companyrole)
+            
+            companySotre.addToUsers(admin)
+            companySotre.save()
+            
+            
+            def clist = ["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"]
+            def i=0
+            clist.each{s->
+                def st = new Store(store_name:"门店"+i,store_type:"store",address:""); 
+                i++
+                st.save()
+            }
+            
+            
+            
+            
+            
             
             
             

@@ -12,6 +12,7 @@ import org.junit.*
 class LoginControllerTests {
 
     void testSomething() {
-       fail "Implement me"
+       def store = new Store(store_name : 'test_name')
+       assertEquals "test_name", store.store_name
     }
 }

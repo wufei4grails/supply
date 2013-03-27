@@ -226,3 +226,15 @@ jqueryValidationUi {
 }
 
 
+grails {
+   mail {
+     host = "smtp.gmail.com"
+     port = 465
+     username = "wufei1310@gmail.com"
+     password = "wufei7260189"
+     props = ["mail.smtp.auth":"true", 					   
+              "mail.smtp.socketFactory.port":"465",
+              "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+              "mail.smtp.socketFactory.fallback":"false"]
+   }
+}

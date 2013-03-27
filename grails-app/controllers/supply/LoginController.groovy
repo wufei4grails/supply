@@ -15,14 +15,27 @@ class LoginController {
     }
     
     
+    
+    
+    
     def companyauthenticate = {
         //        if (!jcaptchaService.validateResponse("imageCaptcha", session.id, params.valiCode)){  
         //            flash.message = "验证码错误！"  
         //            redirect(action: "companyLogin", params: params)
         //            return
         //        } 
-//        println(request.post);
-//        println(request.forwardURI);
+        //        println(request.post);
+        //        println(request.forwardURI);
+        
+        
+        //多线程发送邮件OK
+//        Thread.start { 
+//            sendMail{     
+//                to "wufei1310@126.com"     
+//                subject "Hello Fred"     
+//                body 'How are you?' 
+//            }
+//        };
         
         def user = User.findByLoginAndPassword(params.login, params.password)
         

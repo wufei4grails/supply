@@ -7,11 +7,13 @@ class Store {
         contact_person(blank:true,nullable:true)
         contact_phone(blank:true,nullable:true)
     }
-    
+    static hasMany = [ users : User ]
     
     String store_name
     String address
     String contact_person
     String contact_phone
     String store_type;//company,store
+    Date dateCreated
+    Date lastUpdated
 }
