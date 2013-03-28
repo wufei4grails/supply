@@ -3,6 +3,7 @@ import supply.Menu
 import grails.util.GrailsUtil
 import supply.Role
 import supply.Store
+import supply.GoodsCategory
 
 class BootStrap {
 
@@ -24,7 +25,8 @@ class BootStrap {
             def m2_2_1 = new Menu(level: 3,menuid:"102102101", menuname:"分配门店账号", controller:"user",action:"doCompanyStoreCreate",menutype:"company",sort:"2")
             
             
-            def m3 = new Menu(level: 1,menuid:"103", menuname:"商品管理", controller:"company",action:"orderManager",menutype:"company",sort:"1")
+            def m3 = new Menu(level: 1,menuid:"103", menuname:"商品管理", controller:"company",action:"goodsManager",menutype:"company",sort:"1")
+            def m3_1 = new Menu(level: 2,menuid:"103101", menuname:"商品分类管理", controller:"goods",action:"categoryManager",menutype:"company",sort:"1")
             
             def companyrole = new Role(rolename:"company");
             companyrole.addToMenus(m1);
@@ -35,6 +37,7 @@ class BootStrap {
             companyrole.addToMenus(m2_2);
             companyrole.addToMenus(m2_2_1);
             companyrole.addToMenus(m3);
+            companyrole.addToMenus(m3_1);
 //            companyrole.save();
             
             
@@ -47,13 +50,8 @@ class BootStrap {
             companySotre.save()
             
             
-            def clist = ["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"]
-            def i=0
-            clist.each{s->
-                def st = new Store(store_name:"门店"+i,store_type:"store",address:""); 
-                i++
-                st.save()
-            }
+            def root = new GoodsCategory(name:"root");
+            root.save()
             
             
             

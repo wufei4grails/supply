@@ -1,0 +1,221 @@
+<!--
+  To change this template, choose Tools | Templates
+  and open the template in the editor.
+-->
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<html>
+  <head>
+    <meta name="layout" content="main"/>
+  <r:require modules="ztree"/>
+</head>
+<body>
+
+  <div class="container">
+
+
+    <g:render template="/layouts/header"/>
+
+
+    <div class="row-fluid">
+      <div class="span3">
+        <div class="well sidebar-nav">
+          <g:render template="/layouts/leftmenu"/>
+        </div><!--/.well -->
+      </div><!--/span-->
+      <div class="span9">
+        <div id="legend" class="">
+          <legend class="">商品分类列表</legend>
+        </div>
+        <div class="row-fluid">
+          <div class="span4">
+            <ul id="treeDemo" class="ztree"></ul>
+          </div>
+          <div class="span8" style="">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#home" data-toggle="tab">添加一级分类</a></li>
+              <li><a href="#profile" data-toggle="tab">苹果分类的属性</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div class="tab-pane fade in active" id="home">
+                <g:formRemote data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
+                              url="[controller: 'goods', action:'addCategory']">
+                  <fieldset >
+                    <div class="control-group" >
+
+                      <label class="control-label" for="input01" style="width:60px;">分类名称</label>
+                      <div class="controls" style="margin-left:80px;">
+                        <input name="name" data-required-message="分类名称不能为空" data-required="true" type="text" placeholder="请输入分类名称" class="input-xlarge">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <label class="control-label" style="width:60px;"></label>
+
+                      <div class="controls" style="margin-left:80px;">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                      </div>
+                    </div>
+                  </fieldset>
+                </g:formRemote>
+              </div>
+              <div class="tab-pane fade" id="profile">
+                <p>继承水果的属性：产地，功用</p>
+                <p>继承仁果类的属性：果核数量</p>
+                <p>苹果的属性：</p>
+                <div class="well">
+                  <div class="attr-controls">
+                    <input type="text" placeholder="" class="input-xlarge">
+                    <a href="#" onclick="addAttr(this)">添加</a>
+                    <a style="display:none" href="#" onclick="removeAttr(this)">删除</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row-fluid">
+          </div><!--/span-->
+        </div><!--/row-->
+
+
+
+      </div> <!-- /container -->
+
+    </div>
+
+    <g:render template="/layouts/company_footer"/>
+    <SCRIPT type="text/javascript">
+                    function addCategorySuccess(t){
+                      var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                      treeObj.addNodes(null,t)
+                    }
+                    function removeAttr(o){
+                      $(o).parents(".attr-controls").remove();
+                    }
+                    function addAttr(o){
+                       var attr = $(o).parents(".attr-controls").clone();
+                       attr.find("input").val("");
+                       $(o).parents(".well").append(attr);
+                       $(o).next().show();
+                       $(o).hide();
+                    }
+                   var setting = {
+                           view: {
+                                   addHoverDom: addHoverDom,
+                                   removeHoverDom: removeHoverDom,
+                                   selectedMulti: false
+                           },
+                           edit: {
+                                   enable: true,
+                                   editNameSelectAll: true
+   //				showRemoveBtn: showRemoveBtn,
+   //				showRenameBtn: showRenameBtn
+                           },
+                           data: {
+                                   simpleData: {
+                                           enable: true
+                                   }
+                           },
+                           callback: {
+                                   beforeDrag: beforeDrag,
+                                   beforeEditName: beforeEditName,
+                                   beforeRemove: beforeRemove,
+                                   beforeRename: beforeRename,
+                                   onRemove: onRemove,
+                                   onRename: onRename
+                           }
+                   };
+                   var zNodes = ${ctree}
+
+                   var log, className = "dark";
+                   function beforeDrag(treeId, treeNodes) {
+                           return false;
+                   }
+                   function beforeEditName(treeId, treeNode) {
+                           className = (className === "dark" ? "":"dark");
+                           showLog("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                           var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                           zTree.selectNode(treeNode);
+                           return confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？");
+                   }
+                   function beforeRemove(treeId, treeNode) {
+                           className = (className === "dark" ? "":"dark");
+                           showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                           var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                           zTree.selectNode(treeNode);
+                           return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+                   }
+                   function onRemove(e, treeId, treeNode) {
+                           showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                   }
+                   function beforeRename(treeId, treeNode, newName) {
+                           className = (className === "dark" ? "":"dark");
+                           showLog("[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                           if (newName.length == 0) {
+                                   alert("节点名称不能为空.");
+                                   var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                                   setTimeout(function(){zTree.editName(treeNode)}, 10);
+                                   return false;
+                           }
+                           return true;
+                   }
+                   function onRename(e, treeId, treeNode) {
+                           showLog("[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                   }
+                   function showRemoveBtn(treeId, treeNode) {
+                           return !treeNode.isFirstNode;
+                   }
+                   function showRenameBtn(treeId, treeNode) {
+                           return !treeNode.isLastNode;
+                   }
+                   function showLog(str) {
+                           if (!log) log = $("#log");
+                           log.append("<li class='"+className+"'>"+str+"</li>");
+                           if(log.children("li").length > 8) {
+                                   log.get(0).removeChild(log.children("li")[0]);
+                           }
+                   }
+                   function getTime() {
+                           var now= new Date(),
+                           h=now.getHours(),
+                           m=now.getMinutes(),
+                           s=now.getSeconds(),
+                           ms=now.getMilliseconds();
+                           return (h+":"+m+":"+s+ " " +ms);
+                   }
+
+                   var newCount = 1;
+                   function addHoverDom(treeId, treeNode) {
+                           var sObj = $("#" + treeNode.tId + "_span");
+                           if (treeNode.editNameFlag || $("#addBtn_"+treeNode.id).length>0) return;
+                           var addStr = "<span class='button add' id='addBtn_" + treeNode.id
+                                   + "' title='add node' onfocus='this.blur();'></span>";
+                           sObj.after(addStr);
+                           var btn = $("#addBtn_"+treeNode.id);
+                           if (btn) btn.bind("click", function(){
+                                   var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                                   zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+                                   return false;
+                           });
+                   };
+                   function removeHoverDom(treeId, treeNode) {
+                           $("#addBtn_"+treeNode.id).unbind().remove();
+                   };
+                   function selectAll() {
+                           var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                           zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+                   }
+		
+                   $(document).ready(function(){
+                           $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                           $("#selectAll").bind("click", selectAll);
+                   });
+    </SCRIPT>
+    <style type="text/css">
+      .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+    </style>
+</body>
+
+</html>
+

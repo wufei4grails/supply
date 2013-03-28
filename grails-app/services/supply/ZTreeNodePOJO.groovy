@@ -9,7 +9,11 @@ package supply
  *
  * @author wufei
  */
-class LoginPOJO {
-    User user;
+class ZTreeNodePOJO {
+	 String id;
+	 String pId;
+	 String name;
+	 String isParent;
+	 String open;
 }
 

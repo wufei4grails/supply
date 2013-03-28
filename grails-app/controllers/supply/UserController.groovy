@@ -1,5 +1,7 @@
 package supply
 
+import grails.converters.JSON
+import grails.converters.JSON
 class UserController {
     
   
@@ -16,6 +18,9 @@ class UserController {
     
     //门店列表
     def companyStoreList(){
+        
+        
+       
         
         if (!params.max) params.max = 10  
         if (!params.offset) params.offset = 0  
@@ -54,6 +59,27 @@ class UserController {
         flash.message = "分配门店账号成功！"
         redirect(action: "reqCompanyStoreCreate")
         
+    }
+    
+    
+    def test = {
+        
+//        Category.executeUpdate("update category set name = '232'")
+        
+        def c1 = new GoodsCategory(name:"女装")
+        def c2 = new GoodsCategory(name:"裙子")
+        def c3 = new GoodsCategory(name:"超短裙子")
+        def c4 = new GoodsCategory(name:"XX裙子")
+        
+        
+        def root = GoodsCategory.findByName("root");
+        c3.addToChildren(c4);
+        c2.addToChildren(c3);
+        c1.addToChildren(c2);
+        root.addToChildren(c1);
+        root.save();
+
+        render root?.getAllChildren() as JSON;
     }
     
     
