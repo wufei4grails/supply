@@ -39,8 +39,23 @@
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane fade in active" id="home">
+                <g:formRemote id="addCategory" data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
+                              url="[controller: 'goods', action:'addCategory']">
+                  <input type="hidden" name="parent_id" id="parent_id" value=""/>
+                  <input type="hidden" name="name" id="name" value=""/>
+                  <input type="hidden" name="node_id" id="node_id" value=""/>
+                </g:formRemote>
+                
+                
+                <g:formRemote id="removeCategory" data-validate="parsley" onSuccess="removeCategorySuccess(data)" class="form-horizontal" name="removeCategory" on404="alert('not found!')" 
+                              url="[controller: 'goods', action:'removeCategory']">
+                  <input type="hidden" name="node_id" id="node_id" value=""/>
+                </g:formRemote>
+                
+                
                 <g:formRemote data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
                               url="[controller: 'goods', action:'addCategory']">
+                  <input type="hidden" name="parent_id" id="parent_id" value="1"/>
                   <fieldset >
                     <div class="control-group" >
 
@@ -86,9 +101,17 @@
 
     <g:render template="/layouts/company_footer"/>
     <SCRIPT type="text/javascript">
+      
+                    function removeCategorySuccess(t){
+                      alert("设置分类成功！")
+                      window.location.reload();
+                    }
+        
                     function addCategorySuccess(t){
-                      var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                      treeObj.addNodes(null,t)
+//                      var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+//                      treeObj.addNodes(null,t)
+                      alert("设置分类成功！")
+                      window.location.reload();
                     }
                     function removeAttr(o){
                       $(o).parents(".attr-controls").remove();
@@ -137,17 +160,21 @@
                            showLog("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
                            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
                            zTree.selectNode(treeNode);
-                           return confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？");
+//                           return confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？");
                    }
                    function beforeRemove(treeId, treeNode) {
                            className = (className === "dark" ? "":"dark");
                            showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
                            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
                            zTree.selectNode(treeNode);
-                           return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+                           return confirm("确认删除 商品分类： " + treeNode.name + " 吗？");
                    }
                    function onRemove(e, treeId, treeNode) {
-                           showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                           
+                       $("#removeCategory #node_id").val(treeNode.id);
+                        $("#removeCategory").submit()
+                      
+                        showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
                    }
                    function beforeRename(treeId, treeNode, newName) {
                            className = (className === "dark" ? "":"dark");
@@ -161,7 +188,17 @@
                            return true;
                    }
                    function onRename(e, treeId, treeNode) {
-                           showLog("[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                    
+                      var parent_id = treeNode.getParentNode()==null?"1":treeNode.getParentNode().id;
+                    
+                      
+                      $("#addCategory #parent_id").val(parent_id)
+                      $("#addCategory #name").val(treeNode.name);
+                      $("#addCategory #node_id").val(treeNode.id);
+                      $("#addCategory").submit()
+                      
+                      
+                      showLog("[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
                    }
                    function showRemoveBtn(treeId, treeNode) {
                            return !treeNode.isFirstNode;

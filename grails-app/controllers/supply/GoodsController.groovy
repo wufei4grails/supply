@@ -28,23 +28,27 @@ class GoodsController {
     
     def addCategory(){
         
-        if(params.name){
-            def root = GoodsCategory.findByName("root");
-            def c = new GoodsCategory(params)
-            root.addToChildren(c);
-            root.save()
-            
-            
-            def z = new ZTreeNodePOJO(name:c.name)
-            
-            
-            render z as JSON
-            
-        }else{
-            render "0"
-        }
         
-        
+//        if(params.id){
+            def n = GoodsCategory.get(params.node_id);
+            if(n){
+                n.name = params.name
+                n.save()
+            }else{
+                def parentNode = GoodsCategory.get(params.parent_id);
+                def c = new GoodsCategory(name:params.name,parent:parentNode)
+                c.save()
+            }
+            
+//        }
+        render "1"
         
     }
+    
+    def removeCategory(){
+        def n = GoodsCategory.get(params.node_id);
+        n.delete()
+        render "1"
+    }
+    
 }
