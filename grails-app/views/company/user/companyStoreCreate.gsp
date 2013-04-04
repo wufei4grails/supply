@@ -47,6 +47,18 @@
                   <p class="help-block"></p>
                 </div>
               </div>
+              
+              
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">选择地区<font color="red">&nbsp;*</font></label>
+                <div class="controls">
+                  <g:areaSeclect/> 
+                  <p class="help-block"></p>
+                </div>
+              </div>
+              
 
               <div class="control-group">
 

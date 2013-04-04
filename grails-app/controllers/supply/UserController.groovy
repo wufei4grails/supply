@@ -4,7 +4,7 @@ import grails.converters.JSON
 import grails.converters.JSON
 class UserController {
     
-  
+    def areaService
     def login = {}
     def index() { }
     
@@ -42,6 +42,9 @@ class UserController {
     }
     
     def reqCompanyStoreCreate(){
+        
+        
+        
         render(view: "/company/user/companyStoreCreate")
     }
     

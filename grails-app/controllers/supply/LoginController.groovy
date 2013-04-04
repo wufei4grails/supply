@@ -19,13 +19,13 @@ class LoginController {
     
     
     def companyauthenticate = {
-        //        if (!jcaptchaService.validateResponse("imageCaptcha", session.id, params.valiCode)){  
-        //            flash.message = "验证码错误！"  
-        //            redirect(action: "companyLogin", params: params)
-        //            return
-        //        } 
-        //        println(request.post);
-        //        println(request.forwardURI);
+//        if (!jcaptchaService.validateResponse("imageCaptcha", session.id, params.valiCode)){  
+//            flash.message = "验证码错误！"  
+//            forward(action: "companyLogin", params: params)
+//            return
+//        } 
+//        println(request.post);
+//        println(request.forwardURI);
         
         
         //多线程发送邮件OK
@@ -52,14 +52,14 @@ class LoginController {
             }
             if(user.user_type == "store"){
                 flash.message = "门店账号不在此登陆."
-                redirect(controller:"login",action: "companyLogin", params: params)
+                forward(controller:"login",action: "companyLogin", params: params)
                 return
             }
                     
                           
         }else{
             flash.message = "用户名${params.login}与密码不正确，请重新再试."
-            redirect(action: "companyLogin", params: params)
+            forward(action: "companyLogin", params: params)
             return
         }
         
