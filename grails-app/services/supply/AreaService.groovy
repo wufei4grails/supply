@@ -6,6 +6,36 @@ class AreaService {
 
     }
     
+    
+    def areaName(String id){
+        if(!id){
+            return ""
+        }
+        
+        def area_name = Area.get(id).area_name
+        
+        def pid,ppid,pppid;
+        
+        pid = id.substring(0,id.length()-3);
+        if(pid!=null&&pid!="0"){
+            area_name = Area.get(pid).area_name + "-" + area_name
+        }
+        
+        ppid = pid.substring(0,pid.length()-3);
+        if(ppid!=null&&ppid!="0"){
+            area_name = Area.get(ppid).area_name + "-" + area_name
+        }
+        
+        pppid = ppid.substring(0,ppid.length()-3);
+        if(pppid!=null&&pppid!="0"){
+            area_name = Area.get(pppid).area_name + "-" + area_name
+        }
+        
+        
+        return area_name
+    }
+    
+    
     def areaSelect(String id){
         def thisAreaSelect = thisAreaSelect(id);
         def childAreaSelect = childAreaSelect(id);

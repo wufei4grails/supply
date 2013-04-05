@@ -3,7 +3,12 @@ package supply
 class AreaTagLib {
     static namespace = "area"
     def areaService
-    def grailsApplication
+    
+    def areaName = {attrs ->
+        println(attrs.id)
+        out << areaService.areaName(attrs.id)
+        
+    }
     
     
     def areaSeclect = {attrs ->

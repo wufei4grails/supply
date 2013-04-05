@@ -53,12 +53,12 @@ class BootStrap {
             def root = new GoodsCategory(name:"root");
             root.save()
             
-            def sto = ['aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa']
-            
-            sto.each{
-                def companyStore1 = new Store(store_name:"企业1",store_type:"company",address:"");
-                companyStore1.save();
-            }
+//            def sto = ['aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa']
+//            
+//            sto.each{
+//                def companyStore1 = new Store(store_name:"企业1",store_type:"company",address:"");
+//                companyStore1.save();
+//            }
             
             
             

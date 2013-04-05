@@ -35,7 +35,7 @@
           <div class="span8" style="">
             <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a href="#home" data-toggle="tab">添加一级分类</a></li>
-              <li><a href="#profile" data-toggle="tab">苹果分类的属性</a></li>
+              <li><a href="#profile" data-toggle="tab" id="catAttr"></a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane fade in active" id="home">
@@ -45,14 +45,14 @@
                   <input type="hidden" name="name" id="name" value=""/>
                   <input type="hidden" name="node_id" id="node_id" value=""/>
                 </g:formRemote>
-                
-                
+
+
                 <g:formRemote id="removeCategory" data-validate="parsley" onSuccess="removeCategorySuccess(data)" class="form-horizontal" name="removeCategory" on404="alert('not found!')" 
                               url="[controller: 'goods', action:'removeCategory']">
                   <input type="hidden" name="node_id" id="node_id" value=""/>
                 </g:formRemote>
-                
-                
+
+
                 <g:formRemote data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
                               url="[controller: 'goods', action:'addCategory']">
                   <input type="hidden" name="parent_id" id="parent_id" value="1"/>
@@ -76,16 +76,30 @@
                 </g:formRemote>
               </div>
               <div class="tab-pane fade" id="profile">
-                <p>继承水果的属性：产地，功用</p>
-                <p>继承仁果类的属性：果核数量</p>
-                <p>苹果的属性：</p>
-                <div class="well">
-                  <div class="attr-controls">
-                    <input type="text" placeholder="" class="input-xlarge">
-                    <a href="#" onclick="addAttr(this)">添加</a>
-                    <a style="display:none" href="#" onclick="removeAttr(this)">删除</a>
+<!--                <p>继承水果的属性：产地，功用</p>
+                <p>继承仁果类的属性：果核数量</p>-->
+                <p>自己的属性：</p>
+                <g:formRemote data-validate="parsley"  class="form-horizontal" onSuccess="updateGoodsCategoryAttrSuccess(data)" name="updateGoodsCategoryAttr"  on404="alert('not found!')" 
+                              url="[controller: 'goodsCategoryAttr', action:'updateGoodsCategoryAttr']">
+                  <input type="hidden" name="c_id" id="c_id"/>
+                  
+                  <div class="well">
+                    <div class="attr-controls">
+
+
+                      <input value=""  name="attr_name" type="text" placeholder="" class="input-xlarge">
+                      <a href="#" onclick="addAttr(this)">添加</a>
+                      <a style="display:none" href="#" onclick="removeAttr(this)">删除</a>
+
+                    </div>
+                    
+                    
+                    <div class="controls" align="left">
+                      <button  type="submit" class="btn btn-primary">提交</button>
+                    </div>
                   </div>
-                </div>
+                  
+                </g:formRemote>
               </div>
             </div>
           </div>
@@ -101,6 +115,15 @@
 
     <g:render template="/layouts/company_footer"/>
     <SCRIPT type="text/javascript">
+      
+                    function updateGoodsCategoryAttrSuccess(t){
+                      if(t=='1'){
+                        alert("修改分类属性成功！")
+                      }
+                      if(t=='0'){
+                        alert('分类属性名不能为空！')
+                      }
+                    }
       
                     function removeCategorySuccess(t){
                       alert("设置分类成功！")
@@ -119,7 +142,8 @@
                     function addAttr(o){
                        var attr = $(o).parents(".attr-controls").clone();
                        attr.find("input").val("");
-                       $(o).parents(".well").append(attr);
+                       //$(o).parents(".well").append(attr);
+                       $(o).parents(".attr-controls").after(attr);
                        $(o).next().show();
                        $(o).hide();
                     }
@@ -146,12 +170,39 @@
                                    beforeRemove: beforeRemove,
                                    beforeRename: beforeRename,
                                    onRemove: onRemove,
-                                   onRename: onRename
+                                   onRename: onRename,
+                                   onClick: onClick
                            }
                    };
                    var zNodes = ${ctree}
 
                    var log, className = "dark";
+                   
+                   
+                   function onClick(event, treeId, treeNode) {
+                     $("#catAttr").html(treeNode.name+"分类的属性")
+                     $("#c_id").val(treeNode.id)
+                     
+                     
+//                     var rf = " jQuery.ajax({type:'POST', url:'/supply/goodsCategoryAttr/selGoodsCategoryAttr?c_id='"+treeNode.id+"',success:function(data,textStatus){initCategoryAttr(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});"
+//                     eval(rf);
+//                     alert(treeNode.id + ", " + treeNode.name);
+                     $.ajax({
+                        type: "POST",
+                        url: "<%= request.getContextPath() %>/goodsCategoryAttr/selGoodsCategoryAttr",
+                        data: "c_id="+treeNode.id,
+                        success: function(msg){
+                          alert( "Data Saved: " + msg );
+                        }
+                      });
+
+
+                   }
+                   
+//                   function initCategoryAttr(data){
+//                     alert(data)
+//                   }
+                   
                    function beforeDrag(treeId, treeNodes) {
                            return false;
                    }
@@ -251,6 +302,9 @@
     </SCRIPT>
     <style type="text/css">
       .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+      .attr-controls{
+        margin-bottom:5px;
+      }
     </style>
 </body>
 

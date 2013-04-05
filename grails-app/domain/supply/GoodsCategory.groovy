@@ -1,10 +1,15 @@
 package supply
 
-class GoodsCategory {
+class GoodsCategory implements Comparable{
 
     static constraints = {
     }
     
+    int compareTo(obj) {
+       dateCreated.compareTo(obj.dateCreated)
+   }
+    
+    SortedSet children   
     
     String name 
     Date dateCreated
