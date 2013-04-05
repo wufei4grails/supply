@@ -7,11 +7,12 @@ class AreaService {
     }
     
     def areaSelect(String id){
-        def thisAreaSelect = areaService.thisAreaSelect(id);
-        def childAreaSelect = areaService.childAreaSelect(id);
-        def parentsAreaSelect = areaService.parentsAreaSelect(id);
-        
-        return parentsAreaSelect + thisAreaSelect + childAreaSelect
+        def thisAreaSelect = thisAreaSelect(id);
+        def childAreaSelect = childAreaSelect(id);
+        def parentsAreaSelect = parentsAreaSelect(id);
+        //用于提交参数area_id到后台
+        def area_input = "<input type='hidden' id='area_id' name='area_id' value='"+id+"'/>"
+        return area_input + parentsAreaSelect + thisAreaSelect + childAreaSelect
     }
     
     
@@ -55,7 +56,7 @@ class AreaService {
         
         def thisAreaSelect = Area.findAllByArea_pid(pid)
         
-        def s = "<select class='input-small'>"
+        def s = "<select class='input-small' onclick='areaSelect(this)'>"
         s = s + "<option value=''>请选择</option>"
         def sel = ""
         thisAreaSelect.each{
@@ -83,7 +84,7 @@ class AreaService {
         
         def s = ""
         if(childAreaSelect){
-            s = "<select class='input-small'>"
+            s = "<select class='input-small' onclick='areaSelect(this)'>"
             s = s + "<option value=''>请选择</option>"
             childAreaSelect.each{
                 

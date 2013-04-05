@@ -41,17 +41,24 @@ class BootStrap {
 //            companyrole.save();
             
             
-            def companySotre = new Store(store_name:"企业",store_type:"company",address:"");
+            def companyStore = new Store(store_name:"企业",store_type:"company",address:"");
             def admin = new User(login:"admin", password:"111111",name:"wufei",user_type:"company")
             
             admin.addToRoles(companyrole)
             
-            companySotre.addToUsers(admin)
-            companySotre.save()
+            companyStore.addToUsers(admin)
+            companyStore.save()
             
             
             def root = new GoodsCategory(name:"root");
             root.save()
+            
+            def sto = ['aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa']
+            
+            sto.each{
+                def companyStore1 = new Store(store_name:"企业1",store_type:"company",address:"");
+                companyStore1.save();
+            }
             
             
             
