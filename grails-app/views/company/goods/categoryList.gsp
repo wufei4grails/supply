@@ -76,6 +76,9 @@
                 </g:formRemote>
               </div>
               <div class="tab-pane fade" id="profile">
+                <div id="pgcAttr">
+                
+                </div>
 <!--                <p>继承水果的属性：产地，功用</p>
                 <p>继承仁果类的属性：果核数量</p>-->
                 <p>自己的属性：</p>
@@ -83,15 +86,15 @@
                               url="[controller: 'goodsCategoryAttr', action:'updateGoodsCategoryAttr']">
                   <input type="hidden" name="c_id" id="c_id"/>
                   
-                  <div class="well">
-                    <div class="attr-controls">
+                  <div class="well" id="updateattr">
+<!--                    <div class="attr-controls">
 
 
                       <input value=""  name="attr_name" type="text" placeholder="" class="input-xlarge">
-                      <a href="#" onclick="addAttr(this)">添加</a>
-                      <a style="display:none" href="#" onclick="removeAttr(this)">删除</a>
+                      <a class="add" href="#" onclick="addAttr(this)">添加</a>
+                      <a class="remove" style="display:none" href="#" onclick="removeAttr(this)">删除</a>
 
-                    </div>
+                    </div>-->
                     
                     
                     <div class="controls" align="left">
@@ -100,6 +103,16 @@
                   </div>
                   
                 </g:formRemote>
+                <div id="forattr">
+                  <div class="attr-controls" style="display:none">
+
+
+                    <input value=""  name="attr_name" type="text" placeholder="" class="input-xlarge">
+                    <a class="add" href="#" onclick="addAttr(this)">添加</a>
+                    <a class="remove" style="display:none" href="#" onclick="removeAttr(this)">删除</a>
+
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -184,15 +197,59 @@
                      $("#c_id").val(treeNode.id)
                      
                      
-//                     var rf = " jQuery.ajax({type:'POST', url:'/supply/goodsCategoryAttr/selGoodsCategoryAttr?c_id='"+treeNode.id+"',success:function(data,textStatus){initCategoryAttr(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});"
-//                     eval(rf);
-//                     alert(treeNode.id + ", " + treeNode.name);
                      $.ajax({
                         type: "POST",
                         url: "<%= request.getContextPath() %>/goodsCategoryAttr/selGoodsCategoryAttr",
                         data: "c_id="+treeNode.id,
                         success: function(msg){
-                          alert( "Data Saved: " + msg );
+                  
+                          
+//                  <p>继承水果的属性：产地，功用</p>
+                           $("#pgcAttr").empty()
+                          $(msg.pgcAttrJSON).each(function(){
+                            
+                            for (var k1 in this) {  
+                                var p = "<p>继承"+k1+"的属性：" 
+                                  
+                                 for(var k2 in this[k1]){
+                                   p = p + this[k1][k2].attr_name
+                                 }
+              
+                                p = p + "</p>"
+//                                alert(p)
+                                $("#pgcAttr").prepend(p)
+                            }  
+                            
+                            
+                            
+                          });
+                  
+                          $("#updateattr .attr-controls").remove()
+                          
+                          
+                          $(msg.gcAttrJSON).each(function(){
+                            //alert(this.attr_name)
+                            
+                            var attr_controls = $("#forattr .attr-controls").clone();
+                            attr_controls.find("input").val(this.attr_name);
+//                            alert(attr_controls.html())
+                            attr_controls.show()
+                            $("#updateattr").prepend(attr_controls)
+                            
+                          });
+                          
+                          if($(msg.gcAttrJSON).length==0){
+                            var attr_controls = $("#forattr .attr-controls").clone();
+                            attr_controls.show()
+                            $("#updateattr").prepend(attr_controls)
+                          }
+                          
+                          $("#updateattr .remove").show();
+                          $("#updateattr .add").hide();
+                          $("#updateattr .add:last").show();
+                          
+                          
+                          
                         }
                       });
 
