@@ -77,6 +77,7 @@ FileItemFactory factory = new DiskFileItemFactory();
 ServletFileUpload upload = new ServletFileUpload(factory);
 upload.setHeaderEncoding("UTF-8");
 List items = upload.parseRequest(request);
+System.out.println(items);
 Iterator itr = items.iterator();
 while (itr.hasNext()) {
 	FileItem item = (FileItem) itr.next();

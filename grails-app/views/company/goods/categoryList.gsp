@@ -8,7 +8,7 @@
 <html>
   <head>
     <meta name="layout" content="main"/>
-  <r:require modules="ztree"/>
+    <r:require modules="ztree"/>
 </head>
 <body>
 

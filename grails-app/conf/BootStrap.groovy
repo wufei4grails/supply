@@ -27,6 +27,9 @@ class BootStrap {
             
             def m3 = new Menu(level: 1,menuid:"103", menuname:"商品管理", controller:"company",action:"goodsManager",menutype:"company",sort:"1")
             def m3_1 = new Menu(level: 2,menuid:"103101", menuname:"商品分类管理", controller:"goods",action:"categoryManager",menutype:"company",sort:"1")
+            def m3_2 = new Menu(level: 2,menuid:"103102", menuname:"发布商品", controller:"goods",action:"reqAddGoods",menutype:"company",sort:"2")
+            
+            
             
             def companyrole = new Role(rolename:"company");
             companyrole.addToMenus(m1);
@@ -38,7 +41,8 @@ class BootStrap {
             companyrole.addToMenus(m2_2_1);
             companyrole.addToMenus(m3);
             companyrole.addToMenus(m3_1);
-//            companyrole.save();
+            companyrole.addToMenus(m3_2);
+            //            companyrole.save();
             
             
             def companyStore = new Store(store_name:"企业",store_type:"company",address:"");
@@ -51,14 +55,19 @@ class BootStrap {
             
             
             def root = new GoodsCategory(name:"root");
+            def c1 = new GoodsCategory(name:"蔬菜");
+            root.addToChildren(c1)
             root.save()
             
-//            def sto = ['aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa']
-//            
-//            sto.each{
-//                def companyStore1 = new Store(store_name:"企业1",store_type:"company",address:"");
-//                companyStore1.save();
-//            }
+            
+            
+            
+            //            def sto = ['aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa','aa']
+            //            
+            //            sto.each{
+            //                def companyStore1 = new Store(store_name:"企业1",store_type:"company",address:"");
+            //                companyStore1.save();
+            //            }
             
             
             

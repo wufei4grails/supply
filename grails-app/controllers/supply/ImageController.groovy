@@ -9,46 +9,34 @@ import org.apache.commons.fileupload.FileUploadException
 class ImageController {
  
     def index() { }
-    
-    AjaxUploaderService ajaxUploaderService
 
     def upload = {
-        try {
-
-            File uploaded = createTemporaryFile()
-            InputStream inputStream = selectInputStream(request)
-
-            ajaxUploaderService.upload(inputStream, uploaded)
-
-            return render(text: [success:true] as JSON, contentType:'text/json')
-
-        } catch (FileUploadException e) {
-
-            log.error("Failed to upload file.", e)
-            return render(text: [success:false] as JSON, contentType:'text/json')
-
-        }
+//        def documentInstance = new Document(params)  
+        def url = params.imgFile  
+        // println url  
+  
+        def f = request.getFile('imgFile')  
+        if(!f.empty) {  
+            def webRootDir = servletContext.getRealPath("/")  
+            println webRootDir  
+            def userDir = new File(webRootDir, "/payload/")  
+            userDir.mkdirs()  
+            f.transferTo( new File( userDir, f.originalFilename))  
+//            documentInstance.fileName = f.originalFilename  
+        }  
+//        documentInstance.save()  
+//        documentInstance.errors.each{  
+//            println it  
+//        }  
+  
+//        if(!documentInstance.hasErrors() && documentInstance.save()) {  
+//            flash.message = "上传成功"  
+//            redirect(action:show,id:documentInstance.id)  
+//        }  
+//        else {  
+//            render(view:'create',model:[documentInstance:documentInstance])  
+//        }  
 
     }
 
-    private InputStream selectInputStream(HttpServletRequest request) {
-        if (request instanceof MultipartHttpServletRequest) {
-            MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('qqfile')
-            return uploadedFile.inputStream
-        }
-        return request.inputStream
-    }
-
-    private File createTemporaryFile() {
-        println(grailsApplication.config.grails.views.gsp.encoding)
-        File uploaded
-        
-        println(grailsApplication.config.imageUpload)
-        if (grailsApplication.config.imageUpload?.containsKey('temporaryFile')) {
-            uploaded = new File("${grailsApplication.config.imageUpload.temporaryFile}")
-        } else {
-            uploaded = File.createTempFile('grails', 'ajaxupload')
-        }
-        return uploaded
-    }
 }

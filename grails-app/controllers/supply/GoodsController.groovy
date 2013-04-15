@@ -51,4 +51,20 @@ class GoodsController {
         render "1"
     }
     
+    
+    def reqAddGoods(){
+        
+        
+        
+        def map = []
+        render(view: "/company/goods/goodsPub", model:map)
+    }
+    
+    def doAddGoods(){
+        def goods = new Goods(params)
+        goods.save()
+        flash.message = "发布商品成功！"
+        redirect(action: "reqAddGoods")
+    }
+    
 }

@@ -9,7 +9,6 @@
   <head>
     <meta name="layout" content="main"/>
   <r:require modules="bootstrap"/>
-  <r:require module="fileuploader" />
 </head>
 <body>
 
@@ -19,34 +18,36 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 %>
     <script type="text/javascript" src="${baseUrl}/kindeditor-4.1.5/kindeditor-min.js"></script>
     <script type="text/javascript" src="${baseUrl}/kindeditor-4.1.5/lang/zh_CN.js"></script>
-    <g:render template="/layouts/company_header"/>
+    <g:render template="/layouts/header"/>
 
 
     <div class="row-fluid">
       <div class="span3">
         <div class="well sidebar-nav">
-          <ul class="nav nav-list">
-            <!--<li class="nav-header">Sidebar</li>-->
-            <li class="active"><a href="goodsPub">发布新商品</a></li>
-            <li ><a href="upGoodsList">上架商品列表</a></li>
-            <li ><a href="downGoodsList">下架商品列表</a></li>
-            <li><a href="goodsCategoryList">商品分类列表</a></li>
-          </ul>
+          <g:render template="/layouts/leftmenu"/>
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
 
-        <form class="form-horizontal">
+       <g:form data-validate="parsley" class="form-horizontal" controller="goods" action="doAddGoods" method="post">
           <fieldset>
             <div id="legend" class="">
               <legend class="">发布新商品</legend>
             </div>
+            
+            <g:if test="${flash.message}">
+                <div class="alert alert-error">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>${flash.message}</strong>
+                </div>
+              </g:if>
+            
             <div class="control-group">
 
               <!-- Text input-->
               <label class="control-label" for="input01">商品名称</label>
               <div class="controls">
-                <input type="text" placeholder="请输入商品名称" class="input-xlarge">
+                <input data-error-message="商品名称不能为空" data-required="true"  name="goods_name"  type="text" placeholder="请输入商品名称" class="input-xlarge">
                 <p class="help-block"></p>
               </div>
             </div>
@@ -56,7 +57,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Text input-->
               <label class="control-label" for="input01">商品编号</label>
               <div class="controls">
-                <input type="text" placeholder="请输入商品编号" class="input-xlarge">
+                <input data-error-message="商品编号不能为空" data-required="true" name="goods_sn"  type="text" placeholder="请输入商品编号" class="input-xlarge">
                 <p class="help-block"></p>
               </div>
             </div>
@@ -66,7 +67,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Text input-->
               <label class="control-label" for="input01">价格</label>
               <div class="controls">
-                <input type="text" placeholder="请输入价格" class="input-xlarge">
+                <input data-type="number" data-type-number-message="商品价格格式不正确" data-required-message="商品价格不能为空" data-required="true" name="price" type="text" placeholder="请输入价格" class="input-xlarge">
                 <p class="help-block"></p>
               </div>
             </div>
@@ -78,7 +79,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Select Basic -->
               <label class="control-label">商品分类</label>
               <div class="controls">
-                <select class="input-xlarge" id="" onchange="categoryChange(this)">
+                <select name="c_id"  class="input-xlarge" id="" onchange="categoryChange(this)">
                   <option value="">请选择</option>
                   <option value="1">水果</option>
                   <option value="2">杂粮</option>
@@ -128,7 +129,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Textarea -->
               <label class="control-label">商品描述</label>
               <div class="controls">
-                <textarea id="goods_desc" name="goods_desc" style="width:100%" rows="15"></textarea>
+                <textarea  name="goods_text" id="goods_text"  style="width:100%" rows="15"></textarea>
                 <!--                <div class="textarea">
                                   <textarea type="" class=""  rows="6"></textarea>
                                 </div>-->
@@ -141,8 +142,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- File Upload -->
               <div class="controls">
                 <!--<input class="input-file" id="fileInput" type="file">-->
-                <uploader:uploader id="picupload"  url="${[controller:'image', action:'upload']}" >
-                </uploader:uploader>
+                <input class="btn btn-primary" id="image1" value="上传图片">
               </div>
             </div>
             <div class="control-group">
@@ -155,7 +155,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               </div>
             </div>
           </fieldset>
-        </form>
+        </g:form>
 
       </div><!--/span-->
     </div><!--/row-->
@@ -191,17 +191,33 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       
       var editor;
         KindEditor.ready(function(K) {
-                editor = K.create('textarea[name="goods_desc"]', {
+                editor = K.create('textarea[name="goods_text"]', {
                         resizeType : 1,
                         allowPreviewEmoticons : false,
-                        uploadJson : '${baseUrl}/uploadKindEditor.do',
-                        fileManagerJson : '${baseUrl}/resource/js/kindeditor-4.1.5/jsp/file_manager_json.jsp',
+                        uploadJson : '${baseUrl}/image/upload',
+                        //fileManagerJson : '${baseUrl}/kindeditor-4.1.5/jsp/file_manager_json.jsp',
                         allowImageUpload : true,
                         items : [
                                 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
                                 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
                                 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
                 });
+                K('#image1').click(function() {
+                      editor.loadPlugin('image', function() {
+                              editor.plugin.imageDialog({
+                                      showRemote : false,
+                                      //imageUrl : K('#url1').val(),
+                                      clickFn : function(url, title, width, height, border, align) {
+                                              //K('#url1').val(url);
+                                              editor.hideDialog();
+
+                                      }
+                              });
+                      });
+              });
+                
+                
+                
         });
       
     });
