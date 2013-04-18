@@ -105,8 +105,8 @@ class LoginController {
     
     
     def logout = {
-        flash.message = "Goodbye ${session.user.name}"
-        session.user = null
-        redirect(controller:"hello", action:"index")      
+        flash.message = "Goodbye ${session.loginPOJO.user.name}"
+        session.loginPOJO.user = null
+        redirect(controller:"login", action:"companyLogin")      
     } 
 }

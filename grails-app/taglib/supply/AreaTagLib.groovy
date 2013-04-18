@@ -5,7 +5,7 @@ class AreaTagLib {
     def areaService
     
     def areaName = {attrs ->
-        println(attrs.id)
+//        println(attrs.id)
         out << areaService.areaName(attrs.id)
         
     }

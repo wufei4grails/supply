@@ -31,8 +31,8 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
           <legend class="">上架商品列表</legend>
         </div>
         <form class="form-inline">
-          商品名称：<input type="text" class="input-small" placeholder="商品名称">
-          商品编号：<input type="text" class="input-small" placeholder="商品编号">
+          商品名称：<input name='goods_name' value='${params.goods_name}' type="text" class="input-small" placeholder="商品名称">
+          商品编号：<input name='goods_sn' value='${params.goods_sn}' type="text" class="input-small" placeholder="商品编号">
           <button type="submit" class="btn">搜索</button>
         </form>
         <table class="table table-hover">
@@ -47,11 +47,16 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
           <tbody>
             
             <g:each in="${goodsList}" status="i" var="goods">
-              <tr>
+              <tr id='${goods.id}'>
                 <td>${fieldValue(bean: goods, field: "goods_name")}</td>
                 <td>${fieldValue(bean: goods, field: "goods_sn")}</td>
                 <td>${fieldValue(bean: goods, field: "price")}</td>
-                <td><g:link action="reqUpdateGoods" id="${fieldValue(bean: goods, field: "id")}">修改</g:link></td>
+                <td>
+                  <g:link action="reqUpdateGoods" id="${fieldValue(bean: goods, field: "id")}">修改</g:link>
+                  <g:remoteLink controller="goods" action="delGoods"  id="${goods.id}"  onComplete="delGoods(${goods.id},${goods.goods_name})">
+                      删除
+                      </g:remoteLink>
+                </td>
               </tr>
             </g:each>
             
@@ -73,7 +78,12 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
     <g:render template="/layouts/company_footer"/>
 
   </div> <!-- /container -->
-
+  <script>
+    function delGoods(o,n){
+      $("#"+o).remove();
+      alert("商品："+n+"已成功删除！");
+    }
+  </script>
 </body>
 
 </html>

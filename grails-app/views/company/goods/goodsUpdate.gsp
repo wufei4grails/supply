@@ -160,7 +160,12 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <div class="controls">
                 <ul class="goods-img">
                   <g:each in="${attachList}">
-                    <li><img class="img_url" src="${it.url}" ><i class="icon-remove"></i>
+                    <li id='${it.id}'><img class="img_url" src="${it.url}" >
+                      
+                      <g:remoteLink controller="goods" action="delImg"  id="${it.id}"  onComplete="delImg(${it.id})">
+                      <i class="icon-remove"></i> 
+                      </g:remoteLink>
+                      
                      </li>
                  </g:each>
                  
@@ -231,6 +236,11 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 
   </style>
   <script>
+    
+    function delImg(o){
+      $("#"+o).remove();
+    }
+    
     initOldImgUrl();
     function initOldImgUrl(){
       var old_img_url = '';

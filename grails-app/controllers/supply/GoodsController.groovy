@@ -28,10 +28,15 @@ class GoodsController {
     
     def addCategory(){
         
+        if(!params.name){
+            render "0"
+            return
+        }
         
 //        if(params.id){
             def n = GoodsCategory.get(params.node_id);
             if(n){
+                
                 n.name = params.name
                 n.save()
             }else{
@@ -89,9 +94,12 @@ class GoodsController {
         
         
         def searchClosure =  {
-//             if(params.store_name) {
-//                 like('store_name',"%${params.store_name}%")
-//             }
+             if(params.goods_name) {
+                 like('goods_name',"%${params.goods_name}%")
+             }
+             if(params.goods_sn) {
+                 like('goods_sn',"%${params.goods_sn}%")
+             }
         }
         
         def g = Goods.createCriteria();
@@ -125,6 +133,18 @@ class GoodsController {
         
         flash.message = "修改商品成功！"
         redirect(action: "reqUpdateGoods",id: goods.id)
+    }
+    
+    def delImg(){
+        def attach = Attach.get(params.id);
+        attach.delete()
+    }
+    
+    
+    def delGoods(){
+        def goods = Goods.get(params.id);
+        goods.delete()
+        Attach.executeUpdate("delete Attach a where a.attach_id = :attach_id ",[attach_id:params.id])
     }
     
 }

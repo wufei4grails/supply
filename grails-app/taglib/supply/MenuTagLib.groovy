@@ -34,7 +34,6 @@ class MenuTagLib {
     def firstmenu = {
         
         def curMenu = Menu.findByControllerAndAction(controllerName,actionName);
-        println(curMenu)
         def cMenuId = curMenu.menuid[0..2]
         
         def user = session.loginPOJO.user

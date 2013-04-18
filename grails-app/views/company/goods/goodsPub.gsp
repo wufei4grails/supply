@@ -223,6 +223,11 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
   </style>
   <script>
     
+    function delImg(o){
+      $(o).parents("li").remove();
+      initImgUrl();
+    }
+    
     function initImgUrl(){
       var img_url = '';
       $(".img_url").each(function(){
@@ -263,7 +268,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
                                                 $.each(url,function(n,v) { 
                                                       var img_li = '<li>'
                                                                      + '<img class="img_url" src="'+v.url+'" >'
-                                                                     + '<i class="icon-remove"></i>'
+                                                                     + '<i onclick="delImg(this)" class="icon-remove"></i>'
                                                                     +'</li>'
                                                       $(".goods-img").append(img_li);
                                                 });

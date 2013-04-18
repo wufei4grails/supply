@@ -2,11 +2,11 @@ package supply
 
 class LoginTagLib {
     def loginControl = {
-        if(session.user){
-            out << "欢迎您， ${session.user.name} "
-            out << """[${link(action:"logout", controller:"user"){"退出"}}]"""
+        if(session.loginPOJO){
+            out << "欢迎您， ${session.loginPOJO.user.name} "
+            out << """[${link(action:"logout", controller:"login"){"退出"}}]"""
         } else {
-            out << """[${link(action:"login", controller:"user"){"退出"}}]"""      
+            out << """[${link(action:"companyLogin", controller:"login"){"进入系统"}}]"""      
         }
     }
 }

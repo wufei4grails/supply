@@ -39,12 +39,12 @@
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane fade in active" id="home">
-                <g:formRemote id="addCategory" data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
+<!--                <g:formRemote id="addCategory" data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
                               url="[controller: 'goods', action:'addCategory']">
                   <input type="hidden" name="parent_id" id="parent_id" value=""/>
                   <input type="hidden" name="name" id="name" value=""/>
                   <input type="hidden" name="node_id" id="node_id" value=""/>
-                </g:formRemote>
+                </g:formRemote>-->
 
 
                 <g:formRemote id="removeCategory" data-validate="parsley" onSuccess="removeCategorySuccess(data)" class="form-horizontal" name="removeCategory" on404="alert('not found!')" 
@@ -146,8 +146,13 @@
                     function addCategorySuccess(t){
 //                      var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
 //                      treeObj.addNodes(null,t)
-                      alert("设置分类成功！")
-                      window.location.reload();
+                      if(t=='0'){
+                        //alert("请输入分类名称！")
+                      }else{
+                        alert("设置分类成功！")
+                        window.location.reload();
+                      }
+                      
                     }
                     function removeAttr(o){
                       $(o).parents(".attr-controls").remove();
