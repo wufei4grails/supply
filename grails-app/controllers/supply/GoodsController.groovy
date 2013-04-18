@@ -62,9 +62,69 @@ class GoodsController {
     
     def doAddGoods(){
         def goods = new Goods(params)
-        goods.save()
+        goods.save(flush:true);
+        def attach_id = goods.id;
+        
+        
+        
+        def img_urls = params.img_url.tokenize(',')
+        
+        img_urls.each{
+            def attach = new Attach(attach_id:attach_id,url:it)
+            attach.save()
+        }
+        
         flash.message = "发布商品成功！"
         redirect(action: "reqAddGoods")
+    }
+    
+    
+    //商品列表
+    def reqGoodsList(){
+        
+        if (!params.max) params.max = 10  
+        if (!params.offset) params.offset = 0  
+        if (!params.sort) params.sort = "lastUpdated"  
+        if (!params.order) params.order = "desc" 
+        
+        
+        def searchClosure =  {
+//             if(params.store_name) {
+//                 like('store_name',"%${params.store_name}%")
+//             }
+        }
+        
+        def g = Goods.createCriteria();
+        def results = g.list(params,searchClosure)
+        def map = [goodsList: results, goodsTotal: results.totalCount]
+        
+        
+        render(view: "/company/goods/goodsList", model:map)
+    }
+    
+    
+    
+    def reqUpdateGoods(){
+        def goods = Goods.get(params.id);
+        def attachList = Attach.findAllByAttach_id(params.id)
+        def map = [goods: goods,attachList:attachList]
+        render(view: "/company/goods/goodsUpdate", model:map)
+    }
+    
+    def doUpdateGoods(Long id){
+        def goods = Goods.get(id);
+        goods.properties = params
+        goods.save();
+        
+        def img_urls = params.img_url.tokenize(",")
+        
+        img_urls.each{
+            def attach = new Attach(attach_id:goods.id,url:it)
+            attach.save()
+        }
+        
+        flash.message = "修改商品成功！"
+        redirect(action: "reqUpdateGoods",id: goods.id)
     }
     
 }

@@ -21,7 +21,7 @@ class CompanyController {
     
     //商品管理
     def goodsManager(){
-        redirect(controller:"goods", action: "categoryManager", params: params)
+        redirect(controller:"goods", action: "reqGoodsList", params: params)
     }
     
     //上架商品列表

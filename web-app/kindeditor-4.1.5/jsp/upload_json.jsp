@@ -53,6 +53,7 @@ String dirName = request.getParameter("dir");
 if (dirName == null) {
 	dirName = "image";
 }
+
 if(!extMap.containsKey(dirName)){
 	out.println(getError("目录名不正确。"));
 	return;
@@ -105,7 +106,6 @@ while (itr.hasNext()) {
 			out.println(getError("上传文件失败。"));
 			return;
 		}
-
 		JSONObject obj = new JSONObject();
 		obj.put("error", 0);
 		obj.put("url", saveUrl + newFileName);

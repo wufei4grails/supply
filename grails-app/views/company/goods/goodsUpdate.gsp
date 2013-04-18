@@ -29,10 +29,12 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       </div><!--/span-->
       <div class="span9">
 
-        <g:form data-validate="parsley" class="form-horizontal" controller="goods" action="doAddGoods" method="post">
+        <g:form data-validate="parsley" class="form-horizontal" controller="goods" action="doUpdateGoods" method="post">
+          <!--<input value="${goods.id}" name="id">-->
+          <g:hiddenField name="id" value="${goods?.id}" />
           <fieldset>
             <div id="legend" class="">
-              <legend class="">发布新商品</legend>
+              <legend class="">修改商品</legend>
             </div>
 
             <g:if test="${flash.message}">
@@ -47,7 +49,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Text input-->
               <label class="control-label" for="input01">商品名称</label>
               <div class="controls">
-                <input data-error-message="商品名称不能为空" data-required="true"  name="goods_name"  type="text" placeholder="请输入商品名称" class="input-xlarge">
+                <input value="${goods.goods_name}" data-error-message="商品名称不能为空" data-required="true"  name="goods_name"  type="text" placeholder="请输入商品名称" class="input-xlarge">
                 <p class="help-block"></p>
               </div>
             </div>
@@ -57,7 +59,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Text input-->
               <label class="control-label" for="input01">商品编号</label>
               <div class="controls">
-                <input data-error-message="商品编号不能为空" data-required="true" name="goods_sn"  type="text" placeholder="请输入商品编号" class="input-xlarge">
+                <input value="${goods.goods_sn}" data-error-message="商品编号不能为空" data-required="true" name="goods_sn"  type="text" placeholder="请输入商品编号" class="input-xlarge">
                 <p class="help-block"></p>
               </div>
             </div>
@@ -67,7 +69,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Text input-->
               <label class="control-label" for="input01">价格</label>
               <div class="controls">
-                <input data-type="number" data-type-number-message="商品价格格式不正确" data-required-message="商品价格不能为空" data-required="true" name="price" type="text" placeholder="请输入价格" class="input-xlarge">
+                <input value="${goods.price}" data-type="number" data-type-number-message="商品价格格式不正确" data-required-message="商品价格不能为空" data-required="true" name="price" type="text" placeholder="请输入价格" class="input-xlarge">
                 <p class="help-block"></p>
               </div>
             </div>
@@ -129,7 +131,10 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Textarea -->
               <label class="control-label">商品描述</label>
               <div class="controls">
-                <textarea  name="goods_text" id="goods_text"  style="width:100%" rows="15"></textarea>
+                <textarea  name="goods_text" id="goods_text"  style="width:100%" rows="15">
+                  ${goods.goods_text}
+                
+                </textarea>
                 <!--                <div class="textarea">
                                   <textarea type="" class=""  rows="6"></textarea>
                                 </div>-->
@@ -141,6 +146,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 
               <!-- File Upload -->
               <div class="controls">
+                <input type="hidden" id="old_img_url" name="old_img_url" value="" />
                 <input type="hidden" id="img_url" name="img_url" value="" />
                 <input class="btn btn-primary" id="image" value="上传图片">
               </div>
@@ -149,11 +155,14 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 
             <div class="control-group">
               <!--<label class="control-label">上传图片</label>-->
-
+               
               <!-- File Upload -->
               <div class="controls">
                 <ul class="goods-img">
-                  
+                  <g:each in="${attachList}">
+                    <li><img class="img_url" src="${it.url}" ><i class="icon-remove"></i>
+                     </li>
+                 </g:each>
                  
 
                 </ul>
@@ -222,12 +231,26 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 
   </style>
   <script>
+    initOldImgUrl();
+    function initOldImgUrl(){
+      var old_img_url = '';
+      $(".img_url").each(function(){
+        old_img_url = old_img_url + "," + $(this).attr("src"); 
+//          alert($(this).attr("src"))
+      });
+      $("#old_img_url").val(old_img_url);
+    }
     
     function initImgUrl(){
       var img_url = '';
+      var old_img_url = $("#old_img_url").val();
       $(".img_url").each(function(){
-        img_url = img_url + "," + $(this).attr("src"); 
-//          alert($(this).attr("src"))
+        var src = $(this).attr("src"); 
+        if(old_img_url.indexOf(src)>0){
+          
+        }else{
+          img_url = img_url + "," + src;
+        }
       });
       $("#img_url").val(img_url);
     }
