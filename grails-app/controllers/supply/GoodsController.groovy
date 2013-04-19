@@ -3,7 +3,13 @@ package supply
 import grails.converters.JSON
 class GoodsController {
 
+    def categoryService
     def index() { }
+    
+    
+    def categorySelect(Long id){
+        render categoryService.categorySelect(id )
+    }
     
     def categoryManager(){
         def root = GoodsCategory.findByName("root");
@@ -32,6 +38,9 @@ class GoodsController {
             render "0"
             return
         }
+        
+        
+        
         
 //        if(params.id){
             def n = GoodsCategory.get(params.node_id);
@@ -79,6 +88,19 @@ class GoodsController {
             attach.save()
         }
         
+        //维护商品属性数据
+        def attr_name = params.attr_name
+        def attr_val = params.attr_val
+        
+        (0..<attr_name.length).each{
+            if(attr_name[it]!=""){
+                GoodsAttr goodsAttr = new GoodsAttr(goods_id:goods.id,attr_name:attr_name[it],attr_val:attr_val[it])
+                goodsAttr.save()
+            }
+        }
+        
+        
+        
         flash.message = "发布商品成功！"
         redirect(action: "reqAddGoods")
     }
@@ -115,7 +137,8 @@ class GoodsController {
     def reqUpdateGoods(){
         def goods = Goods.get(params.id);
         def attachList = Attach.findAllByAttach_id(params.id)
-        def map = [goods: goods,attachList:attachList]
+        def goodsAttrList = GoodsAttr.findAllByGoods_id(params.id)
+        def map = [goods: goods,attachList:attachList,goodsAttrList:goodsAttrList]
         render(view: "/company/goods/goodsUpdate", model:map)
     }
     
@@ -129,6 +152,18 @@ class GoodsController {
         img_urls.each{
             def attach = new Attach(attach_id:goods.id,url:it)
             attach.save()
+        }
+        
+        GoodsAttr.executeUpdate("delete GoodsAttr g where g.goods_id = :goods_id ",[goods_id:params.id])
+        //维护商品属性数据
+        def attr_name = params.attr_name
+        def attr_val = params.attr_val
+        
+        (0..<attr_name.length).each{
+            if(attr_name[it]!=""){
+                GoodsAttr goodsAttr = new GoodsAttr(goods_id:goods.id,attr_name:attr_name[it],attr_val:attr_val[it])
+                goodsAttr.save()
+            }
         }
         
         flash.message = "修改商品成功！"
@@ -145,6 +180,8 @@ class GoodsController {
         def goods = Goods.get(params.id);
         goods.delete()
         Attach.executeUpdate("delete Attach a where a.attach_id = :attach_id ",[attach_id:params.id])
+        GoodsAttr.executeUpdate("delete GoodsAttr g where g.goods_id = :goods_id ",[goods_id:params.id])
+   
     }
     
 }

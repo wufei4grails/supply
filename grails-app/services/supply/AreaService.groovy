@@ -87,7 +87,7 @@ class AreaService {
         def thisAreaSelect = Area.findAllByArea_pid(pid)
         
         def s = "<select class='input-small' onclick='areaSelect(this)'>"
-        s = s + "<option value=''>请选择</option>"
+        s = s + "<option value='"+pid+"'>请选择</option>"
         def sel = ""
         thisAreaSelect.each{
             
@@ -115,7 +115,7 @@ class AreaService {
         def s = ""
         if(childAreaSelect){
             s = "<select class='input-small' onclick='areaSelect(this)'>"
-            s = s + "<option value=''>请选择</option>"
+            s = s + "<option value='"+id+"'>请选择</option>"
             childAreaSelect.each{
                 
                 def thisid = "0"+it.id

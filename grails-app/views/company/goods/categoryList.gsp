@@ -39,12 +39,12 @@
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane fade in active" id="home">
-<!--                <g:formRemote id="addCategory" data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
+                <g:formRemote id="addCategory" data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
                               url="[controller: 'goods', action:'addCategory']">
                   <input type="hidden" name="parent_id" id="parent_id" value=""/>
                   <input type="hidden" name="name" id="name" value=""/>
                   <input type="hidden" name="node_id" id="node_id" value=""/>
-                </g:formRemote>-->
+                </g:formRemote>
 
 
                 <g:formRemote id="removeCategory" data-validate="parsley" onSuccess="removeCategorySuccess(data)" class="form-horizontal" name="removeCategory" on404="alert('not found!')" 
@@ -217,7 +217,7 @@
                                 var p = "<p>继承"+k1+"的属性：" 
                                   
                                  for(var k2 in this[k1]){
-                                   p = p + this[k1][k2].attr_name
+                                   p = p + this[k1][k2].attr_name + ","
                                  }
               
                                 p = p + "</p>"

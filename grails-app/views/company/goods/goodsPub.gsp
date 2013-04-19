@@ -73,47 +73,37 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             </div>
 
 
+            
+            
 
             <div class="control-group">
 
               <!-- Select Basic -->
               <label class="control-label">商品分类</label>
-              <div class="controls">
-                <select name="c_id"  class="input-xlarge" id="" onchange="categoryChange(this)">
-                  <option value="">请选择</option>
-                  <option value="1">水果</option>
-                  <option value="2">杂粮</option>
-                  <option value="3">蔬菜</option>
-                </select>
-              </div>
+              <div class="controls" id="categorySelect">
+                  <category:categorySeclect id="5" controller="goods" action="categorySelect" update="categorySelect"/> 
+                  <p class="help-block"></p>
+                </div>
 
             </div>
 
 
             <div class="control-group" id="attr-group" style="display: none;">
 
-              <label class="control-label">蔬菜分类的属性</label>
-              <div class="controls">
+              <label class="control-label">属性描述</label>
+              <div class="controls " id="attr-controls">
                 <div class="well">
-                  <div class="control-group">
+                  <div style="display:none" class="control-group attr-control-group">
 
                     <label class="attr-control-label" >保质期</label>
                     <div class="attr-controls">
-                      <input type="text" placeholder="" class="input-xlarge">
+                      <input name="attr_name" type="hidden" placeholder="" class="input-xlarge attr_name">
+                      <input name="attr_val" type="text" placeholder="" class="input-xlarge">
                       <p class="help-block"></p>
                     </div>
 
                   </div>
 
-                  <div class="control-group">
-
-                    <label class="attr-control-label" >包装方式</label>
-                    <div class="attr-controls">
-                      <input type="text" placeholder="" class="input-xlarge">
-                      <p class="help-block"></p>
-                    </div>
-
-                  </div>
 
 
                 </div>
@@ -173,7 +163,10 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             </div>
           </fieldset>
         </g:form>
-
+        <g:formRemote id="selGoodsCategoryAttr" data-validate="parsley" onSuccess="selGoodsCategoryAttrSuccess(data)" class="form-horizontal" name="selGoodsCategoryAttr" on404="alert('not found!')" 
+                      url="[controller: 'goodsCategoryAttr', action:'selGoodsCategoryAttr']">
+          <input type="hidden" name="c_id" id="c_id" value=""/>
+        </g:formRemote>
       </div><!--/span-->
     </div><!--/row-->
 
@@ -290,14 +283,49 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       
     });
     
-    
-    
-    function categoryChange(o){
-      if($(o).val()!=""){
+    function selGoodsCategoryAttrSuccess(data){
+      $(".attr-control-group:not(:eq(0))").remove()
+      
+      
+      
+      if($("#selGoodsCategoryAttr #c_id").val()!="1"){
         $("#attr-group").show("slow");
+        
+        $.each(data.pgcAttrJSON,function(i,v){
+          
+          $.each(v,function(key,val){
+            var attr_group = $(".attr-control-group:eq(0)").clone()
+            attr_group.find(".attr-control-label").html(val.attr_name)
+            attr_group.find(".attr_name").val(val.attr_name)
+            
+            $("#attr-controls").find(".well").append(attr_group.show())
+          })
+          
+        })
+        
+        $.each(data.gcAttrJSON,function(i,v){
+          var attr_group = $(".attr-control-group:eq(0)").clone()
+          attr_group.find(".attr-control-label").html(v.attr_name)
+          attr_group.find(".attr_name").val(v.attr_name)
+          $("#attr-controls").find(".well").append(attr_group.show())
+        })
+        
       }else{
         $("#attr-group").hide("slow");
       }
+    }
+    
+    function categoryChange(o){
+      
+      $("#selGoodsCategoryAttr #c_id").val($(o).val());
+      $("#selGoodsCategoryAttr").submit()
+      
+      
+//      if($(o).val()!=""){
+//        $("#attr-group").show("slow");
+//      }else{
+//        $("#attr-group").hide("slow");
+//      }
     }
 //      if($(o).val()!=""){
 

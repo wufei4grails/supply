@@ -9,7 +9,8 @@ class GoodsCategory implements Comparable{
        dateCreated.compareTo(obj.dateCreated)
    }
     
-    SortedSet children   
+    SortedSet children
+    GoodsCategory parent
     
     String name 
     Date dateCreated

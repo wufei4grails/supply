@@ -31,7 +31,12 @@ class GoodsCategoryAttrService {
     }
     
     
+    
+    
     def selParentGoodsCategory(GoodsCategory gc, List gcList){
+        if(gc.name=="root"){
+            return gcList
+        }
         def pc = gc.parent
         if(pc.name!="root"){
             gcList.add(pc)
