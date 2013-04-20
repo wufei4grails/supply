@@ -11,6 +11,7 @@ class Goods {
     String goods_sn;
     String c_id;
     String goods_text;
+    String status; //on off
     Date dateCreated
     Date lastUpdated
 }

@@ -76,6 +76,7 @@ class GoodsController {
     
     def doAddGoods(){
         def goods = new Goods(params)
+        goods.status="on"//发布商品默认上架
         goods.save(flush:true);
         def attach_id = goods.id;
         
@@ -92,12 +93,16 @@ class GoodsController {
         def attr_name = params.attr_name
         def attr_val = params.attr_val
         
-        (0..<attr_name.length).each{
-            if(attr_name[it]!=""){
-                GoodsAttr goodsAttr = new GoodsAttr(goods_id:goods.id,attr_name:attr_name[it],attr_val:attr_val[it])
-                goodsAttr.save()
+        
+        if(attr_name!=""){
+            (0..<attr_name.length).each{
+                if(attr_name[it]!=""){
+                    GoodsAttr goodsAttr = new GoodsAttr(goods_id:goods.id,attr_name:attr_name[it],attr_val:attr_val[it])
+                    goodsAttr.save()
+                }
             }
         }
+        
         
         
         
@@ -114,13 +119,15 @@ class GoodsController {
         if (!params.sort) params.sort = "lastUpdated"  
         if (!params.order) params.order = "desc" 
         
-        
         def searchClosure =  {
              if(params.goods_name) {
                  like('goods_name',"%${params.goods_name}%")
              }
              if(params.goods_sn) {
                  like('goods_sn',"%${params.goods_sn}%")
+             }
+             if(params.status) {
+                 eq('status',"${params.status}")
              }
         }
         
@@ -159,12 +166,15 @@ class GoodsController {
         def attr_name = params.attr_name
         def attr_val = params.attr_val
         
-        (0..<attr_name.length).each{
-            if(attr_name[it]!=""){
-                GoodsAttr goodsAttr = new GoodsAttr(goods_id:goods.id,attr_name:attr_name[it],attr_val:attr_val[it])
-                goodsAttr.save()
+        if(attr_name!=""){
+            (0..<attr_name.length).each{
+                if(attr_name[it]!=""){
+                    GoodsAttr goodsAttr = new GoodsAttr(goods_id:goods.id,attr_name:attr_name[it],attr_val:attr_val[it])
+                    goodsAttr.save()
+                }
             }
         }
+        
         
         flash.message = "修改商品成功！"
         redirect(action: "reqUpdateGoods",id: goods.id)

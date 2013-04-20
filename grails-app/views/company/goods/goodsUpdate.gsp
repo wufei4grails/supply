@@ -53,6 +53,15 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
                 <p class="help-block"></p>
               </div>
             </div>
+            
+            <div class="control-group">
+
+              <!-- Text input-->
+              <label class="control-label" for="input01">是否上架</label>
+              <div class="controls">
+                <g:select value="${goods.status}" name="status" optionKey="status" optionValue="queryShow" from="${[[status:"on",queryShow:"上架"],[status:"off",queryShow:"下架"]]}" />
+              </div>
+            </div>
 
             <div class="control-group">
 

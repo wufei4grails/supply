@@ -238,3 +238,15 @@ grails {
               "mail.smtp.socketFactory.fallback":"false"]
    }
 }
+
+
+def deps = [
+    "json_simple-1.1.jar"
+     ]
+grails.war.dependencies = {
+    fileset(dir: "libs") {
+        deps.each { pattern ->
+            include(name: pattern)
+        }
+    }
+}

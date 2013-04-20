@@ -81,7 +81,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <!-- Select Basic -->
               <label class="control-label">商品分类</label>
               <div class="controls" id="categorySelect">
-                  <category:categorySeclect id="5" controller="goods" action="categorySelect" update="categorySelect"/> 
+                  <category:categorySeclect id="1" controller="goods" action="categorySelect" update="categorySelect"/> 
                   <p class="help-block"></p>
                 </div>
 

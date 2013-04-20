@@ -28,19 +28,23 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       </div><!--/span-->
       <div class="span9">
         <div id="legend" class="">
-          <legend class="">上架商品列表</legend>
+          <legend class="">商品列表</legend>
         </div>
-        <form class="form-inline">
+        
+        <g:form class="form-inline" name="myForm" action="reqGoodsList" >
+        
           商品名称：<input name='goods_name' value='${params.goods_name}' type="text" class="input-small" placeholder="商品名称">
           商品编号：<input name='goods_sn' value='${params.goods_sn}' type="text" class="input-small" placeholder="商品编号">
+          是否上架：<g:select value="${params.status}" name="status" optionKey="status" optionValue="queryShow" from="${[[status:"",queryShow:"全部"],[status:"on",queryShow:"上架"],[status:"off",queryShow:"下架"]]}" />
           <button type="submit" class="btn">搜索</button>
-        </form>
+        </g:form>
         <table class="table table-hover">
           <thead>
             <tr>
               <th>商品名称</th>
               <th>商品编号</th>
               <th>价格</th>
+              <th>状态</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -51,6 +55,14 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
                 <td>${fieldValue(bean: goods, field: "goods_name")}</td>
                 <td>${fieldValue(bean: goods, field: "goods_sn")}</td>
                 <td>${fieldValue(bean: goods, field: "price")}</td>
+                <td>
+                  <g:if test="${goods.status == 'on'}">
+                      上架
+                 </g:if>
+                 <g:if test="${goods.status == 'off'}">
+                      下架
+                 </g:if>
+                </td>
                 <td>
                   <g:link action="reqUpdateGoods" id="${fieldValue(bean: goods, field: "id")}">修改</g:link>
                   <g:remoteLink controller="goods" action="delGoods"  id="${goods.id}"  onComplete="delGoods(${goods.id},${goods.goods_name})">

@@ -15,7 +15,7 @@ class ImageController {
     def upload = {
         
         //文件保存目录路径
-        String savePath = request.getServletContext().getRealPath("/") + "attached/";
+        String savePath = request.getRealPath("/") + "attached/";
 
         //文件保存目录URL
         String saveUrl  = request.getContextPath() + "/attached/";
