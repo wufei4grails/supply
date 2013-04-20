@@ -11,7 +11,6 @@ class SecurityFilters {
     def filters = {
         loginCheck(controller:'*', action:'*') {
             before = {
-                println(actionName)
                 if(!session.loginPOJO 
                     && !actionName.equals('companyLogin')
                     && !actionName.equals('storeLogin')
