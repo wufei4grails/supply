@@ -11,5 +11,6 @@ package supply
  */
 class LoginPOJO {
 	User user;
+        Store store;
 }
 

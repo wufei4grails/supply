@@ -51,11 +51,36 @@ class BootStrap {
             
             def companyStore = new Store(store_name:"企业",store_type:"company",address:"");
             def admin = new User(login:"admin", password:"111111",name:"wufei",user_type:"company")
-            
             admin.addToRoles(companyrole)
-            
             companyStore.addToUsers(admin)
             companyStore.save()
+            
+           
+            //门店菜单，角色，权限数据初始化
+            def m4 = new Menu(level: 1,menuid:"104", menuname:"门店信息管理", controller:"member",action:"memberManager",menutype:"store",sort:"1")
+            def m4_1 = new Menu(level: 2,menuid:"104101", menuname:"门店基本资料", controller:"member",action:"reqStoreInfo",menutype:"store",sort:"1")
+            def m4_2 = new Menu(level: 2,menuid:"104102", menuname:"门店收货地址", controller:"member",action:"reqAddressList",menutype:"store",sort:"2")
+            def m4_2_1 = new Menu(level: 3,menuid:"104102101", menuname:"添加新收货地址", controller:"member",action:"reqAddAddress",menutype:"store",sort:"1")
+            def m4_2_2 = new Menu(level: 3,menuid:"104102102", menuname:"修改收货地址", controller:"member",action:"reqUpdateAddress",menutype:"store",sort:"1")
+            
+            
+            
+            def storerole = new Role(rolename:"store");
+            storerole.addToMenus(m4);
+            storerole.addToMenus(m4_1);
+            storerole.addToMenus(m4_2);
+            storerole.addToMenus(m4_2_1);
+            storerole.addToMenus(m4_2_2);
+            
+            def store = new Store(store_name:"门店测试",store_type:"store",address:"");
+            def member = new User(login:"test", password:"111111",name:"testname",user_type:"store")
+            member.addToRoles(storerole)
+            store.addToUsers(member)
+            store.save()
+            
+            
+            
+            
             
             
             def root = new GoodsCategory(name:"root");

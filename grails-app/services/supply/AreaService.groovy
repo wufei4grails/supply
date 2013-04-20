@@ -37,6 +37,9 @@ class AreaService {
     
     
     def areaSelect(String id){
+        
+        if(!id)id="0100" //如果id没有默认中国
+        
         def thisAreaSelect = thisAreaSelect(id);
         def childAreaSelect = childAreaSelect(id);
         def parentsAreaSelect = parentsAreaSelect(id);

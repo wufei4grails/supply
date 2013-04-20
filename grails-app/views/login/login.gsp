@@ -8,15 +8,13 @@
 <html>
   <head>
     <meta name="layout" content="main"/>
-  <r:require modules="bootstrap"/>
 </head>
 <body>
 
   <div class="container">
 
-    <g:form class="form-signin" action="storeauthenticate" method="post">
-      <h2 class
-          ="form-signin-heading">门店供应链管理平台</h2>
+    <g:form data-validate="parsley" class="form-signin" action="authenticate" method="post">
+      <h2 class="form-signin-heading">企业全程供应链管理平台</h2>
       <g:if test="${flash.message}">
         <div class="alert alert-error">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -24,18 +22,29 @@
         </div>
       </g:if>
 
-      <input id="login" name="login" type="text" class="input-block-level" placeholder="请输入用户名">
-      <input id="password" name="password" type="password" class="input-block-level" placeholder="请输入密码">
-      <input name="valiCode" style="width: 40%" type="text" class="input-block-level" placeholder="请输入验证码">
+      <input data-error-message="用户名不能为空" data-required="true" id="login" name="login" type="text" class="input-block-level" placeholder="请输入用户名">
+      <input data-error-message="密码不能为空" data-required="true" id="password" name="password" type="password" class="input-block-level" placeholder="请输入密码">
+      <input maxlength="4" name="valiCode" style="width: 40%" type="text" class="input-block-level" placeholder="请输入验证码">
       <jcaptcha:jpeg name="imageCaptcha" id="imageCaptcha" style="width: 40%;margin-bottom: 10px;" width="10px;"/>
 
       <a href="javascript:void(0)" onclick="changeCode()">看不清?</a>
       <button class="btn btn-large btn-primary" type="submit">登录</button>
-
     </g:form>
 
   </div> <!-- /container -->
   <style type="text/css">
+
+    .custom-error-message{
+      padding: 5px;
+      color: #b94a48;
+      background-color: #f2dede;
+      border-color: #eed3d7;
+      list-style: none;
+      height: 20px;
+      margin-left: -25px;
+      margin-top: -10px;
+    }
+
     body {
       padding-top: 40px;
       padding-bottom: 40px;

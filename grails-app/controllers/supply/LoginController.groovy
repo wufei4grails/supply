@@ -6,19 +6,17 @@ class LoginController {
     def roleService 
     def index() { }
     
-    def companyLogin(){
-        render(view: "companyLogin")
-    }
-    
-    def storeLogin(){
-        render(view: "storeLogin")
+    def login(){
+        render(view: "login")
     }
     
     
     
     
     
-    def companyauthenticate = {
+    
+    
+    def authenticate = {
 //        if (!jcaptchaService.validateResponse("imageCaptcha", session.id, params.valiCode)){  
 //            flash.message = "验证码错误！"  
 //            forward(action: "companyLogin", params: params)
@@ -42,6 +40,7 @@ class LoginController {
         if(user){
             def loginPOJO = new LoginPOJO();
             loginPOJO.user = user;
+            loginPOJO.store = user.store;
             session.loginPOJO = loginPOJO;
             flash.message = "Hello ${user.name}!"
                     
@@ -51,15 +50,14 @@ class LoginController {
                 return
             }
             if(user.user_type == "store"){
-                flash.message = "门店账号不在此登陆."
-                forward(controller:"login",action: "companyLogin", params: params)
+                redirect(controller:"member", action:"memberManager")
                 return
             }
                     
                           
         }else{
             flash.message = "用户名${params.login}与密码不正确，请重新再试."
-            forward(action: "companyLogin", params: params)
+            forward(action: "login", params: params)
             return
         }
         
@@ -67,46 +65,13 @@ class LoginController {
     }
     
     
-    def storeauthenticate = {
-        //        if (!jcaptchaService.validateResponse("imageCaptcha", session.id, params.valiCode)){  
-        //            flash.message = "验证码错误！"  
-        //            redirect(action: "storeLogin", params: params)
-        //            return
-        //        } 
-                
-        def user = User.findByLoginAndPassword(params.login, params.password)
-        if(user){
-            def loginPOJO = new LoginPOJO();
-            loginPOJO.user = user;
-            session.loginPOJO = loginPOJO;
-            session.user = user
-            flash.message = "Hello ${user.name}!"
-                    
-            if(user.user_type == "store"){
-                redirect(controller:"store", action:"orderManager")
-                return
-            }
-            if(user.user_type == "company"){
-                flash.message = "企业账号不在此登陆."
-                redirect(controller:"login",action: "storeLogin", params: params)
-                return
-            }
-                    
-                          
-        }else{
-            flash.message = "用户名${params.login}与密码不正确，请重新再试."
-            redirect(action: "storeLogin", params: params)
-            return
-        }
-        
-          
-    }
+    
     
     
     
     def logout = {
         flash.message = "Goodbye ${session.loginPOJO.user.name}"
         session.loginPOJO.user = null
-        redirect(controller:"login", action:"companyLogin")      
+        redirect(controller:"login", action:"login")      
     } 
 }

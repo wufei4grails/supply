@@ -12,9 +12,9 @@ class SecurityFilters {
         loginCheck(controller:'*', action:'*') {
             before = {
                 if(!session.loginPOJO 
-                    && !actionName.equals('companyLogin')
-                    && !actionName.equals('storeLogin')
-                    && !actionName.equals('jpeg')) {//验证码
+                    && !actionName.equals('login')
+                    && !actionName.equals('jpeg')
+                    && !actionName.equals('authenticate')) {//验证码
                     redirect(controller: 'login',action:'companyLogin')
                     return false
                 }
