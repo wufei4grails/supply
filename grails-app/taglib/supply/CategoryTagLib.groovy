@@ -1,5 +1,6 @@
 package supply
 
+import grails.converters.JSON
 class CategoryTagLib {
 
     static namespace = "category"
@@ -16,5 +17,10 @@ class CategoryTagLib {
         out << "jQuery('#c_id'.val(jQuery(o).val()))"
         out << "}"
         out << "</script>"
+    }
+    
+    def categoryNav = {
+        out << categoryService.categoryTree()
+        
     }
 }

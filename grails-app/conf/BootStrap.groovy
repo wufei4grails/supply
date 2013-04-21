@@ -4,6 +4,7 @@ import grails.util.GrailsUtil
 import supply.Role
 import supply.Store
 import supply.GoodsCategory
+import supply.Goods
 
 class BootStrap {
 
@@ -57,11 +58,14 @@ class BootStrap {
             
            
             //门店菜单，角色，权限数据初始化
-            def m4 = new Menu(level: 1,menuid:"104", menuname:"门店信息管理", controller:"member",action:"memberManager",menutype:"store",sort:"1")
+            def m4 = new Menu(level: 1,menuid:"104", menuname:"门店信息管理", controller:"member",action:"memberManager",menutype:"store",sort:"9")
             def m4_1 = new Menu(level: 2,menuid:"104101", menuname:"门店基本资料", controller:"member",action:"reqStoreInfo",menutype:"store",sort:"1")
             def m4_2 = new Menu(level: 2,menuid:"104102", menuname:"门店收货地址", controller:"member",action:"reqAddressList",menutype:"store",sort:"2")
             def m4_2_1 = new Menu(level: 3,menuid:"104102101", menuname:"添加新收货地址", controller:"member",action:"reqAddAddress",menutype:"store",sort:"1")
             def m4_2_2 = new Menu(level: 3,menuid:"104102102", menuname:"修改收货地址", controller:"member",action:"reqUpdateAddress",menutype:"store",sort:"1")
+            //采购商品流程
+            def m5 = new Menu(level: 1,menuid:"105", menuname:"采购商品", controller:"shopping",action:"shoppingManager",menutype:"store",sort:"8")
+            def m5_1 = new Menu(level: 2,menuid:"105101", menuname:"采购商品", controller:"shopping",action:"shoppingGoodsList",menutype:"store",sort:"8")
             
             
             
@@ -71,6 +75,8 @@ class BootStrap {
             storerole.addToMenus(m4_2);
             storerole.addToMenus(m4_2_1);
             storerole.addToMenus(m4_2_2);
+            storerole.addToMenus(m5);
+            storerole.addToMenus(m5_1);
             
             def store = new Store(store_name:"门店测试",store_type:"store",address:"");
             def member = new User(login:"test", password:"111111",name:"testname",user_type:"store")
@@ -85,9 +91,23 @@ class BootStrap {
             
             def root = new GoodsCategory(name:"root");
             def c1 = new GoodsCategory(name:"蔬菜");
-            root.addToChildren(c1)
+            def c2 = new GoodsCategory(name:"水果");
+            def c2_1 = new GoodsCategory(name:"南方水果");
+            def c2_2 = new GoodsCategory(name:"北方水果");
+//            c2.addToChildren(c2_1)
+//            c2.addToChildren(c2_2)
+            
+//            root.addToChildren(c1)
+            root.addToChildren(c2)
             root.save()
             
+            
+            def goodsArray = ["精品樱桃礼盒66","精品樱桃礼盒77","精品樱桃礼盒88","精品樱桃礼盒8","精品樱桃礼盒7","精品樱桃礼盒6","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒5","精品樱桃礼盒4","精品樱桃礼盒3","精品樱桃礼盒2","精品樱桃礼盒1","精品樱桃礼盒","精品樱桃礼盒"]
+            
+            goodsArray.each{
+                def goods = new Goods(goods_name:it,goods_sn:"9088",c_id:"3",price:100.00,status:"on",img_url:"/supply/attached/image/20130421/20130421181931_791.jpg")
+                goods.save()
+            }
             
             
             

@@ -1,10 +1,23 @@
 package supply
 
+import grails.converters.JSON
 class CategoryService {
 
     def serviceMethod() {
 
     }
+    
+    
+    def categoryTree(){
+        def root = GoodsCategory.findByName("root");
+        def ctree = root?.getAllChildren()
+        def coll = []
+        ctree.each{
+            coll.add(new ZTreeNodePOJO(name:it.name,id:it.id,pId:it.parent.id));
+        }
+        return coll as JSON
+    }
+
     
     
     def categorySelect(Long id){
@@ -32,7 +45,7 @@ class CategoryService {
         def goodsCategory = GoodsCategory.get(id)
         def pGoodsCategory = goodsCategory.parent
         def thisCategorySelect = pGoodsCategory.children
-        def s = "<select class='input-small' onchange='categoryChange(this)' onclick='categorySelect(this)'>"
+        def s = "<select class='input-small' onchange='categoryChange(this),categorySelect(this)' >"
         s = s + "<option value='"+pGoodsCategory.id+"'>请选择</option>"
         def sel = ""
         thisCategorySelect.each{
@@ -58,7 +71,7 @@ class CategoryService {
         
         def s = ""
         if(childCategorySelect){
-            s = "<select class='input-small' onchange='categoryChange(this)' onclick='categorySelect(this)'>"
+            s = "<select class='input-small' onchange='categoryChange(this),categorySelect(this)' >"
             s = s + "<option value='"+id+"'>请选择</option>"
             childCategorySelect.each{
                 

@@ -12,21 +12,15 @@ class GoodsController {
     }
     
     def categoryManager(){
-        def root = GoodsCategory.findByName("root");
-        def ctree = root?.getAllChildren()
-        def coll = []
-        ctree.each{
-            coll.add(new ZTreeNodePOJO(name:it.name,id:it.id,pId:it.parent.id));
-            
-        }
-        
-//        coll.each{
-//            println it.name + "|" + it.id + "|" + it.pId
+//        def root = GoodsCategory.findByName("root");
+//        def ctree = root?.getAllChildren()
+//        def coll = []
+//        ctree.each{
+//            coll.add(new ZTreeNodePOJO(name:it.name,id:it.id,pId:it.parent.id));
 //            
 //        }
         
-        
-        def map = ["ctree" : coll as JSON]
+        def map = ["ctree" : categoryService.categoryTree()]
         
         render(view: "/company/goods/categoryList", model:map)
     }
@@ -75,14 +69,16 @@ class GoodsController {
     }
     
     def doAddGoods(){
+        def img_urls = params.img_url.tokenize(',')
         def goods = new Goods(params)
         goods.status="on"//发布商品默认上架
+        goods.img_url=img_urls[0]
         goods.save(flush:true);
         def attach_id = goods.id;
         
         
         
-        def img_urls = params.img_url.tokenize(',')
+        
         
         img_urls.each{
             def attach = new Attach(attach_id:attach_id,url:it)
@@ -150,11 +146,13 @@ class GoodsController {
     }
     
     def doUpdateGoods(Long id){
+        def img_urls = params.img_url.tokenize(",")
         def goods = Goods.get(id);
         goods.properties = params
+        goods.img_url=img_urls[0]
         goods.save();
         
-        def img_urls = params.img_url.tokenize(",")
+        
         
         img_urls.each{
             def attach = new Attach(attach_id:goods.id,url:it)

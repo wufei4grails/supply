@@ -15,7 +15,7 @@ class SecurityFilters {
                     && !actionName.equals('login')
                     && !actionName.equals('jpeg')
                     && !actionName.equals('authenticate')) {//验证码
-                    redirect(controller: 'login',action:'companyLogin')
+                    redirect(controller: 'login',action:'login')
                     return false
                 }
                     

@@ -3,7 +3,8 @@ package supply
 class Goods {
 
     static constraints = {
-        goods_text(size: 0..65535)
+        img_url(blank:true,nullable:true)
+        goods_text(size: 0..65535,blank:true,nullable:true)
     }
     
     BigDecimal price;
@@ -12,6 +13,7 @@ class Goods {
     String c_id;
     String goods_text;
     String status; //on off
+    String img_url;//主图，用于列表页显示图片
     Date dateCreated
     Date lastUpdated
 }
