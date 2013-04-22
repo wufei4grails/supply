@@ -172,7 +172,8 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
               <div class="controls">
                 <ul class="goods-img">
                   <g:each in="${attachList}">
-                    <li id='${it.id}'><img class="img_url" src="${it.url}" >
+                    <li id='${it.id}'>
+                      <g:img class="img_url" uri="${it.url}"/>
                       
                       <g:remoteLink controller="goods" action="delImg"  id="${it.id}"  onComplete="delImg(${it.id})">
                       <i class="icon-remove"></i> 

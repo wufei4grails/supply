@@ -235,13 +235,12 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       
       
       
-      
         KindEditor.ready(function(K) {
                var editor = K.create('textarea[name="goods_text"]', {
                         resizeType : 1,
                         allowFileManager:true,
                         allowPreviewEmoticons : true,
-                        uploadJson : '${baseUrl}/image/upload',
+                        uploadJson : '${baseUrl}/image/upload?Jsessionid=${session.id}',
                         fileManagerJson : '${baseUrl}/kindeditor-4.1.5/jsp/file_manager_json.jsp',
                         allowImageUpload : true,
                         items : ['preview','source', 'wordpaste','quickformat','fullscreen','|',

@@ -28,7 +28,7 @@
           </g:if>
           <div class="span4 item">
             <div style="height:140px;">
-              <img src="${goods.img_url}" class="img-rounded">
+              <g:img class="img-rounded" uri="${goods.img_url}"/>
             </div>
             
             <h4 style="height:40px;">${goods.goods_name.size()>16?goods.goods_name[0..9]:goods.goods_name}</h4>

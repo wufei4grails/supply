@@ -72,7 +72,9 @@ class GoodsController {
         def img_urls = params.img_url.tokenize(',')
         def goods = new Goods(params)
         goods.status="on"//发布商品默认上架
-        goods.img_url=img_urls[0]
+        if(img_urls[0]){
+            goods.img_url=img_urls[0].replace(request.getContextPath(),'')
+        }
         goods.save(flush:true);
         def attach_id = goods.id;
         
@@ -81,7 +83,7 @@ class GoodsController {
         
         
         img_urls.each{
-            def attach = new Attach(attach_id:attach_id,url:it)
+            def attach = new Attach(attach_id:attach_id,url:it.replace(request.getContextPath(),''))
             attach.save()
         }
         
@@ -149,13 +151,17 @@ class GoodsController {
         def img_urls = params.img_url.tokenize(",")
         def goods = Goods.get(id);
         goods.properties = params
-        goods.img_url=img_urls[0]
+        println(img_urls)
+        if(img_urls[0]){
+            goods.img_url=img_urls[0].replace(request.getContextPath(),'')
+        }
+        
         goods.save();
         
         
         
         img_urls.each{
-            def attach = new Attach(attach_id:goods.id,url:it)
+            def attach = new Attach(attach_id:goods.id,url:it.replace(request.getContextPath(),''))
             attach.save()
         }
         

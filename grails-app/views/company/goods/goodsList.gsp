@@ -65,7 +65,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
                 </td>
                 <td>
                   <g:link action="reqUpdateGoods" id="${fieldValue(bean: goods, field: "id")}">修改</g:link>
-                  <g:remoteLink controller="goods" action="delGoods"  id="${goods.id}"  onComplete="delGoods(${goods.id},${goods.goods_name})">
+                  <g:remoteLink controller="goods" action="delGoods"  id="${goods.id}"  onComplete="delGoods(${goods.id},'${goods.goods_name}')">
                       删除
                       </g:remoteLink>
                 </td>
