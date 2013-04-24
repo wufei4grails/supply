@@ -10,7 +10,7 @@ class GoodsCategoryAttrController {
         
         //        GoodsCategoryAttr.findAllByC_id(params.c_id)
         //        println(GoodsCategoryAttr.findAllByC_id(params.c_id) as JSON)
-        
+	def goodsAttrList = GoodsAttr.findAllByGoods_id(params.goods_id)
         def gc = GoodsCategory.get(params.c_id)
         
         Map pgcAttrJSON =  goodsCategoryAttrService.selParentGoodsCategoryAttr(gc)
@@ -19,8 +19,9 @@ class GoodsCategoryAttrController {
         Map attrMap = new HashMap()
         attrMap.put("gcAttrJSON",gcAttrJSON)
         attrMap.put("pgcAttrJSON",pgcAttrJSON)
+	attrMap.put("goodsAttrList",goodsAttrList)
         
-//        println(attrMap as JSON)
+        println(attrMap as JSON)
         
         render attrMap as JSON
     }

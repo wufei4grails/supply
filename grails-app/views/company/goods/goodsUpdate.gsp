@@ -109,7 +109,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 										<label class="attr-control-label" >保质期</label>
 										<div class="attr-controls">
 											<input name="attr_name" type="hidden" placeholder="" class="input-xlarge attr_name">
-											<input name="attr_val" type="text" placeholder="" class="input-xlarge">
+											<input name="attr_val" type="text" placeholder="" class="input-xlarge attr_val">
 											<p class="help-block"></p>
 										</div>
 
@@ -121,7 +121,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 											<label class="attr-control-label" >${it.attr_name}</label>
 											<div class="attr-controls">
 												<input value="${it.attr_name}" name="attr_name" type="hidden" placeholder="" class="input-xlarge attr_name">
-												<input value="${it.attr_val}" name="attr_val" type="text" placeholder="" class="input-xlarge">
+												<input value="${it.attr_val}" name="attr_val" type="text" placeholder="" class="input-xlarge attr_val">
 												<p class="help-block"></p>
 											</div>
 
@@ -203,7 +203,7 @@ ${goods.goods_text}
 				</g:form>
 				<g:formRemote id="selGoodsCategoryAttr" data-validate="parsley" onSuccess="selGoodsCategoryAttrSuccess(data)" class="form-horizontal" name="selGoodsCategoryAttr" on404="alert('not found!')" 
 					      url="[controller: 'goodsCategoryAttr', action:'selGoodsCategoryAttr']">
-					<input type="hidden" name="c_id" id="c_id" value=""/>
+					<input type="hidden" name="c_id" id="c_id" value=""/>					 <input type="hidden" name="goods_id"  value="${goods?.id}"/>
 				</g:formRemote>
 			</div><!--/span-->
 		</div><!--/row-->
@@ -353,10 +353,9 @@ ${goods.goods_text}
     
     
 	  function selGoodsCategoryAttrSuccess(data){
-		//当商品分类切换时，将老数据保留，其它删除掉
-	    $(".attr-control-group:not(:eq(0)):not('.old-attr-control-group')").remove()
+		//当商品分类切换时，除第一条用于clone，其它删除掉
+	    $(".attr-control-group:not(:eq(0))").remove()
 	    var old_control = $(".attr-control-group");//取出已填写的数据，当选择分类再遍历父分类的属性时，与已有老数据相同时就不要再复盖属性，保留之前填写的值
-      
       
 	    if($("#selGoodsCategoryAttr #c_id").val()!="1"){
 	      $("#attr-group").show("slow");
@@ -364,41 +363,36 @@ ${goods.goods_text}
 	      $.each(data.pgcAttrJSON,function(i,v){
           
 		$.each(v,function(key,val){
-			var is_add = true;
-			//遍历判断是否有和老数据相同的属性
-			$.each(old_control,function(old_key,old_val){
-				if($(old_val).find(".attr-control-label").html()==val.attr_name){
-					is_add = false;//当有相同属性时不再添加数据
-				}
-			});
 			
-			if(is_add){
-				var attr_group = $(".attr-control-group:eq(0)").clone()
-				attr_group.find(".attr-control-label").html(val.attr_name)
-				attr_group.find(".attr_name").val(val.attr_name)
+			
+			
+			var attr_group = $(".attr-control-group:eq(0)").clone()
+			attr_group.find(".attr-control-label").html(val.attr_name)
+			attr_group.find(".attr_name").val(val.attr_name)
+			$.each(data.goodsAttrList,function(oldattrkey,oldattrval){
+				if(val.attr_name==oldattrval.attr_name){
+					attr_group.find(".attr_val").val(oldattrval.attr_val);
+				}
+			})
 
-				$("#attr-controls").find(".well").append(attr_group.show())
-			}
+			$("#attr-controls").find(".well").append(attr_group.show())
 			
 		})
           
 	      })
         
 	      $.each(data.gcAttrJSON,function(i,v){
-			var is_add = true;
-			//遍历判断是否有和老数据相同的属性
-			$.each(old_control,function(old_key,old_val){
-				if($(old_val).find(".attr-control-label").html()==v.attr_name){
-					is_add = false;//当有相同属性时不再添加数据
-				}
-			});
+			var attr_group = $(".attr-control-group:eq(0)").clone()
+			attr_group.find(".attr-control-label").html(v.attr_name)
+			attr_group.find(".attr_name").val(v.attr_name)
 			
-			if(is_add){
-				var attr_group = $(".attr-control-group:eq(0)").clone()
-				attr_group.find(".attr-control-label").html(v.attr_name)
-				attr_group.find(".attr_name").val(v.attr_name)
-				$("#attr-controls").find(".well").append(attr_group.show())
-			}
+			$.each(data.goodsAttrList,function(oldattrkey,oldattrval){
+				if(v.attr_name==oldattrval.attr_name){
+					attr_group.find(".attr_val").val(oldattrval.attr_val);
+				}
+			})
+			
+			$("#attr-controls").find(".well").append(attr_group.show())
 	      
 	      
 		
