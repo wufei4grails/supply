@@ -355,7 +355,6 @@ ${goods.goods_text}
 	  function selGoodsCategoryAttrSuccess(data){
 		//当商品分类切换时，除第一条用于clone，其它删除掉
 	    $(".attr-control-group:not(:eq(0))").remove()
-	    var old_control = $(".attr-control-group");//取出已填写的数据，当选择分类再遍历父分类的属性时，与已有老数据相同时就不要再复盖属性，保留之前填写的值
       
 	    if($("#selGoodsCategoryAttr #c_id").val()!="1"){
 	      $("#attr-group").show("slow");
