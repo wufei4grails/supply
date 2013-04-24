@@ -14,7 +14,8 @@ class SecurityFilters {
                 if(!session.loginPOJO 
                     && !actionName.equals('login')
                     && !actionName.equals('jpeg')
-                    && !actionName.equals('authenticate')) {//验证码
+                    && !actionName.equals('authenticate')
+		    && !actionName.equals('upload')) {//验证码
                     redirect(controller: 'login',action:'login')
                     return false
                 }

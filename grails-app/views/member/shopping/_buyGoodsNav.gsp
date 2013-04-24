@@ -1,6 +1,10 @@
 <div class="row-fluid">
   <div id="legend" class="span11">
     <ul class="breadcrumb">
+
+	    
+       <buyGoodsNav:buyGoodsNav /> 
+	    
       <li >
         <a href="#">蔬菜</a>
         <span class="divider">/</span>

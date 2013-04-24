@@ -35,19 +35,19 @@
       var ctree = jQuery.parseJSON('<category:categoryNav/>')
       $.each(ctree,function(i,v){
         if(v.pId==1){
-          var li = '<li class="cat-li" id="'+v.id+'" ><a href="#">'
+          var li = '<li class="cat-li" id="'+v.id+'" ><a href="<%=request.getContextPath()%>/shopping/shoppingGoodsList?c_id='+v.id+'">'
                   + v.name + '</a></li>'
           $(".root").append(li)
         }else{
           var p = $("#"+v.pId)
           
           if(p.find("ul").length>0){
-            var li = '<li class="cat-li" id="'+v.id+'" ><a href="#">'
+            var li = '<li class="cat-li" id="'+v.id+'" ><a href="<%=request.getContextPath()%>/shopping/shoppingGoodsList?c_id='+v.id+'">'
                   + v.name + '</a></li>'
             p.find("ul").append(li)
           }
           else{
-            var li = '<ul class="nav nav-tabs nav-stacked cat-ul" ><li class="cat-li" id="'+v.id+'" ><a href="#">'
+            var li = '<ul class="nav nav-tabs nav-stacked cat-ul" ><li class="cat-li" id="'+v.id+'" ><a href="<%=request.getContextPath()%>/shopping/shoppingGoodsList?c_id='+v.id+'">'
                   + v.name + '</a></li></ul>'
             p.append(li)
           }

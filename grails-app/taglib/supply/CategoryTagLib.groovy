@@ -14,7 +14,7 @@ class CategoryTagLib {
         out << "<script>"
         out << "function categorySelect(o){"
         out << rf
-        out << "jQuery('#c_id'.val(jQuery(o).val()))"
+        out << "jQuery('#c_id').val(jQuery(o).val())"
         out << "}"
         out << "</script>"
     }

@@ -20,7 +20,7 @@ class GoodsCategoryAttrController {
         attrMap.put("gcAttrJSON",gcAttrJSON)
         attrMap.put("pgcAttrJSON",pgcAttrJSON)
         
-        println(attrMap as JSON)
+//        println(attrMap as JSON)
         
         render attrMap as JSON
     }

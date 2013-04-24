@@ -66,7 +66,7 @@ class BootStrap {
             //采购商品流程
             def m5 = new Menu(level: 1,menuid:"105", menuname:"采购商品", controller:"shopping",action:"shoppingManager",menutype:"store",sort:"8")
             def m5_1 = new Menu(level: 2,menuid:"105101", menuname:"采购商品", controller:"shopping",action:"shoppingGoodsList",menutype:"store",sort:"8")
-            
+            def m5_2 = new Menu(level: 3,menuid:"105101101", menuname:"查看商品", controller:"shopping",action:"buyGoodsDetail",menutype:"store",sort:"8")
             
             
             def storerole = new Role(rolename:"store");
@@ -105,7 +105,7 @@ class BootStrap {
             def goodsArray = ["精品樱桃礼盒66","精品樱桃礼盒77","精品樱桃礼盒88","精品樱桃礼盒8","精品樱桃礼盒7","精品樱桃礼盒6","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒5","精品樱桃礼盒4","精品樱桃礼盒3","精品樱桃礼盒2","精品樱桃礼盒1","精品樱桃礼盒","精品樱桃礼盒"]
             
             goodsArray.each{
-                def goods = new Goods(goods_name:it,goods_sn:"9088",c_id:"2",price:100.00,status:"on",img_url:"/attached/image/20130421/20130421181931_791.jpg")
+                def goods = new Goods(goods_name:it,goods_sn:"9088",c_id:"2",price:100.00,status:"on",img:"/attached/image/20130421/20130421181931_791.jpg")
                 goods.save()
             }
             

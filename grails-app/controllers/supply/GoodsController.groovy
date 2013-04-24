@@ -73,7 +73,7 @@ class GoodsController {
         def goods = new Goods(params)
         goods.status="on"//发布商品默认上架
         if(img_urls[0]){
-            goods.img_url=img_urls[0].replace(request.getContextPath(),'')
+            goods.img=img_urls[0].replace(request.getContextPath(),'')
         }
         goods.save(flush:true);
         def attach_id = goods.id;
@@ -149,21 +149,26 @@ class GoodsController {
     
     def doUpdateGoods(Long id){
         def img_urls = params.img_url.tokenize(",")
+	
+		
+	img_urls.each{
+            def attach = new Attach(attach_id:id,url:it.replace(request.getContextPath(),''))
+            attach.save()
+        }
+
+	def attachList = Attach.findAllByAttach_id(params.id)
+		
         def goods = Goods.get(id);
         goods.properties = params
-        println(img_urls)
-        if(img_urls[0]){
-            goods.img_url=img_urls[0].replace(request.getContextPath(),'')
+        if(attachList[0]){//取图片第一张为主图
+            goods.img=attachList[0].url
         }
         
         goods.save();
         
         
         
-        img_urls.each{
-            def attach = new Attach(attach_id:goods.id,url:it.replace(request.getContextPath(),''))
-            attach.save()
-        }
+        
         
         GoodsAttr.executeUpdate("delete GoodsAttr g where g.goods_id = :goods_id ",[goods_id:params.id])
         //维护商品属性数据

@@ -8,7 +8,6 @@
 <html>
   <head>
     <meta name="layout" content="main"/>
-  <r:require modules="bootstrap"/>
 </head>
 <body>
 
@@ -29,7 +28,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       </div><!--/span-->
       <div class="span9">
 
-        <g:form data-validate="parsley" class="form-horizontal" controller="goods" action="doAddGoods" method="post">
+        <g:form onSubmit="return fieldValidate(this);" data-validate="parsley" id="doAddGoods" class="form-horizontal" controller="goods" action="doAddGoods" method="post">
           <fieldset>
             <div id="legend" class="">
               <legend class="">发布新商品</legend>
@@ -45,7 +44,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             <div class="control-group">
 
               <!-- Text input-->
-              <label class="control-label" for="input01">商品名称</label>
+              <label class="control-label" for="input01">商品名称<font color="red">&nbsp;*</font></label>
               <div class="controls">
                 <input data-error-message="商品名称不能为空" data-required="true"  name="goods_name"  type="text" placeholder="请输入商品名称" class="input-xlarge">
                 <p class="help-block"></p>
@@ -55,7 +54,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             <div class="control-group">
 
               <!-- Text input-->
-              <label class="control-label" for="input01">商品编号</label>
+              <label class="control-label" for="input01">商品编号<font color="red">&nbsp;*</font></label>
               <div class="controls">
                 <input data-error-message="商品编号不能为空" data-required="true" name="goods_sn"  type="text" placeholder="请输入商品编号" class="input-xlarge">
                 <p class="help-block"></p>
@@ -65,7 +64,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             <div class="control-group">
 
               <!-- Text input-->
-              <label class="control-label" for="input01">价格</label>
+              <label class="control-label" for="input01">价格<font color="red">&nbsp;*</font></label>
               <div class="controls">
                 <input data-type="number" data-type-number-message="商品价格格式不正确" data-required-message="商品价格不能为空" data-required="true" name="price" type="text" placeholder="请输入价格" class="input-xlarge">
                 <p class="help-block"></p>
@@ -79,9 +78,9 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             <div class="control-group">
 
               <!-- Select Basic -->
-              <label class="control-label">商品分类</label>
+              <label class="control-label">商品分类<font color="red">&nbsp;*</font></label>
               <div class="controls" id="categorySelect">
-                  <category:categorySeclect id="1" controller="goods" action="categorySelect" update="categorySelect"/> 
+                  <category:categorySeclect id="1" controller="goods" action="categorySelect" update="categorySelect"/>
                   <p class="help-block"></p>
                 </div>
 
@@ -215,6 +214,22 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 
   </style>
   <script>
+    function fieldValidate(o){
+	 if($(o).find("#c_id").val()=='1'){
+		 var tip = '<ul id="parsley-31664503854699433" class="parsley-error-list" style="display: block;"><li class="min" style="display: list-item;">商品分类不能为空</li></ul>'
+		var exittip = $(o).find("#c_id").next();
+		if(!exittip.attr("class")){
+			$(o).find("#c_id").after(tip);
+		}
+	
+		
+		 return false;
+	}else{
+		return true;
+	}
+	 
+    }  
+
     
     function delImg(o){
       $(o).parents("li").remove();
@@ -232,7 +247,6 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
     
     
     $(document).ready(function(){
-      
       
       
         KindEditor.ready(function(K) {

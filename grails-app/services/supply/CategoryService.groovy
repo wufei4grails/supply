@@ -27,8 +27,8 @@ class CategoryService {
         
         def parentsCategorySelect = parentsCategorySelect(id);
         //用于提交参数c_id到后台
-        def category_input = "<input  type='hidden' id='c_id' name='c_id' value='"+id+"'/>"
-        category_input + parentsCategorySelect + childCategorySelect
+        def category_input = "<input   type='hidden' id='c_id' name='c_id' value='"+id+"'/>"
+         parentsCategorySelect + childCategorySelect + category_input 
     }
     
     

@@ -26,14 +26,15 @@
           <g:if test="${i==0}">
             <div class="row-fluid">
           </g:if>
-          <div class="span4 item">
+          <div title="${goods.goods_name}" class="span4 item">
             <div style="height:140px;">
-              <g:img class="img-rounded" uri="${goods.img_url}"/>
+              <g:img class="img-rounded" uri="${goods.img}"/>
             </div>
             
             <h4 style="height:40px;">${goods.goods_name.size()>16?goods.goods_name[0..9]:goods.goods_name}</h4>
             <p>价格：${goods.price}元</p>
-            <p><a class="btn" href="buyGoodsDetail">采购 »</a></p>
+            <p>
+		    <g:link class="btn" action="buyGoodsDetail" id="${fieldValue(bean: goods, field: "id")}">采购 »</g:link>
           </div>
           
           <g:if test="${i%3==2}">

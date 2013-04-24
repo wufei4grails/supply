@@ -79,7 +79,7 @@
   </style>
   <script>
     function changeCode(){
-      document.getElementById("imageCaptcha").src="/jcaptcha/jpeg/imageCaptcha?id="+ new Date();
+      document.getElementById("imageCaptcha").src="<%=request.getContextPath()%>/jcaptcha/jpeg/imageCaptcha?id="+ new Date();
     }
   </script>
 
