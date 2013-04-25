@@ -25,12 +25,15 @@
 		  <g:img class="img-polaroid" uri="${goods.img}"/>
           </div>
           <div class="span7">
+	<g:form name="shopping" action="gotoCart" id="1">
             <h3 class="goods-title">${goods.goods_name}</h3>
             <h5>商品编号：${goods.goods_sn}</h5>
             <h5>价格：${goods.price}元</h5>
-            <h5>数量：<input class="input-mini" type="text" ></h5>
+            <h5>数量：<input class="input-mini" name="num" id="num" type="text" ></h5>
             <a href="cartManager" class="btn btn-large btn-primary">立即采购</a>
-            <a href="#" class="btn btn-large btn-warning">加入购物车</a>
+            <input class="btn btn-large btn-warning" type="button" onclick="addCart(this)" value="加入购物车">
+	</g:form>
+	    
           </div>
         </div>
         <div class="row-fluid">
@@ -96,7 +99,11 @@
 
       </div><!--/span-->
     </div><!--/row-->
-
+    <g:formRemote id="addCart" name="addCart" on404="alert('not found!')" update="" onSuccess="addCartSuccess(data)"
+	url="[controller: 'shopping', action:'addCart']">
+	    <g:hiddenField id="id" name="id" value="${goods.id}" />
+	    <g:hiddenField id="num" name="num" value="" />
+	</g:formRemote>
 
     <g:render template="/layouts/company_footer"/>
 
@@ -112,6 +119,23 @@
     }
 
   </style>
+  <script>
+	  function addCart(o){
+		  
+		  var num = jQuery(o).parents("form").find("#num").val();
+		  if(!num){
+			  alert("请输入订购数量！")
+		  }
+		  jQuery("#addCart").find("#num").val(num)
+		  jQuery("#addCart").submit();
+	  }
+	  function addCartSuccess(data){
+//		  alert(data.num)
+//		  alert(data.goods.goods_name)
+		  alert(data.goods.goods_name+"加入购物车成功！")
+		  window.top.location.reload()
+	  }
+  </script>
 </body>
 
 </html>

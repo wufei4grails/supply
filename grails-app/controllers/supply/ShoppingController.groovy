@@ -63,4 +63,40 @@ class ShoppingController {
 		def map = [goods:goods,goodsAttrList:goodsAttrList,attachList:attachList]
 		render(view: "/member/shopping/buyGoodsDetail", model:map)
 	}
+	
+	
+	def addCart(){
+		def goods = Goods.get(params.id)
+		BuyPOJO buyPOJO = new BuyPOJO(goods:goods,num:params.num.toInteger())
+		
+		if(!session.cartPOJO){
+			CartPOJO cartPOJO = new CartPOJO(buyPOJOMap: [:] );
+			
+			cartPOJO.buyPOJOMap.put(params.id,buyPOJO)
+			session.cartPOJO = cartPOJO;	
+		}else{
+			if(session.cartPOJO.buyPOJOMap.containsKey(goods.id)){
+				//如果商品在购物车中已存在，则直接增加数量
+				def buyPOJOOfMap = session.cartPOJO.buyPOJOMap.get(goods.id)
+				buyPOJOOfMap.num = buyPOJOOfMap.num + params.num.toInteger()
+				println(buyPOJOOfMap)
+			}else{
+				session.cartPOJO.buyPOJOMap.put(params.id,buyPOJO)	
+			}
+			
+			
+		}
+		
+		
+		render buyPOJO as JSON
+	}
+	
+	
+	def removeGoods (){
+		println(params.id)
+		println(session.cartPOJO.buyPOJOMap)
+		session.cartPOJO.buyPOJOMap.remove(params.id)
+		println(session.cartPOJO.buyPOJOMap.get(params.id))
+		render ''
+	}
 }
