@@ -2,7 +2,7 @@ package supply
 
 import grails.converters.JSON
 class ShoppingController {
-
+        //test company
 	def categoryService
 	def index() { }
     
