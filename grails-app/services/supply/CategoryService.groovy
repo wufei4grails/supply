@@ -38,6 +38,14 @@ class CategoryService {
         parentsCategorySelect(pGoodsCategory.id) + thisCategorySelect(id) 
     }
     
+    //根據分類遞歸獲取所有父級的分類 
+    def parentsCategoryList(Long id,List pgclist){
+        def pGoodsCategory = GoodsCategory.get(id).parent
+        if(id == 1) return ""
+        pgclist.add(0,pGoodsCategory)
+        parentsCategoryList(pGoodsCategory.id,pgclist)
+    }
+    
     
     
     

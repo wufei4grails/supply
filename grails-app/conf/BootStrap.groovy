@@ -77,7 +77,7 @@ class BootStrap {
             storerole.addToMenus(m4_2_2);
             storerole.addToMenus(m5);
             storerole.addToMenus(m5_1);
-            
+            storerole.addToMenus(m5_2);
             def store = new Store(store_name:"门店测试",store_type:"store",address:"");
             def member = new User(login:"test", password:"111111",name:"testname",user_type:"store")
             member.addToRoles(storerole)

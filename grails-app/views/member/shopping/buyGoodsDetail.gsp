@@ -13,13 +13,13 @@
 <body>
 
   <div class="container">
-    <g:render template="/layouts/store_header"/>
+    <g:render template="/layouts/header"/>
 
 
     <div class="row-fluid">
       <g:render template="/member/shopping/buyGoodsCategory"/>
       <div class="span9">
-        <g:render template="/store/buyGoodsNav"/>
+        <g:render template="/member/shopping/buyGoodsNav"/>
         <div class="row-fluid">
           <div class="span5" style="margin-bottom:10px;">
 		  <g:img class="img-polaroid" uri="${goods.img}"/>

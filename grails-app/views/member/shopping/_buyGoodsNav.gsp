@@ -4,8 +4,7 @@
 
 	    
        <buyGoodsNav:buyGoodsNav /> 
-	    
-      <li >
+<!--      <li >
         <a href="#">蔬菜</a>
         <span class="divider">/</span>
       </li>
@@ -15,7 +14,7 @@
       </li>
       <li >
         <a href="#">农科院蔬菜礼盒10样装</a>
-      </li>
+      </li>-->
 
     </ul>
 
