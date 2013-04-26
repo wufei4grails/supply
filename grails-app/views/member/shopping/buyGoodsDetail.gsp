@@ -25,12 +25,13 @@
 		  <g:img class="img-polaroid" uri="${goods.img}"/>
           </div>
           <div class="span7">
-	<g:form name="shopping" action="gotoCart" id="1">
+	<g:form onSubmit="return gotoCart(this)" name="shopping" action="gotoCart" >
+	<g:hiddenField id="id" name="id" value="${goods.id}" />
             <h3 class="goods-title">${goods.goods_name}</h3>
             <h5>商品编号：${goods.goods_sn}</h5>
             <h5>价格：${goods.price}元</h5>
             <h5>数量：<input class="input-mini" name="num" id="num" type="text" ></h5>
-            <a href="cartManager" class="btn btn-large btn-primary">立即采购</a>
+            <input type="submit" class="btn btn-large btn-primary" value="立即采购">
             <input class="btn btn-large btn-warning" type="button" onclick="addCart(this)" value="加入购物车">
 	</g:form>
 	    
@@ -120,12 +121,42 @@
 
   </style>
   <script>
+	  
+	  function gotoCart(o){
+		var num = jQuery(o).find("#num").val();
+		  if(!num){
+			  alert("请输入订购数量！")
+			  return false;
+		  }
+		  
+		  
+		 var re = /^[1-9]+[0-9]*]*$/;       //判断正整数 /^[1-9]+[0-9]*]*$/   
+		if (!re.test(num)){
+		   alert("请输入有效数量！");
+		   
+		   jQuery(o).find("#num").focus();
+		   return false;
+		}  
+	  }
+	  
+	  
 	  function addCart(o){
 		  
 		  var num = jQuery(o).parents("form").find("#num").val();
 		  if(!num){
 			  alert("请输入订购数量！")
+			  return false;
 		  }
+		  
+		  
+		 var re = /^[1-9]+[0-9]*]*$/;       //判断正整数 /^[1-9]+[0-9]*]*$/   
+		if (!re.test(num)){
+		   alert("请输入有效数量！");
+		   
+		   jQuery(o).parents("form").find("#num").focus();
+		   return false;
+		}
+		  
 		  jQuery("#addCart").find("#num").val(num)
 		  jQuery("#addCart").submit();
 	  }

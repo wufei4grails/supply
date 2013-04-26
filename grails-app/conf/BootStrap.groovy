@@ -67,6 +67,7 @@ class BootStrap {
             def m5 = new Menu(level: 1,menuid:"105", menuname:"采购商品", controller:"shopping",action:"shoppingManager",menutype:"store",sort:"8")
             def m5_1 = new Menu(level: 2,menuid:"105101", menuname:"采购商品", controller:"shopping",action:"shoppingGoodsList",menutype:"store",sort:"8")
             def m5_2 = new Menu(level: 3,menuid:"105101101", menuname:"查看商品", controller:"shopping",action:"buyGoodsDetail",menutype:"store",sort:"8")
+	    def m5_3 = new Menu(level: 3,menuid:"105101102", menuname:"查看购物车", controller:"shopping",action:"gotoCart",menutype:"store",sort:"8")
             
             
             def storerole = new Role(rolename:"store");
@@ -78,6 +79,7 @@ class BootStrap {
             storerole.addToMenus(m5);
             storerole.addToMenus(m5_1);
             storerole.addToMenus(m5_2);
+	    storerole.addToMenus(m5_3);
             def store = new Store(store_name:"门店测试",store_type:"store",address:"");
             def member = new User(login:"test", password:"111111",name:"testname",user_type:"store")
             member.addToRoles(storerole)

@@ -65,8 +65,10 @@ class ShoppingController {
 	}
 	
 	
-	def addCart(){
+	
+	def setCart(def params){
 		def goods = Goods.get(params.id)
+		if(!goods)return;
 		BuyPOJO buyPOJO = new BuyPOJO(goods:goods,num:params.num.toInteger())
 		
 		if(!session.cartPOJO){
@@ -88,15 +90,33 @@ class ShoppingController {
 		}
 		
 		
-		render buyPOJO as JSON
+		return buyPOJO as JSON
+	}
+	
+	//加入购物车请求
+	def addCart(){
+		render setCart(params)
 	}
 	
 	
 	def removeGoods (){
-		println(params.id)
-		println(session.cartPOJO.buyPOJOMap)
 		session.cartPOJO.buyPOJOMap.remove(params.id)
-		println(session.cartPOJO.buyPOJOMap.get(params.id))
-		render ''
+		render params.id
 	}
+	
+	
+	def gotoCart(){
+		
+		setCart(params)
+		
+		
+		def cartList=[];
+		session.cartPOJO.buyPOJOMap.each{
+			cartList.add(it.value)
+		}
+		def map = [cartList:cartList]
+		render(view: "/member/shopping/cartList", model:map)
+	}
+	
+	
 }
