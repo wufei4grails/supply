@@ -17,7 +17,7 @@
 					<cart:cartlist /> 
 
 					<li >
-						<g:link controller="shopping" action="gotoCart"><strong>去购物车结算</strong></g:link>
+						<g:link controller="shopping" action="reqCart"><strong>去购物车结算</strong></g:link>
 					</li>
 				</ul>
 			</li>

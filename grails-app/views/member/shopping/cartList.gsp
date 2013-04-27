@@ -54,7 +54,7 @@
 
           <div class="row-fluid">
             <div id="legend" class="span12">
-              <table class="table table-hover">
+              <table id="cart_table" class="table table-hover">
                 <thead>
                   <tr>
                     <th  >商品名称</th>
@@ -69,7 +69,7 @@
 		
 			
 		<g:each in="${cartList}" status="i" var="buyPOJO">
-			<tr id='${buyPOJO.goods.id}'>
+			<tr id='${buyPOJO.goods.id}' class="goods">
 			<td>
 				
 				
@@ -78,14 +78,15 @@
 			 </td>
 
 			<td>${buyPOJO.goods.goods_sn}</td>
-			<td>${buyPOJO.goods.price}</td>
-			<td><input class="input-mini" type="text" value="${buyPOJO.num}"></td>
+			<td class="price">${buyPOJO.goods.price}</td>
+			<td> <input goods_id="${buyPOJO.goods.id}"  class="input-mini num" type="text" value="${buyPOJO.num}"></td>
 			<td>
-			<g:formRemote id="removeGoods" name="removeGoods" on404="alert('not found!')" update="" onSuccess="jQuery('#'+data).remove()"
-	url="[controller: 'shopping', action:'removeGoods']">
-	    <g:hiddenField id="id" name="id" value="${buyPOJO.goods.id}" />
+
+				<g:form onSubmit="" name="removeGoods" class="removeGoods" action="removeGoods" >
+				
+				<g:hiddenField id="id" name="id" value="${buyPOJO.goods.id}" />
 	    <input type="submit" class="btn" value="删除">
-	</g:formRemote>	
+	</g:form>	
 				<!--<a href="#">删除</a>-->
 			
 			</td>
@@ -95,7 +96,7 @@
                   <tr class="info">
                     <td colspan="3" ></td>
                     <td  ></td>
-                    <td>总计：¥1788.00</td>
+                    <td>总计：¥<span id="totalPrice"></span></td>
                   </tr>
                   <tr > 
                     <td ></td>
@@ -114,7 +115,10 @@
       
 
       <g:render template="/layouts/company_footer"/>
-
+      <g:form onSubmit="" name="updateCart" class="updateCart" action="updateCart" >
+	      <g:hiddenField id="id" name="id" value="" />
+	    <g:hiddenField id="num" name="num" value="" />
+      </g:form>
     </div> <!-- /container -->
     <style>
       .goods-title{
@@ -127,6 +131,54 @@
       }
 
     </style>
+  <script>
+	 
+	  
+	  
+	  
+	function initTotalPrice(){
+		var totalPrice = 0.00 ;
+		jQuery("#cart_table").find(".goods").each(function(){
+			
+			var price = jQuery(this).find(".price").html();
+			var num = jQuery(this).find(".num").val();
+			
+			totalPrice = parseFloat(totalPrice) + parseFloat(price*num);
+			
+		});
+		jQuery("#totalPrice").html(totalPrice.toFixed(2));
+	}
+	
+	
+	$(document).ready(function(){
+		initTotalPrice();
+		
+		jQuery(".num").change(function() {
+			jQuery(".updateCart").find("#num").val(jQuery(this).val());
+			jQuery(".updateCart").find("#id").val(jQuery(this).attr("goods_id"));
+			
+			
+			var num = jQuery(this).val();
+			if(!num){
+				alert("请输入订购数量！")
+				return false;
+			}
+
+
+		      var re = /^[1-9]+[0-9]*]*$/;       //判断正整数 /^[1-9]+[0-9]*]*$/   
+		      if (!re.test(num)){
+			 alert("请输入有效数量！");
+
+			 jQuery(o).find("#num").focus();
+			 return false;
+		      }  
+		
+			jQuery(".updateCart").submit();
+		});
+	
+	});	
+  
+  </script>
   </body>
 
 </html>

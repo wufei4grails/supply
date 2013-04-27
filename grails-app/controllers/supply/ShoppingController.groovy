@@ -65,7 +65,7 @@ class ShoppingController {
 	}
 	
 	
-	
+	//往购物车中添加商品
 	def setCart(def params){
 		def goods = Goods.get(params.id)
 		if(!goods)return;
@@ -78,9 +78,9 @@ class ShoppingController {
 			session.cartPOJO = cartPOJO;	
 		}else{
 			if(session.cartPOJO.buyPOJOMap.containsKey(goods.id)){
-				//如果商品在购物车中已存在，则直接增加数量
+				//如果商品在购物车中已存在，则直接修改数量
 				def buyPOJOOfMap = session.cartPOJO.buyPOJOMap.get(goods.id)
-				buyPOJOOfMap.num = buyPOJOOfMap.num + params.num.toInteger()
+				buyPOJOOfMap.num = params.num.toInteger()
 				println(buyPOJOOfMap)
 			}else{
 				session.cartPOJO.buyPOJOMap.put(params.id,buyPOJO)	
@@ -98,16 +98,21 @@ class ShoppingController {
 		render setCart(params)
 	}
 	
-	
-	def removeGoods (){
-		session.cartPOJO.buyPOJOMap.remove(params.id)
-		render params.id
+	def updateCart(){
+		setCart(params)
+		redirect(action: "reqCart", params: params)
 	}
 	
 	
-	def gotoCart(){
+	def removeGoods (){
+		session.cartPOJO.buyPOJOMap.remove(params.id)
+		redirect(action: "reqCart", params: params)
+	}
+	
+	
+	//简单请求到购物车
+	def reqCart(){
 		
-		setCart(params)
 		
 		
 		def cartList=[];
@@ -116,6 +121,15 @@ class ShoppingController {
 		}
 		def map = [cartList:cartList]
 		render(view: "/member/shopping/cartList", model:map)
+	}
+	
+	//商品页面直接填写数量购买进入购物车
+	def gotoCart(){
+		
+		setCart(params)
+		
+		redirect(action: "reqCart", params: params)
+		
 	}
 	
 	

@@ -14,10 +14,12 @@ class CartTagLib {
 				o = o + "${createLink(controller:'shopping',action: 'buyGoodsDetail',id:it.value.goods.id)}"
 				o = o +	'">'
 				o = o +	  '<div >'+it.value.goods.goods_name+'</div>'
-				o = o +	  '<div >￥'+it.value.goods.price+'×'+it.value.num+'</div>'
+				o = o +	  '<div >￥'+it.value.goods.price+'×'+it.value.num
 
-				o = o +	'</a>'
+				
 				o = o +	'<i style="float:right;" class="icon-remove" onclick="removeGoods(this,'+it.value.goods.id+')"></i>'
+				o = o + '</div>'
+				o = o +	'</a>'
 				o = o +    '</li>'
 			}
 		
