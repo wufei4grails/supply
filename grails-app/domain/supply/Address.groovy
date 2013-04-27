@@ -15,8 +15,7 @@ class Address implements Comparable{
     String address
     String telphone
     String person_name //收货人名字
-    String id_default;//0 不是 1：是
-    
+    String is_default;//0 不是 1：是
     Date dateCreated
     Date lastUpdated
 }

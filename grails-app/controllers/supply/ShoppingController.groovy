@@ -38,7 +38,7 @@ class ShoppingController {
 				
 				List coll = new ArrayList()
 				ctree.each{
-				    coll.add(it.id.toString());
+					coll.add(it.id.toString());
 				}
 				coll.add(params.c_id)
 				inList('c_id',coll)
@@ -116,9 +116,12 @@ class ShoppingController {
 		
 		
 		def cartList=[];
-		session.cartPOJO.buyPOJOMap.each{
-			cartList.add(it.value)
+		if(session.cartPOJO){
+			session.cartPOJO.buyPOJOMap.each{
+				cartList.add(it.value)
+			}
 		}
+		
 		def map = [cartList:cartList]
 		render(view: "/member/shopping/cartList", model:map)
 	}
@@ -132,5 +135,24 @@ class ShoppingController {
 		
 	}
 	
-	
+	//填写核对订单信息 
+	def checkOrder(){
+		
+		def cartList=[];
+		if(session.cartPOJO){
+			session.cartPOJO.buyPOJOMap.each{
+				cartList.add(it.value)
+			}
+		}
+		
+		
+		
+		def store = Store.get(session.loginPOJO.store.id)
+		def addressList = store.addresses
+		
+		
+		def map = [cartList:cartList,addressList: addressList]
+		
+		render(view: "/member/shopping/checkOrder", model:map)
+	}
 }

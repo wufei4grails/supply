@@ -41,7 +41,21 @@ class MemberController {
     }
     
     def doAddAddress(){
+	    
+	
         Address address = new Address(params)
+	
+	if(address.is_default=="1"){//如果设置当前的为默认则其它的地址改为非默认
+		def store = Store.get(session.loginPOJO.store.id)
+		def addressList = store.addresses
+		addressList.each{
+			it.is_default='0'
+			it.save()
+		}
+			
+	}
+		
+		
         address.store = session.loginPOJO.store
         address.save();
         flash.message = "添加新收货地址成功！"
@@ -57,6 +71,20 @@ class MemberController {
     def doUpdateAddress(Long id){
         def address = Address.get(id);
         address.properties = params
+	
+	if(address.is_default=="1"){//如果设置当前的为默认则其它的地址改为非默认
+		def store = Store.get(session.loginPOJO.store.id)
+		def addressList = store.addresses
+		addressList.each{
+			if(it.id!=id){
+				it.is_default='0'
+				it.save()
+			}
+			
+		}
+			
+	}		
+	
         address.save();
         
         flash.message = "修改收货地址成功！"

@@ -87,7 +87,7 @@
                 <!-- Text input-->
                 <label class="control-label" for="input01">是否设为默认地址</label>
                 <div class="controls">
-                 <g:radioGroup name="id_default"
+                 <g:radioGroup name="is_default"
                                 labels="['是','否']"
                                 values="[1,0]"
                                 value="1">

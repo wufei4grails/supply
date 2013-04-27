@@ -101,7 +101,9 @@
                   <tr > 
                     <td ></td>
                     <td  colspan="3" ></td>
-                    <td><a href="checkOrder" class="btn  btn-primary pull-right"><i class="icon-gift icon-white"></i>立即结算</a></td>
+                    <td>
+			    <g:link class="btn  btn-primary pull-right" controller="shopping" action="checkOrder"> <i class="icon-gift icon-white"></i>立即结算</a></g:link>
+		    </td>
                   </tr>
                 </tbody>
               </table>

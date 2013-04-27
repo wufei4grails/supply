@@ -54,10 +54,10 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
                 <td>${fieldValue(bean: address, field: "address")}</td>
                 <td>${fieldValue(bean: address, field: "telphone")}</td>
                 <td>
-                  <g:if test="${address.id_default == '1'}">
+                  <g:if test="${address.is_default == '1'}">
                       是
                  </g:if>
-                 <g:if test="${address.id_default == '0'}">
+                 <g:if test="${address.is_default == '0'}">
                       否
                  </g:if>
                 </td>
