@@ -155,4 +155,13 @@ class ShoppingController {
 		
 		render(view: "/member/shopping/checkOrder", model:map)
 	}
+	
+	def payOrder(){
+		
+		ShipOrder shipOrder = new ShipOrder(params);
+		println(shipOrder as JSON)
+		shipOrder.save();
+		def map = [:]
+		render(view: "/member/shopping/payOrder", model:map)
+	}
 }

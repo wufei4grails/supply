@@ -93,7 +93,15 @@
                         <tr> 
                           <td ></td>
                           <td  colspan="2" ></td>
-                          <td><a href="payOrder" class="btn  btn-primary pull-right"><i class="icon-tags icon-white"></i>提交订单</a></td>
+                          <td>
+			<g:form onSubmit="return subOrder()" data-validate="parsley" class="form-horizontal" controller="shopping" action="payOrder" method="post">
+			<g:hiddenField class="totalPrice" name="totalPrice" value="0" />
+			<g:hiddenField class="address" name="address" value="1" />
+			<g:hiddenField class="telphone" name="telphone" value="1" />
+			<g:hiddenField class="person_name" name="person_name" value="1" />
+			  <button type="submit" class="btn btn-primary pull-right"><i class="icon-tags icon-white"></i>提交</button>
+			  </g:form>
+			  </td>
                         </tr>
                       </tbody>
                     </table>
@@ -112,7 +120,7 @@
 			
 			<g:each in="${addressList}" status="i" var="address">
 				<label class="radio">
-					<input onclick="checkRadio(this)" value="${address.person_name}" class="radioinput" type="radio" name="optionsRadios"  person_name="${address.person_name}" address="${address.address}" telphone="${address.telphone}" <g:if test="${address.is_default=='1'}">checked</g:if> >
+					<input onclick="checkRadio(this)" value="${address.person_name}"  class="radioinput" type="radio" name="optionsRadios"  person_name="${address.person_name}"  address="${address.address}" area_id="${address.area_id}" telphone="${address.telphone}" <g:if test="${address.is_default=='1'}">checked</g:if> >
 				 ${address.person_name} ${address.address} ${address.telphone}
 			       </label>
 			</g:each>
@@ -122,59 +130,61 @@
                       </div>
 
 
+<g:formRemote name="doAjaxAddAddress" onSuccess="doAjaxAddAddressSuccess(data)" data-validate="parsley" class="form-horizontal" url="[controller: 'member', action: 'doAjaxAddAddress']"  method="post">
+	<g:hiddenField name="is_default" value="1" />
+	<fieldset>
+		<div class="control-group">
 
-                      <div class="row-fluid">
-                        <div class="span2">收货人姓名：</div>
-                        <div class="span10"><input type="text" placeholder="请输入收货人姓名" class="input-large"></div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span2">省份：</div>
-                        <div class="span10">
-                          <select style="width:100px;">
-                            <option>安徽</option>
-                            <option>上海</option>
-                            <option>北京</option>
-                            <option>山东</option>
-                            <option>湖南</option>
-                          </select>
-                          <select style="width:100px;">
-                            <option>合肥</option>
-                            <option>安庆</option>
-                            <option>淮南</option>
-                          </select>
-                          <select style="width:100px;">
-                            <option>高新区</option>
-                            <option>政务区</option>
-                            <option>蜀山区</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span2">地址：</div>
-                        <div class="span10"><input type="text" placeholder="请输入地址" class="input-xlarge"></div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span2">手机号码：</div>
-                        <div class="span10"><input type="text" placeholder="请输入手机号码" class="input-large"></div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span2">固定电话：</div>
-                        <div class="span10"><input type="text" placeholder="请输入固定电话" class="input-large"></div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span2">电子邮件：</div>
-                        <div class="span10"><input type="text" placeholder="请输入电子邮件" class="input-large"></div>
-                      </div>
-                      <div class="row-fluid">
-                        <div class="span2">邮编：</div>
-                        <div class="span10"><input type="text" placeholder="请输入邮编" class="input-large"></div>
-                      </div>
-                      <div class="row-fluid" style="margin-bottom:5px;">
-                        <div class="span2"></div>
-                        <div class="span10">
-                          <button class="btn btn-primary">保存收货人信息</button>
-                        </div>
-                      </div>
+                <!-- Text input-->
+                <label class="control-label" for="input01">收货人姓名<font color="red">&nbsp;*</font></label>
+                <div class="controls">
+                  <input name="person_name" data-error-message="收货人姓名不能为空" data-required="true" value="" type="text" placeholder="请输入收货人姓名" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
+              </div>
+		<div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">选择地区<font color="red">&nbsp;*</font></label>
+                <div class="controls" id="areaSelect">
+                  <area:areaSeclect id="" controller="area" action="areaSelect" update="areaSelect"/> 
+                  <p class="help-block"></p>
+                </div>
+              </div>
+
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">详细地址<font color="red">&nbsp;*</font></label>
+                <div class="controls">
+                  <input value="${session.loginPOJO.store.address}" data-error-message="门店地址不能为空" data-required="true" type="text" name="address" placeholder="请输入门店地址" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
+              </div>
+
+              
+              
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">联系电话<font color="red">&nbsp;*</font></label>
+                <div class="controls">
+                  <input value="${session.loginPOJO.store.contact_phone}" data-type="number" data-type-number-message="联系电话格式不正确" data-required-message="联系电话不能为空" data-required="true" type="text" name="telphone" placeholder="请输入联系电话" class="input-xlarge">
+                  <p class="help-block"></p>
+                </div>
+              </div>
+		<div class="control-group">
+                <label class="control-label"></label>
+
+                <!-- Button -->
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">保存收货人信息</button>
+                </div>
+              </div>
+	</fieldset>
+
+	</g:formRemote>
+	
                     </div>
 
                     <div id="defaultAddress">
@@ -222,6 +232,13 @@
 
     </style>
     <script>
+	    
+	  function doAjaxAddAddressSuccess(data){
+		  alert("修改收货人信息成功,请重新确认订单!");
+		  window.top.location.reload()
+	  }
+	    
+	    
 	  setDefaultAddress()
 	  function setDefaultAddress(){
 		  
@@ -233,7 +250,23 @@
 			  setAddress(person_name,address,telphone);
 		  })
 		  
-	  }  
+	  }
+	  
+	  function subOrder(o){
+		  $(".radioinput:checked").each(function(){
+			  
+			$(this).parents("form").find(".person_name").val($(this).attr("person_name"));
+			$(this).parents("form").find(".address").val($(this).attr("address"));
+			$(this).parents("form").find(".telphone").val($(this).attr("telphone"));
+			$(this).parents("form").find(".area").val($(this).attr("area"));
+			$(this).parents("form").find(".totalPrice").val($("#totalPrice").html());
+			
+		
+		
+			return true; 
+		})
+		  
+	  }
 	  
 	    
 	 function setAddress(person_name,address,telphone){
@@ -244,7 +277,7 @@
 	 
 	 
 	 function checkRadio(o){
-		 var person_name = $(o).attr("person_name");
+		var person_name = $(o).attr("person_name");
 		var address =  $(o).attr("address");
 		var telphone = $(o).attr("telphone");
 		setAddress(person_name,address,telphone);
