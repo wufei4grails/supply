@@ -1,10 +1,11 @@
 package supply
 
-class ShipOrder {
+class ShoppingOrder {
 
 	static constraints = {
 	}
     
+	static hasMany = [ orderGoods : OrderGoods ]
 	
 	String order_sn;
 	String amount;
@@ -13,8 +14,8 @@ class ShipOrder {
 	String address
 	String telphone
 	String person_name //收货人名字
-	
-	Date payTime
+	String status;//waitpay,waitship,waitconfirm,success,notpayclose,notshipclose
+	Long payTime
 	Date dateCreated
 	Date lastUpdated
 }

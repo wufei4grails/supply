@@ -56,9 +56,9 @@
             <div class="span12">
               <div class="alert alert-success">
                 <h3>订单提交成功，请您尽快付款！</h3>
-                <p>订单号：503024389</p>
-                <p>应付金额：148.00元</p>
-                <p class="text-error">立即支付148.00元，即可完成订单。 请您在24小时内完成支付，否则订单会被自动取消。</p>
+                <p>订单号：${shoppingOrder.order_sn}</p>
+                <p>应付金额：${shoppingOrder.amount}元</p>
+                <p class="text-error">立即支付${shoppingOrder.amount}元，即可完成订单。 请您在24小时内完成支付，否则订单会被自动取消。</p>
                 <button class="btn btn-large btn-primary" type="button">现在就去支付</button>
               </div>
             </div>

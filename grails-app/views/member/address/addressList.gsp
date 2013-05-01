@@ -80,8 +80,8 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 
   </div> <!-- /container -->
   <script>
-    function delGoods(o{
-      $("#"+o).remove();
+    function delGoods(o){
+      jQuery("#"+o).remove();
       alert("收货地址已成功删除！");
     }
   </script>

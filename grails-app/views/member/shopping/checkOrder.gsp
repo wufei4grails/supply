@@ -61,6 +61,7 @@
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="lA">
+			  <g:form onSubmit="return pubOrder(this);" data-validate="parsley" class="form-horizontal" controller="shopping" action="payOrder" method="post"  >
                     <table class="table table-hover" id="cart_table">
                       <thead>
                         <tr>
@@ -73,13 +74,21 @@
                       <tbody>
 			      
 			      <g:each in="${cartList}" status="i" var="buyPOJO">
+				      <g:hiddenField  name="goods_id" value="${buyPOJO.goods.id}" />
+				      <g:hiddenField  name="price" value="${buyPOJO.goods.price}" />
+				      <g:hiddenField  name="num" value="${buyPOJO.num}" />
+					
 				      <tr class="goods">
 					<td>
+					
 					  <g:img width="50px;" height="50px;"  uri="${buyPOJO.goods.img}"/>
 			<g:link controller="shopping" action="buyGoodsDetail" id="${buyPOJO.goods.id}">${buyPOJO.goods.goods_name}</g:link></td>
 					<td>${buyPOJO.goods.goods_sn}</td>
-					<td class="price">${buyPOJO.goods.price}</td>
-					<td class="num">${buyPOJO.num}</td>
+					<td class="price">${buyPOJO.goods.price}
+					
+					</td>
+					<td class="num">${buyPOJO.num}
+					</td>
 				      </tr>
 				      
 			      </g:each>
@@ -94,17 +103,19 @@
                           <td ></td>
                           <td  colspan="2" ></td>
                           <td>
-			<g:form onSubmit="return subOrder()" data-validate="parsley" class="form-horizontal" controller="shopping" action="payOrder" method="post">
-			<g:hiddenField class="totalPrice" name="totalPrice" value="0" />
-			<g:hiddenField class="address" name="address" value="1" />
-			<g:hiddenField class="telphone" name="telphone" value="1" />
-			<g:hiddenField class="person_name" name="person_name" value="1" />
-			  <button type="submit" class="btn btn-primary pull-right"><i class="icon-tags icon-white"></i>提交</button>
-			  </g:form>
+			
+			<g:hiddenField class="totalPrice" name="amount" value="" />
+			<g:hiddenField class="address" name="address" value="" />
+			<g:hiddenField class="area_id" name="area_id" value="" />
+			<g:hiddenField class="telphone" name="telphone" value="" />
+			<g:hiddenField class="person_name" name="person_name" value="" />
+			  <button type="submit" class="btn btn-primary pull-right"><i class="icon-tags icon-white"></i>提交订单</button>
+			  
 			  </td>
                         </tr>
                       </tbody>
                     </table>
+				  </g:form>
                   </div>
                   <div class="tab-pane" id="lB">
                     <div id="legend" class="">
@@ -126,7 +137,7 @@
 			</g:each>
 			      
 			
-                        <a  href="javascript:void(0)" >[新增收货地址]</a>
+                        <!--<a  href="javascript:void(0)" >[新增收货地址]</a>-->
                       </div>
 
 
@@ -190,19 +201,19 @@
                     <div id="defaultAddress">
                       <div class="row-fluid">
                         <div class="span2">收货人姓名：</div>
-                        <div class="span10" id="person_name">吴飞</div>
+                        <div class="span10" id="person_name"></div>
                       </div>
                       <div class="row-fluid">
-                        <div class="span2">省份：</div>
-                        <div class="span10">安徽合肥市高新技术开发区</div>
+                        <div class="span2">选择地区：</div>
+                        <div class="span10"></div>
                       </div>
                       <div class="row-fluid">
-                        <div class="span2">地址：</div>
-                        <div class="span10" id="address">安徽合肥市高新技术开发区香樟大道168号科技实业园C5栋2层</div>
+                        <div class="span2">详细地址：</div>
+                        <div class="span10" id="address"></div>
                       </div>
                       <div class="row-fluid">
                         <div class="span2">联系电话：</div>
-                        <div class="span10" id="telphone">13987898888</div>
+                        <div class="span10" id="telphone"></div>
                       </div>
                     </div>
                   </div>
@@ -252,20 +263,27 @@
 		  
 	  }
 	  
-	  function subOrder(o){
+	  function pubOrder(o){
+		  var f = false
 		  $(".radioinput:checked").each(function(){
 			  
-			$(this).parents("form").find(".person_name").val($(this).attr("person_name"));
-			$(this).parents("form").find(".address").val($(this).attr("address"));
-			$(this).parents("form").find(".telphone").val($(this).attr("telphone"));
-			$(this).parents("form").find(".area").val($(this).attr("area"));
-			$(this).parents("form").find(".totalPrice").val($("#totalPrice").html());
+			$(o).find(".person_name").val($(this).attr("person_name"));
 			
-		
-		
-			return true; 
+			$(o).find(".address").val($(this).attr("address"));
+			$(o).find(".telphone").val($(this).attr("telphone"));
+			$(o).find(".area_id").val($(this).attr("area_id"));
+			$(o).find(".totalPrice").val($("#totalPrice").html());
+			f = true;
+			
 		})
-		  
+		if(!f){
+			alert("请先填写收货地址信息，再提交订单！")
+			return false;
+		}else{
+			return true; 
+		}
+		
+		 
 	  }
 	  
 	    

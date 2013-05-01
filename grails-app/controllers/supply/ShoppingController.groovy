@@ -157,11 +157,43 @@ class ShoppingController {
 	}
 	
 	def payOrder(){
+		ShoppingOrder shoppingOrder = new ShoppingOrder(params);
+		shoppingOrder.payTime = new Date().getTime()
+		shoppingOrder.order_sn = new Date().getTime()
 		
-		ShipOrder shipOrder = new ShipOrder(params);
-		println(shipOrder as JSON)
-		shipOrder.save();
-		def map = [:]
+		shoppingOrder.buy_user = session.loginPOJO.user.id;
+		shoppingOrder.status = "waitpay"//新订单等待付款
+		
+		def goods_id = params.goods_id
+		def price = params.price
+		def num= params.num
+		
+		if(goods_id instanceof String){//如果是string表示该订单只有这一件商品
+			OrderGoods orderGoods = new OrderGoods(goods_id:goods_id,num:num,price:price)
+			shoppingOrder.addToOrderGoods(orderGoods);
+		}else{
+			for(int i=0;i<goods_id.size();i++){
+
+			OrderGoods orderGoods = new OrderGoods(goods_id:goods_id[i],num:num[i],price:price[i])
+			shoppingOrder.addToOrderGoods(orderGoods);
+			
+			}
+		}
+		
+		
+		shoppingOrder.save();
+		
+		redirect(action: "reqPayOrder",params: [order_sn:shoppingOrder.order_sn]) 
+	}
+	
+	
+	def reqPayOrder(){
+		println(params)
+		ShoppingOrder shoppingOrder = ShoppingOrder.findByOrder_sn(params.order_sn)
+		def map = [shoppingOrder:shoppingOrder]
 		render(view: "/member/shopping/payOrder", model:map)
 	}
+	
+	
+	
 }
