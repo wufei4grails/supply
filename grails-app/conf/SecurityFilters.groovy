@@ -9,6 +9,18 @@
  */
 class SecurityFilters {
     def filters = {
+	logginFilter(controller:"runtimeLogging",action:"*") {
+		before = {
+		   return true
+		}
+	}
+	// http://localhost:8080/<yourapp>/quartz/list 
+	quartzFilter(controller:"quartz",action:"*") {
+		before = {
+		   return true
+		}
+	}
+		
         loginCheck(controller:'*', action:'*') {
             before = {
                 if(!session.loginPOJO 
@@ -22,6 +34,8 @@ class SecurityFilters {
                     
             }
         }
+	
+	
     }
 }
 

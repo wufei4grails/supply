@@ -50,6 +50,7 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.1.6"
         runtime ":twitter-bootstrap:2.3.0"
         runtime ":quartz:1.0-RC5"
+	compile ":quartz-monitor:0.3-RC1"
         compile ":jcaptcha:1.2.1"
 //        runtime ":google-chart:0.5.2"
 //       compile ":ajax-uploader:1.1"
@@ -73,5 +74,8 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.3.2"
 
         compile ':cache:1.0.1'
+	
+	compile ':runtime-logging:0.4'
+	//compile ":geoip:0.2"//根据ip获取相关信息
     }
 }
