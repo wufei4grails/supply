@@ -14,12 +14,12 @@ class RoleService {
             and{
                 roles {
                     and{
-                        //eq("rolename",user.user_type)
-                        users {
-                            and {
-                                eq("id",user.id)
-                            }
-                        }
+                        eq("rolename",user.user_type)
+//                        users {
+//                            and {
+//                                eq("id",user.id)
+//                            }
+//                        }
                     }
                         
                 }

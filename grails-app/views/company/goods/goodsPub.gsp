@@ -300,6 +300,15 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       $(".attr-control-group:not(:eq(0))").remove()
       
       
+      if(data=='0'){
+	   var attr_group = $(".attr-control-group:eq(0)").clone()
+            attr_group.html("该分类下没有属性了！")
+            $("#attr-controls").find(".well").append(attr_group.show())
+	    $("#attr-group").show("slow");
+	    return;
+      }
+      
+      
       
       if($("#selGoodsCategoryAttr #c_id").val()!="1"){
         $("#attr-group").show("slow");
@@ -326,6 +335,9 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
       }else{
         $("#attr-group").hide("slow");
       }
+      
+      
+      
     }
     
     function categoryChange(o){

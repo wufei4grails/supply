@@ -33,7 +33,12 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
           </legend>
           
         </div>
-        
+        <g:if test="${flash.message}">
+                <div class="alert alert-error">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>${flash.message}</strong>
+                </div>
+              </g:if>
         <table class="table table-hover">
           <thead>
             <tr>

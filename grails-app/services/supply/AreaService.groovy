@@ -11,7 +11,9 @@ class AreaService {
         if(!id){
             return ""
         }
-        
+        if(!Area.get(id)){
+		return ""
+	}
         def area_name = Area.get(id).area_name
         
         def pid,ppid,pppid;

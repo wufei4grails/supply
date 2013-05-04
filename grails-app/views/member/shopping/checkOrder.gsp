@@ -141,7 +141,7 @@
                       </div>
 
 
-<g:formRemote name="doAjaxAddAddress" onSuccess="doAjaxAddAddressSuccess(data)" data-validate="parsley" class="form-horizontal" url="[controller: 'member', action: 'doAjaxAddAddress']"  method="post">
+<g:formRemote before="return jQuery(this).parsley()" name="doAjaxAddAddress" onSuccess="doAjaxAddAddressSuccess(data)" data-validate="parsley" class="form-horizontal" url="[controller: 'member', action: 'doAjaxAddAddress']"  method="post">
 	<g:hiddenField name="is_default" value="1" />
 	<fieldset>
 		<div class="control-group">

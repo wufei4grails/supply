@@ -157,6 +157,9 @@ class ShoppingController {
 	}
 	
 	def payOrder(){
+		
+		session.cartPOJO=null;
+		
 		ShoppingOrder shoppingOrder = new ShoppingOrder(params);
 		shoppingOrder.payTime = new Date().getTime()
 		shoppingOrder.order_sn = new Date().getTime()

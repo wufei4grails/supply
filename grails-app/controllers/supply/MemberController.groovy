@@ -81,7 +81,7 @@ class MemberController {
 		address.store = session.loginPOJO.store
 		address.save();
 		flash.message = "添加新收货地址成功！"
-		redirect(action: "reqAddAddress")
+		redirect(action: "reqAddressList")
 	}
     
 	def reqUpdateAddress(){

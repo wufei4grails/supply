@@ -356,6 +356,13 @@ ${goods.goods_text}
 		//当商品分类切换时，除第一条用于clone，其它删除掉
 	    $(".attr-control-group:not(:eq(0))").remove()
       
+      if(data=='0'){
+	   var attr_group = $(".attr-control-group:eq(0)").clone()
+            attr_group.html("该分类下没有属性了！")
+            $("#attr-controls").find(".well").append(attr_group.show())
+	    return;
+      }
+      
 	    if($("#selGoodsCategoryAttr #c_id").val()!="1"){
 	      $("#attr-group").show("slow");
 	      

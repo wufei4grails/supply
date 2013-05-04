@@ -102,7 +102,15 @@
                     <td ></td>
                     <td  colspan="3" ></td>
                     <td>
-			    <g:link class="btn  btn-primary pull-right" controller="shopping" action="checkOrder"> <i class="icon-gift icon-white"></i>立即结算</a></g:link>
+			    
+		  <g:if test="${cartList}">
+			<g:link class="btn  btn-primary pull-right" controller="shopping" action="checkOrder"> <i class="icon-gift icon-white"></i>立即结算</a></g:link>
+		  </g:if>
+		  <g:else>
+			  <g:link class="btn  btn-primary pull-right" controller="shopping" action="shoppingGoodsList"> <i class="icon-gift icon-white"></i>返回购物</a></g:link>
+		</g:else>
+			    
+			    
 		    </td>
                   </tr>
                 </tbody>
