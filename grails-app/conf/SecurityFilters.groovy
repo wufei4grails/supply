@@ -20,14 +20,15 @@ class SecurityFilters {
 		   return true
 		}
 	}
-		
         loginCheck(controller:'*', action:'*') {
             before = {
                 if(!session.loginPOJO 
                     && !actionName.equals('login')
                     && !actionName.equals('jpeg')
                     && !actionName.equals('authenticate')
-		    && !actionName.equals('upload')) {//验证码
+		    && !actionName.equals('upload')//验证码
+			&& !actionName.equals('alinotify')
+			&& !actionName.equals('alireturn')) {
                     redirect(controller: 'login',action:'login')
                     return false
                 }

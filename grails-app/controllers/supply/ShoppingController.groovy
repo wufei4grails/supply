@@ -12,8 +12,9 @@ class ShoppingController {
     
 	def shoppingGoodsList(){
         
-       
-        
+//		println grailsApplication.getConfig().AlipayConfig.input_charset
+		
+         
 		if (!params.status) params.status = "on"
 	
 		
@@ -191,12 +192,11 @@ class ShoppingController {
 	
 	
 	def reqPayOrder(){
-		println(params)
+//		println(params)
 		ShoppingOrder shoppingOrder = ShoppingOrder.findByOrder_sn(params.order_sn)
 		def map = [shoppingOrder:shoppingOrder]
 		render(view: "/member/shopping/payOrder", model:map)
 	}
-	
 	
 	
 }

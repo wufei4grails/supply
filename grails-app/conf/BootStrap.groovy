@@ -72,7 +72,7 @@ class BootStrap {
 	    def m5_5 = new Menu(level: 3,menuid:"105101104", menuname:"填写核对订单信息", controller:"shopping",action:"checkOrder",menutype:"store",sort:"8")
 	    def m5_6 = new Menu(level: 3,menuid:"105101105", menuname:"订单提交", controller:"shopping",action:"payOrder",menutype:"store",sort:"8")
 	    def m5_7 = new Menu(level: 3,menuid:"105101106", menuname:"订单提交成功,显示支付页面", controller:"shopping",action:"reqPayOrder",menutype:"store",sort:"8")
-	    
+	    def m5_8 = new Menu(level: 3,menuid:"105101107", menuname:"订单支付成功,显示支付成功提示页面", controller:"alipay",action:"alireturn",menutype:"store",sort:"8")
 	//订单管理
             def m6 = new Menu(level: 1,menuid:"106", menuname:"订单管理", controller:"order",action:"storeOrderManager",menutype:"store",sort:"8")
 	    def m6_1 = new Menu(level: 2,menuid:"106101", menuname:"采购订单列表", controller:"order",action:"storeOrderList",menutype:"store",sort:"8")
@@ -91,6 +91,7 @@ class BootStrap {
 	    storerole.addToMenus(m5_5);
 	    storerole.addToMenus(m5_6);
 	    storerole.addToMenus(m5_7);
+	    storerole.addToMenus(m5_8);
 	    storerole.addToMenus(m6);
             storerole.addToMenus(m6_1);
             def store = new Store(store_name:"门店测试",store_type:"store",address:"");

@@ -241,7 +241,8 @@ grails {
 
 
 def deps = [
-    "json_simple-1.1.jar"
+    "json_simple-1.1.jar",
+	"commons-httpclient-3.0.1.jar"
      ]
 grails.war.dependencies = {
     fileset(dir: "libs") {
@@ -250,3 +251,6 @@ grails.war.dependencies = {
         }
     }
 }
+
+
+grails.config.locations=["file:${System.properties['base.dir']}/grails-app/conf/sysSetting.properties"]

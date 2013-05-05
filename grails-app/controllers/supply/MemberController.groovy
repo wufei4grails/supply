@@ -45,6 +45,13 @@ class MemberController {
 	def doAjaxAddAddress(){
 	
 		Address address = new Address(params)
+		
+		if(!address.person_name
+		||!address.address
+		||!address.telphone){
+			render "0"
+			return;//当收货地址有信息没有填写完整时，直接返回0到页面提示。
+		}
 	
 		if(address.is_default=="1"){//如果设置当前的为默认则其它的地址改为非默认
 			def store = Store.get(session.loginPOJO.store.id)

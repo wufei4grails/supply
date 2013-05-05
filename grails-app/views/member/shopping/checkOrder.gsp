@@ -141,7 +141,7 @@
                       </div>
 
 
-<g:formRemote before="return jQuery(this).parsley()" name="doAjaxAddAddress" onSuccess="doAjaxAddAddressSuccess(data)" data-validate="parsley" class="form-horizontal" url="[controller: 'member', action: 'doAjaxAddAddress']"  method="post">
+<g:formRemote  name="doAjaxAddAddress" onSuccess="doAjaxAddAddressSuccess(data)" data-validate="parsley" class="form-horizontal" url="[controller: 'member', action: 'doAjaxAddAddress']"  method="post">
 	<g:hiddenField name="is_default" value="1" />
 	<fieldset>
 		<div class="control-group">
@@ -245,8 +245,14 @@
     <script>
 	    
 	  function doAjaxAddAddressSuccess(data){
-		  alert("修改收货人信息成功,请重新确认订单!");
-		  window.top.location.reload()
+		  
+		  if(data=="0"){
+			  
+		  }else{
+			alert("修改收货人信息成功,请重新确认订单!");
+			 window.top.location.reload()  
+		  }
+		
 	  }
 	    
 	    

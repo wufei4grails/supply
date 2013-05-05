@@ -37,7 +37,7 @@
                   <span class="divider">/</span>
                 </li>
                 <li >
-                  <a href="#" style="color: gray">4.支付订单</a>
+                  <a href="#">4.支付订单</a>
                   <span class="divider">/</span>
                 </li>
                 <li >
@@ -55,13 +55,12 @@
           <div class="row-fluid">
             <div class="span12">
               <div class="alert alert-success">
-                <h3>订单提交成功，请您尽快付款！</h3>
+                <h3>订单支付成功，请您耐心等待，我们将尽快为您配货发货！</h3>
                 <p>订单号：${shoppingOrder.order_sn}</p>
-                <p>应付金额：${shoppingOrder.amount}元</p>
-                <p class="text-error">立即支付${shoppingOrder.amount}元，即可完成订单。 请您在24小时内完成支付，否则订单会被自动取消。</p>
+                <p>金额：${shoppingOrder.amount}元</p>
               
 	      <g:link target="_blank" class="btn btn-large btn-primary" controller="alipay" action="reqPay" params="[order_sn:shoppingOrder.order_sn ]">
-     现在就去支付
+     查看订单
 </g:link>
 	      
 	      </div>

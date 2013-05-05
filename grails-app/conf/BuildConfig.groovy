@@ -50,7 +50,7 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.1.6"
         runtime ":twitter-bootstrap:2.3.0"
         runtime ":quartz:1.0-RC5"
-	compile ":quartz-monitor:0.3-RC1"
+//	compile ":quartz-monitor:0.3-RC1"//用于监控项目中的定时器任务
         compile ":jcaptcha:1.2.1"
 //        runtime ":google-chart:0.5.2"
 //       compile ":ajax-uploader:1.1"
