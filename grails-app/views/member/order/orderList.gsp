@@ -56,8 +56,13 @@
 				<td>${order.order_sn}</td>
 				<td>${order.amount}</td>
 				<td><order:orderStatusDic status="${order.status}"/></td>
-				<td><datetime:getDateTime longtime="${order.payTime}"/></td>
-				<td><a href="orderDetail">查看</a></td>
+				<td>${order.dateCreated}</td>
+				<td>
+					<g:link controller="order" action="storeOrderDetail" id="${order.id}">查看</g:link>
+					<g:if test="${order.status=='waitpay'}">
+					<g:link controller="shopping" action="reqPayOrder" params="[order_sn: order.order_sn]">付款</g:link>
+					</g:if>
+				</td>
 			      </tr>
 			  
 		  </g:each>

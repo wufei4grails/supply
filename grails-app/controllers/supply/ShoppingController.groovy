@@ -162,7 +162,7 @@ class ShoppingController {
 		session.cartPOJO=null;
 		
 		ShoppingOrder shoppingOrder = new ShoppingOrder(params);
-		shoppingOrder.payTime = new Date().getTime()
+//		shoppingOrder.payTime = 0
 		shoppingOrder.order_sn = new Date().getTime()
 		
 		shoppingOrder.buy_user = session.loginPOJO.user.id;
@@ -173,20 +173,19 @@ class ShoppingController {
 		def num= params.num
 		
 		if(goods_id instanceof String){//如果是string表示该订单只有这一件商品
-			OrderGoods orderGoods = new OrderGoods(goods_id:goods_id,num:num,price:price)
+			OrderGoods orderGoods = new OrderGoods(goods:Goods.get(goods_id),num:num,price:price)
 			shoppingOrder.addToOrderGoods(orderGoods);
 		}else{
 			for(int i=0;i<goods_id.size();i++){
 
-			OrderGoods orderGoods = new OrderGoods(goods_id:goods_id[i],num:num[i],price:price[i])
+			OrderGoods orderGoods = new OrderGoods(goods:Goods.get(goods_id[i]),num:num[i],price:price[i])
 			shoppingOrder.addToOrderGoods(orderGoods);
 			
 			}
 		}
 		
 		
-		shoppingOrder.save();
-		
+		shoppingOrder.save(flash:true);
 		redirect(action: "reqPayOrder",params: [order_sn:shoppingOrder.order_sn]) 
 	}
 	

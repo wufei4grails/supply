@@ -8,23 +8,19 @@
 <html>
   <head>
     <meta name="layout" content="main"/>
-  <r:require modules="bootstrap"/>
 
 </head>
 <body>
 
   <div class="container">
 
-    <g:render template="/layouts/store_header"/>
+    <g:render template="/layouts/header"/>
 
 
     <div class="row-fluid">
       <div class="span3">
         <div class="well sidebar-nav">
-          <ul class="nav nav-list">
-            <!--<li class="nav-header">Sidebar</li>-->
-            <li class="active"><a href="orderList">订单列表</a></li>
-          </ul>
+          <g:render template="/layouts/leftmenu"/>
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
@@ -43,24 +39,26 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">订单号</label>
                   <div class="controls">
-                    <p class="help-block text-center" >OD8849393</p>
+                    <p class="help-block text-center" >${shoppingOrder.order_sn}</p>
                   </div>
                 </div>
 
-                <div class="control-group">
+<!--                <div class="control-group">
 
-                  <!-- Text input-->
+                   Text input
                   <label class="control-label" for="input01">门店</label>
                   <div class="controls">
                     <p class="help-block text-center" >中粮蜀山店</p>
                   </div>
-                </div>
+                </div>-->
 
                 <div class="control-group">
                   <!-- Text input-->
                   <label class="control-label" for="input01">状态</label>
                   <div class="controls">
-                    <p class="help-block text-center" >已付款</p>
+                    <p class="help-block text-center" >
+			<order:orderStatusDic status="${shoppingOrder.status}"/>
+		    </p>
                   </div>
                 </div>
 
@@ -68,7 +66,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">金额</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2098 </p>
+                    <p class="help-block text-center" >${shoppingOrder.amount}</p>
                     <!--<a style="margin-left:5px;" href="#updatePrice" role="button" class="btn" data-toggle="modal">修改金额</a>-->
                   </div>
                 </div>
@@ -121,7 +119,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">下单时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-8 13:34:33</p>
+                    <p class="help-block text-center" >${shoppingOrder.dateCreated}</p>
                   </div>
                 </div>
 
@@ -129,7 +127,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">支付时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-8 14:34:33</p>
+                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.payTime}"/></p>
                   </div>
                 </div>
 
@@ -137,7 +135,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">发货时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-9 14:34:33</p>
+                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.shipTime}"/></p>
                   </div>
                 </div>
 
@@ -145,7 +143,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货确认时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-10 14:34:33</p>
+                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.payTime}"/></p>
                   </div>
                 </div>
 
@@ -165,6 +163,7 @@
             </form>
           </div>
           <div class="tab-pane fade" id="profile">
+		 
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -176,26 +175,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>东北大米</td>
-                  <td>g0112</td>
-                  <td>100</td>
-                  <td>2</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>武昌湖大闸蟹</td>
-                  <td>g0115</td>
-                  <td>1898</td>
-                  <td>1</td>
-                  <td>1898</td>
-                </tr>
+		      
+		      <g:each in="${orderGoods}" status="i" var="goods">
+			      <tr >
+				<td>${goods.goods.goods_name}</td>
+				<td>${goods.goods.goods_sn}</td>
+				<td>${goods.price}</td>
+				<td class="num">${goods.num}</td>
+				<td class="amount">${goods.price * goods.num}</td>
+			      </tr>
+		      </g:each>
+		      
                 <tr>
                   <td></td>
                   <td></td>
                   <td>总计</td>
-                  <td>3</td>
-                  <td>2098</td>
+                  <td class="total_num">3</td>
+                  <td class="total_amount">2098</td>
                 </tr>
               </tbody>
             </table>
@@ -231,24 +227,16 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货人姓名</label>
                   <div class="controls">
-                    <p class="help-block text-center" >李大富</p>
+                    <p class="help-block text-center" >${shoppingOrder.buy_user}</p>
                   </div>
                 </div>
 
-                <div class="control-group">
-
-                  <!-- Text input-->
-                  <label class="control-label" for="input01">固定电话</label>
-                  <div class="controls">
-                    <p class="help-block text-center" >69699999</p>
-                  </div>
-                </div>
 
                 <div class="control-group">
                   <!-- Text input-->
                   <label class="control-label" for="input01">手机号码</label>
                   <div class="controls">
-                    <p class="help-block text-center" >13344445555</p>
+                    <p class="help-block text-center" >${shoppingOrder.telphone}</p>
                   </div>
                 </div>
 
@@ -256,7 +244,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货地址</label>
                   <div class="controls">
-                    <p class="help-block text-center" >安徽合肥市政务文化新区习友路融科九重锦2栋1805室</p>
+                    <p class="help-block text-center" >${shoppingOrder.address}</p>
                   </div>
                 </div>
 
@@ -294,6 +282,21 @@
       padding-top: 5px;
     }
   </style>
+  <script>
+	  $(document).ready(function(){
+		  var num = "0";
+		  jQuery(".num").each(function(){
+			  num = parseInt(num) + parseInt(jQuery(this).html());
+		  });
+		  jQuery(".total_num").html(num);
+		  
+		  var amount = "0";
+		  jQuery(".amount").each(function(){
+			  amount = parseInt(amount) + parseInt(jQuery(this).html());
+		  });
+		  jQuery(".total_amount").html(amount);
+	  });
+  </script>
 </body>
 
 </html>

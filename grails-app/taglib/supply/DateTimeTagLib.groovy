@@ -8,8 +8,13 @@ class DateTimeTagLib {
 	//waitpay,waitship,waitconfirm,success,notpayclose,notshipclose
 	def getDateTime = { attrs ->
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date(attrs.longtime);
-		out << sdf.format(date)
+		if(attrs.longtime){
+			Date date = new Date(attrs.longtime);
+			out << sdf.format(date)	
+		}else{
+			out << ""
+		}
+		
 		
 	}
 }

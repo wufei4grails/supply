@@ -12,6 +12,7 @@ class AlipayController {
 	def alinotify(){
 		def order_sn = params.out_trade_no;
 		def shoppingOrder = ShoppingOrder.findByOrder_sn(order_sn)
+		shoppingOrder.payTime = new Date().getTime()
 		shoppingOrder.status = "waitship"
 		println "订单支付成功，回调执行修改订单状态："+ (shoppingOrder as JSON)
 	}

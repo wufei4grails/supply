@@ -59,7 +59,7 @@
                 <p>订单号：${shoppingOrder.order_sn}</p>
                 <p>金额：${shoppingOrder.amount}元</p>
               
-	      <g:link target="_blank" class="btn btn-large btn-primary" controller="alipay" action="reqPay" params="[order_sn:shoppingOrder.order_sn ]">
+	      <g:link class="btn btn-large btn-primary" controller="order" action="storeOrderDetail" id="${shoppingOrder.id}">
      查看订单
 </g:link>
 	      

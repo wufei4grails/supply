@@ -42,4 +42,13 @@ class OrderController {
         
         render(view: "/member/order/orderList", model:map)
     }
+    
+    def storeOrderDetail(){
+	    ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
+	    
+		
+		
+	    def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
+        render(view: "/member/order/orderDetail", model:map)
+    }
 }

@@ -7,9 +7,10 @@ class OrderGoods {
 	
 	static belongsTo = [shoppingOrder:ShoppingOrder]
     
-	String goods_id;
+	
+	Goods goods;
 	BigDecimal price;
-	String num;
+	Long num;
 	Date dateCreated
 	Date lastUpdated
 }
