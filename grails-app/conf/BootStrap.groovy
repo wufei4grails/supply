@@ -14,7 +14,7 @@ class BootStrap {
             
             
             //初始化菜单
-            def m1 = new Menu(level: 1,menuid:"101", menuname:"订单管理", controller:"company",action:"orderManager",menutype:"company",sort:"3")
+            def m1 = new Menu(level: 1,menuid:"101", menuname:"订单管理", controller:"order",action:"companyOrderManager",menutype:"company",sort:"3")
             def m1_1 = new Menu(level: 2,menuid:"101101", menuname:"订单列表", controller:"order",action:"companyOrderList",menutype:"company",sort:"3")
             def m1_1_1 = new Menu(level: 3,menuid:"101101101", menuname:"查看订单", controller:"order",action:"companyOrderDetail",menutype:"company",sort:"3")
             

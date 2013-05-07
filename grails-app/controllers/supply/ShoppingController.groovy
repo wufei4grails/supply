@@ -162,10 +162,13 @@ class ShoppingController {
 		session.cartPOJO=null;
 		
 		ShoppingOrder shoppingOrder = new ShoppingOrder(params);
-//		shoppingOrder.payTime = 0
 		shoppingOrder.order_sn = new Date().getTime()
 		
+		shoppingOrder.store_id = session.loginPOJO.store.id;
 		shoppingOrder.buy_user = session.loginPOJO.user.id;
+		
+		
+		
 		shoppingOrder.status = "waitpay"//新订单等待付款
 		
 		def goods_id = params.goods_id
@@ -184,7 +187,7 @@ class ShoppingController {
 			}
 		}
 		
-		
+		println(shoppingOrder as JSON)
 		shoppingOrder.save(flash:true);
 		redirect(action: "reqPayOrder",params: [order_sn:shoppingOrder.order_sn]) 
 	}

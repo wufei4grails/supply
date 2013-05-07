@@ -8,14 +8,13 @@
 <html>
   <head>
     <meta name="layout" content="main"/>
-  <r:require modules="bootstrap"/>
 
 </head>
 <body>
 
   <div class="container">
 
-    <g:render template="/layouts/company_header"/>
+    <g:render template="/layouts/header"/>
 
 
     <div class="row-fluid">
@@ -40,24 +39,26 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">订单号</label>
                   <div class="controls">
-                    <p class="help-block text-center" >OD8849393</p>
+                    <p class="help-block text-center" >${shoppingOrder.order_sn}</p>
                   </div>
                 </div>
 
-                <div class="control-group">
+<!--                <div class="control-group">
 
-                  <!-- Text input-->
+                   Text input
                   <label class="control-label" for="input01">门店</label>
                   <div class="controls">
                     <p class="help-block text-center" >中粮蜀山店</p>
                   </div>
-                </div>
+                </div>-->
 
                 <div class="control-group">
                   <!-- Text input-->
                   <label class="control-label" for="input01">状态</label>
                   <div class="controls">
-                    <p class="help-block text-center" >已付款</p>
+                    <p class="help-block text-center" >
+			<order:orderStatusDic status="${shoppingOrder.status}"/>
+		    </p>
                   </div>
                 </div>
 
@@ -65,15 +66,18 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">金额</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2098 </p>
-                    <a style="margin-left:5px;" href="#updatePrice" role="button" class="btn" data-toggle="modal">修改金额</a>
+                    <p class="help-block text-center" >${shoppingOrder.amount}</p>
+                    
+		    <g:if test="${shoppingOrder.status=='waitpay'}">
+		    <a style="margin-left:5px;" href="#updatePrice" role="button" class="btn" data-toggle="modal">修改金额</a>
+		    </g:if>
                   </div>
                 </div>
 
                 <div id="updatePrice" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModalLabel">修改未付款订单金额：2098</h3>
+                    <h3 id="myModalLabel">订单金额：${shoppingOrder.amount}</h3>
                   </div>
                   <div class="modal-body" >
                     <div class="control-group">
@@ -81,24 +85,25 @@
                       <!-- Select Basic -->
                       <label class="control-label">设定方式</label>
                       <div class="controls">
-                        <select class="input-xlarge">
-                          <option>设置新订单金额</option>
-                          <option>设置订单折扣</option></select>
+			<select onchange="setNewAmount(this)"  class="input-xlarge">
+                          <option value="#newamount">设置新订单金额</option>
+                          <option value="#discount">设置订单折扣</option>
+			</select>
                       </div>
 
                     </div>
 
-                    <div class="control-group">
+                    <div id="discount" class="control-group setAmountMode" style="display:none">
 
                       <!-- Text input-->
-                      <label class="control-label" for="input01">设定值</label>
+                      <label class="control-label" for="input01">折扣</label>
                       <div class="controls">
                         <input type="text" placeholder="折扣不能大于10" class="input-xlarge">
                         <p class="help-block"></p>
                       </div>
                     </div>
 
-                    <div class="control-group">
+                    <div id="newamount" class="control-group setAmountMode" style="display:block">
 
                       <!-- Text input-->
                       <label class="control-label" for="input01">新订单金额</label>
@@ -118,7 +123,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">下单时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-8 13:34:33</p>
+                    <p class="help-block text-center" >${shoppingOrder.dateCreated}</p>
                   </div>
                 </div>
 
@@ -126,7 +131,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">支付时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-8 14:34:33</p>
+                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.payTime}"/></p>
                   </div>
                 </div>
 
@@ -134,7 +139,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">发货时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-9 14:34:33</p>
+                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.shipTime}"/></p>
                   </div>
                 </div>
 
@@ -142,7 +147,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货确认时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >2013-3-10 14:34:33</p>
+                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.payTime}"/></p>
                   </div>
                 </div>
 
@@ -162,6 +167,7 @@
             </form>
           </div>
           <div class="tab-pane fade" id="profile">
+		 
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -173,26 +179,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>东北大米</td>
-                  <td>g0112</td>
-                  <td>100</td>
-                  <td>2</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>武昌湖大闸蟹</td>
-                  <td>g0115</td>
-                  <td>1898</td>
-                  <td>1</td>
-                  <td>1898</td>
-                </tr>
+		      
+		      <g:each in="${orderGoods}" status="i" var="goods">
+			      <tr >
+				<td>${goods.goods.goods_name}</td>
+				<td>${goods.goods.goods_sn}</td>
+				<td>${goods.price}</td>
+				<td class="num">${goods.num}</td>
+				<td class="amount">${goods.price * goods.num}</td>
+			      </tr>
+		      </g:each>
+		      
                 <tr>
                   <td></td>
                   <td></td>
                   <td>总计</td>
-                  <td>3</td>
-                  <td>2098</td>
+                  <td class="total_num">3</td>
+                  <td class="total_amount">2098</td>
                 </tr>
               </tbody>
             </table>
@@ -228,24 +231,16 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货人姓名</label>
                   <div class="controls">
-                    <p class="help-block text-center" >李大富</p>
+                    <p class="help-block text-center" >${shoppingOrder.buy_user}</p>
                   </div>
                 </div>
 
-                <div class="control-group">
-
-                  <!-- Text input-->
-                  <label class="control-label" for="input01">固定电话</label>
-                  <div class="controls">
-                    <p class="help-block text-center" >69699999</p>
-                  </div>
-                </div>
 
                 <div class="control-group">
                   <!-- Text input-->
                   <label class="control-label" for="input01">手机号码</label>
                   <div class="controls">
-                    <p class="help-block text-center" >13344445555</p>
+                    <p class="help-block text-center" >${shoppingOrder.telphone}</p>
                   </div>
                 </div>
 
@@ -253,7 +248,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货地址</label>
                   <div class="controls">
-                    <p class="help-block text-center" >安徽合肥市政务文化新区习友路融科九重锦2栋1805室</p>
+                    <p class="help-block text-center" >${shoppingOrder.address}</p>
                   </div>
                 </div>
 
@@ -291,6 +286,28 @@
       padding-top: 5px;
     }
   </style>
+  <script>
+	  
+	  function setNewAmount(o){
+		  jQuery(".setAmountMode").hide();
+		  jQuery(jQuery(o).val()).show();
+	  }
+	  
+	  
+	  $(document).ready(function(){
+		  var num = "0";
+		  jQuery(".num").each(function(){
+			  num = parseInt(num) + parseInt(jQuery(this).html());
+		  });
+		  jQuery(".total_num").html(num);
+		  
+		  var amount = "0";
+		  jQuery(".amount").each(function(){
+			  amount = parseInt(amount) + parseInt(jQuery(this).html());
+		  });
+		  jQuery(".total_amount").html(amount);
+	  });
+  </script>
 </body>
 
 </html>

@@ -4,13 +4,41 @@ class OrderController {
 
     def index() { }
     
+	
+	def companyOrderManager(){
+		redirect(action: "companyOrderList", params: params)
+	    }
+    
     //订单列表
     def companyOrderList(){
-        render(view: "/company/order/orderList")
+	    
+		
+	if (!params.max) params.max = 10  
+        if (!params.offset) params.offset = 0  
+        if (!params.sort) params.sort = "lastUpdated"  
+        if (!params.order) params.order = "desc" 
+        
+        def searchClosure =  {
+             if(params.order_sn) {
+                 like('order_sn',"%${params.order_sn}%")
+             }
+             if(params.status) {
+                 eq('status',"${params.status}")
+             }
+        }
+        
+        def s = ShoppingOrder.createCriteria();
+        def results = s.list(params,searchClosure)
+        def map = [orderList: results, orderTotal: results.totalCount]
+        
+        render(view: "/company/order/orderList", model:map)
+		
     }
     
     def companyOrderDetail(){
-        render(view: "/company/order/orderDetail")
+	ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
+	def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
+        render(view: "/company/order/orderDetail", model:map)
     }
     
   //订单管理
@@ -34,6 +62,7 @@ class OrderController {
              if(params.status) {
                  eq('status',"${params.status}")
              }
+	     eq('store_id',session.loginPOJO.store.id.toString())
         }
         
         def s = ShoppingOrder.createCriteria();

@@ -3,12 +3,17 @@ package supply
 class ShoppingOrder {
 
 	static constraints = {
+		company_id(blank:true,nullable:true)
 		payTime(blank:true,nullable:true)
+		shipTime(blank:true,nullable:true)
+		confirmTime(blank:true,nullable:true)
 		confirmTime(blank:true,nullable:true)
 	}
     
 	static hasMany = [ orderGoods : OrderGoods ]
 	
+	String company_id;//企业id
+	String store_id;//门店id
 	String order_sn;
 	String amount;
 	String buy_user;
