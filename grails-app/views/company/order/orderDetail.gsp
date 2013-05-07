@@ -74,50 +74,6 @@
                   </div>
                 </div>
 
-                <div id="updatePrice" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModalLabel">订单金额：${shoppingOrder.amount}</h3>
-                  </div>
-                  <div class="modal-body" >
-                    <div class="control-group">
-
-                      <!-- Select Basic -->
-                      <label class="control-label">设定方式</label>
-                      <div class="controls">
-			<select onchange="setNewAmount(this)"  class="input-xlarge">
-                          <option value="#newamount">设置新订单金额</option>
-                          <option value="#discount">设置订单折扣</option>
-			</select>
-                      </div>
-
-                    </div>
-
-                    <div id="discount" class="control-group setAmountMode" style="display:none">
-
-                      <!-- Text input-->
-                      <label class="control-label" for="input01">折扣</label>
-                      <div class="controls">
-                        <input type="text" placeholder="折扣不能大于10" class="input-xlarge">
-                        <p class="help-block"></p>
-                      </div>
-                    </div>
-
-                    <div id="newamount" class="control-group setAmountMode" style="display:block">
-
-                      <!-- Text input-->
-                      <label class="control-label" for="input01">新订单金额</label>
-                      <div class="controls">
-                        <input type="text" placeholder="" class="input-xlarge">
-                        <p class="help-block"></p>
-                      </div>
-                    </div>                  
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-                    <button class="btn btn-primary">确定</button>
-                  </div>
-                </div>
 
                 <div class="control-group">
                   <!-- Text input-->
@@ -275,6 +231,56 @@
       </div><!--/span-->
     </div><!--/row-->
 
+	<g:form  data-validate="parsley" id="${shoppingOrder?.id}" class="form-horizontal" controller="order" action="companyUpdateOrderAmount" method="post">
+               
+		
+		<div id="updatePrice" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">订单金额：${shoppingOrder.amount}</h3>
+                  </div>
+                  <div class="modal-body" >
+                    <div class="control-group">
+
+                      <!-- Select Basic -->
+                      <label class="control-label">设定方式</label>
+                      <div class="controls">
+			<select onchange="setNewAmount(this)"  class="input-xlarge">
+                          <option value="#newamount">设置新订单金额</option>
+                          <option value="#discount">设置订单折扣</option>
+			</select>
+                      </div>
+
+                    </div>
+
+                    <div id="discount"  class="control-group setAmountMode" style="display:none">
+
+                      <!-- Text input-->
+                      <label class="control-label" for="input01">折扣</label>
+                      <div class="controls">
+                        <input  data-range-message="折扣只能输入1到10数字之间" data-range="[1, 10]"  data-type="number" data-type-number-message="数字格式不正确" type="text" name="discount" placeholder="折扣不能大于10" class="input-xlarge">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+
+                    <div id="newamount" class="control-group setAmountMode" style="display:block">
+
+                      <!-- Text input-->
+                      <label class="control-label" for="input01">新订单金额</label>
+                      <div class="controls">
+                        <input  data-type="number" data-type-number-message="数字格式不正确" type="text" name="newamount" placeholder="" class="input-xlarge">
+                        <p class="help-block"></p>
+                      </div>
+                    </div>                  
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                  </div>
+                </div>
+	</g:form>	
+    
+    
 
     <g:render template="/layouts/company_footer"/>
 
@@ -290,6 +296,7 @@
 	  
 	  function setNewAmount(o){
 		  jQuery(".setAmountMode").hide();
+		  jQuery(".setAmountMode").find("input").val("")
 		  jQuery(jQuery(o).val()).show();
 	  }
 	  

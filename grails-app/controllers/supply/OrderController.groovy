@@ -41,6 +41,26 @@ class OrderController {
         render(view: "/company/order/orderDetail", model:map)
     }
     
+	def companyUpdateOrderAmount(){
+		
+		ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
+		def newamount = params.newamount;
+		def discount = params.discount
+		
+		println newamount + "| " + discount
+		
+		if(newamount){
+			shoppingOrder.amount = newamount
+		}
+		if(discount){
+			shoppingOrder.amount = shoppingOrder.amount * (discount/10)
+		}
+		
+		
+		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
+		render(view: "/company/order/orderDetail", model:map)
+	}
+    
   //订单管理
     def storeOrderManager(){
         redirect(action: "storeOrderList", params: params)
