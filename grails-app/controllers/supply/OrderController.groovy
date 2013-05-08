@@ -53,9 +53,7 @@ class OrderController {
 			shoppingOrder.amount = newamount
 		}
 		if(discount){
-                    println((new Long(discount)/10))
-			shoppingOrder.amount = new Long(shoppingOrder.amount) * (new Long(discount)/10)
-                         println(shoppingOrder.amount)
+			shoppingOrder.amount = new Float(shoppingOrder.amount) * (new Float(discount)/10)
 		}
 		
 		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
