@@ -55,6 +55,7 @@ class UserController {
         def user = new User(params)
         user.user_type = "store"
         user.name = params.contact_person
+	user.password =  params.password.encodeAsPassword()
         store.addToUsers(user)
         
         if (!store.save(flush: true)) {

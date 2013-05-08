@@ -34,8 +34,8 @@ class LoginController {
 //                body 'How are you?' 
 //            }
 //        };
-        
-        def user = User.findByLoginAndPassword(params.login, params.password)
+		
+        def user = User.findByLoginAndPassword(params.login, params.password.encodeAsPassword())
         
         if(user){
             def loginPOJO = new LoginPOJO();

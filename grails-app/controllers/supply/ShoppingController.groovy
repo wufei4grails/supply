@@ -59,6 +59,9 @@ class ShoppingController {
 	
 	def buyGoodsDetail(){
 		def goods = Goods.get(params.id)
+		
+		println goods.goods_name.encodeAsPassword()
+		
 		def attachList = Attach.findAllByAttach_id(params.id)
 		def goodsAttrList = GoodsAttr.findAllByGoods_id(params.id)
 		def map = [goods:goods,goodsAttrList:goodsAttrList,attachList:attachList]

@@ -54,7 +54,7 @@ class BootStrap {
             
             
             def companyStore = new Store(store_name:"企业",store_type:"company",address:"");
-            def admin = new User(login:"admin", password:"111111",name:"wufei",user_type:"company")
+            def admin = new User(login:"admin", password:"111111".encodeAsPassword(),name:"wufei",user_type:"company")
             admin.addToRoles(companyrole)
             companyStore.addToUsers(admin)
             companyStore.save()
@@ -102,7 +102,7 @@ class BootStrap {
 	    storerole.addToMenus(m6_1_1);
 	    storerole.addToMenus(m6_1_2);
             def store = new Store(store_name:"门店测试",store_type:"store",address:"");
-            def member = new User(login:"test", password:"111111",name:"testname",user_type:"store")
+            def member = new User(login:"test", password:"111111".encodeAsPassword(),name:"testname",user_type:"store")
             member.addToRoles(storerole)
             store.addToUsers(member)
             store.save()

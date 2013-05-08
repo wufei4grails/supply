@@ -75,22 +75,22 @@
 			
 			
 			
-<!--		<g:each in="${attachList}" status="i" var="attach">
-<g:if test="${i==0}">
-    <div class="row-fluid">
-</g:if>
-  <div class="span4">
-<g:img  uri="${attach.url}"/>
-  </div>
-<g:if test="${i%3==2}">
-    </div>
-    <div class="row-fluid">
-</g:if>
-<g:if test="${i==attachList.size()-1}">
-    </div>
-</g:if>
+		<g:each in="${attachList}" status="i" var="attach">
+			<g:if test="${i==0}">
+			    <div class="row-fluid">
+			</g:if>
+			  <div class="span4">
+			<g:img  uri="${attach.url}"/>
+			  </div>
+			<g:if test="${i%3==2}">
+			    </div>
+			    <div class="row-fluid">
+			</g:if>
+			<g:if test="${i==attachList.size()-1}">
+			    </div>
+			</g:if>
 
-</g:each>-->
+		</g:each>
               </div>
             </div>
           </div>
