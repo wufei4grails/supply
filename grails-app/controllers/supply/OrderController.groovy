@@ -41,6 +41,24 @@ class OrderController {
         render(view: "/company/order/orderDetail", model:map)
     }
     
+	//企业发货
+	def companyShipOrder(){
+		ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
+		shoppingOrder.status = "waitconfirm";
+		shoppingOrder.shipTime = new Date().getTime()
+		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
+		render(view: "/company/order/orderDetail", model:map)
+	}
+	
+	//门店收货确认
+	def storeConfirmOrder(){
+		ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
+		shoppingOrder.status = "success";
+		shoppingOrder.confirmTime = new Date().getTime()
+		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
+		render(view: "/company/order/orderDetail", model:map)
+	}
+    
 	def companyUpdateOrderAmount(){
 		
 		ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)

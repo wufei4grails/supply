@@ -143,7 +143,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货确认时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.payTime}"/></p>
+                    <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.confirmTime}"/></p>
                   </div>
                 </div>
 
@@ -156,7 +156,14 @@
 
                   <!-- Button -->
                   <div class="controls">
-                    <a href="orderList" class="btn btn-default">返回</a>
+			  
+			  <g:if test="${shoppingOrder.status=='waitconfirm'}">
+				  
+				  <input type="button" onclick="$('.waitconfirm').submit()" class="btn btn-default btn-primary" value="收货确认">
+				  
+				  
+			  </g:if>
+			  
                   </div>
                 </div>
               </fieldset>
@@ -258,7 +265,6 @@
 
                   <!-- Button -->
                   <div class="controls">
-                    <a href="orderList" class="btn btn-default">返回</a>
                   </div>
                 </div>
               </fieldset>
@@ -270,7 +276,10 @@
 
       </div><!--/span-->
     </div><!--/row-->
-
+<g:form   id="${shoppingOrder?.id}" class="form-horizontal waitconfirm" controller="order" action="storeConfirmOrder" method="post">
+	    
+	    
+	</g:form>
 
     <g:render template="/layouts/company_footer"/>
 
