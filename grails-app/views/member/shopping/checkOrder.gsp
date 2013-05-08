@@ -131,8 +131,8 @@
 			
 			<g:each in="${addressList}" status="i" var="address">
 				<label class="radio">
-					<input onclick="checkRadio(this)" value="${address.person_name}"  class="radioinput" type="radio" name="optionsRadios"  person_name="${address.person_name}"  address="${address.address}" area_id="${address.area_id}" telphone="${address.telphone}" <g:if test="${address.is_default=='1'}">checked</g:if> >
-				 ${address.person_name} ${address.address} ${address.telphone}
+					<input onclick="checkRadio(this)" value="${address.person_name}"  class="radioinput" type="radio" name="optionsRadios"  person_name="${address.person_name}"  address="${address.address}" area_name="<area:areaName id='${address.area_id}'/>" area_id="${address.area_id}" telphone="${address.telphone}" <g:if test="${address.is_default=='1'}">checked</g:if> >
+				 ${address.person_name} <area:areaName id='${address.area_id}'/> ${address.address} ${address.telphone}
 			       </label>
 			</g:each>
 			      
@@ -204,8 +204,8 @@
                         <div class="span10" id="person_name"></div>
                       </div>
                       <div class="row-fluid">
-                        <div class="span2">选择地区：</div>
-                        <div class="span10"></div>
+                        <div class="span2">地区：</div>
+                        <div class="span10" id="area_name"></div>
                       </div>
                       <div class="row-fluid">
                         <div class="span2">详细地址：</div>
@@ -264,7 +264,8 @@
 			  var person_name = $(this).attr("person_name");
 			  var address =  $(this).attr("address");
 			  var telphone = $(this).attr("telphone");
-			  setAddress(person_name,address,telphone);
+			  var area_name = $(this).attr("area_name");
+			  setAddress(person_name,address,telphone,area_name);
 		  })
 		  
 	  }
@@ -293,9 +294,11 @@
 	  }
 	  
 	    
-	 function setAddress(person_name,address,telphone){
+	 function setAddress(person_name,address,telphone,area_name){
 		 jQuery("#defaultAddress #person_name").html(person_name);
 		 jQuery("#defaultAddress #address").html(address);
+		 jQuery("#defaultAddress #area_name").html(area_name);
+		 
 		 jQuery("#defaultAddress #telphone").html(telphone);
 	 }  
 	 
@@ -304,7 +307,8 @@
 		var person_name = $(o).attr("person_name");
 		var address =  $(o).attr("address");
 		var telphone = $(o).attr("telphone");
-		setAddress(person_name,address,telphone);
+		var area_name = $(o).attr("area_name");
+		setAddress(person_name,address,telphone,area_name);
 	 }
 	 
 	 initTotalPrice();

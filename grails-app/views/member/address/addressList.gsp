@@ -55,7 +55,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             <g:each in="${addressList}" status="i" var="address">
               <tr id='${address.id}'>
                 <td>${fieldValue(bean: address, field: "person_name")}</td>
-                <td>${fieldValue(bean: address, field: "area_id")}</td>
+                <td> <area:areaName id="${address.area_id}"/> </td>
                 <td>${fieldValue(bean: address, field: "address")}</td>
                 <td>${fieldValue(bean: address, field: "telphone")}</td>
                 <td>
