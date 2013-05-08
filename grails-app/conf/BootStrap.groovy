@@ -17,7 +17,8 @@ class BootStrap {
             def m1 = new Menu(level: 1,menuid:"101", menuname:"订单管理", controller:"order",action:"companyOrderManager",menutype:"company",sort:"3")
             def m1_1 = new Menu(level: 2,menuid:"101101", menuname:"订单列表", controller:"order",action:"companyOrderList",menutype:"company",sort:"3")
             def m1_1_1 = new Menu(level: 3,menuid:"101101101", menuname:"查看订单", controller:"order",action:"companyOrderDetail",menutype:"company",sort:"3")
-            
+            def m1_1_2 = new Menu(level: 3,menuid:"101101102", menuname:"修改订单金额", controller:"order",action:"companyUpdateOrderAmount",menutype:"company",sort:"3")
+           
             
             
             def m2 = new Menu(level: 1,menuid:"102", menuname:"门店管理", controller:"company",action:"storeManager",menutype:"company",sort:"2")
@@ -38,6 +39,7 @@ class BootStrap {
             companyrole.addToMenus(m1);
             companyrole.addToMenus(m1_1)
             companyrole.addToMenus(m1_1_1)
+            companyrole.addToMenus(m1_1_2)
             companyrole.addToMenus(m2);
             companyrole.addToMenus(m2_1);
             companyrole.addToMenus(m2_2);

@@ -47,15 +47,16 @@ class OrderController {
 		def newamount = params.newamount;
 		def discount = params.discount
 		
-		println newamount + "| " + discount
+		
 		
 		if(newamount){
 			shoppingOrder.amount = newamount
 		}
 		if(discount){
-			shoppingOrder.amount = shoppingOrder.amount * (discount/10)
+                    println((new Long(discount)/10))
+			shoppingOrder.amount = new Long(shoppingOrder.amount) * (new Long(discount)/10)
+                         println(shoppingOrder.amount)
 		}
-		
 		
 		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
 		render(view: "/company/order/orderDetail", model:map)
