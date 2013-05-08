@@ -46,7 +46,7 @@ class LoginController {
                     
             if(user.user_type == "company"){
                 
-                redirect(controller:"company", action:"orderManager")
+                redirect(controller:"company", action:"indexManager")
                 return
             }
             if(user.user_type == "store"){

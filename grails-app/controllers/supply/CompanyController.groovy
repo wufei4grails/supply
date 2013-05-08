@@ -11,6 +11,16 @@ class CompanyController {
         render(view: "news")
     }
     
+	
+    def indexManager() { 
+        redirect(controller:"company",action: "allInfo", params: params)
+    }
+    
+    def allInfo() { 
+	    
+	def map = [:]
+        render(view: "index/allInfo", model:map)
+    }
     
     
     

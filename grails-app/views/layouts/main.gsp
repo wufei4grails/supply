@@ -2,8 +2,11 @@
 <html lang="en">
    <head>
       <g:layoutTitle/>
+      
       <r:require modules="bootstrap"/>
+      <r:layoutResources/>
       <r:require modules="parsley"/>
+      <r:require modules="chart"/>
       <r:layoutResources/>
       <style>
     .pagination-right {
@@ -42,7 +45,8 @@
   </style>
    </head>
    <body>
+	   
       <g:layoutBody/>
-      <r:layoutResources/>
+      
    </body>
 </html>

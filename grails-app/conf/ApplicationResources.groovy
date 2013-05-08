@@ -16,5 +16,8 @@ modules = {
         resource url:'resource/Parsley.js-1.1.15/parsley.js'
     }
     
+    chart {
+        resource url:'resource/Chart.js-master/Chart.min.js'
+    }
     
 }

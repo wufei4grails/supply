@@ -14,6 +14,9 @@ class BootStrap {
             
             
             //初始化菜单
+	    def m0 = new Menu(level: 1,menuid:"100", menuname:"企业首页", controller:"company",action:"indexManager",menutype:"company",sort:"100")
+	    def m0_1 = new Menu(level: 2,menuid:"100101", menuname:"信息中心", controller:"company",action:"allInfo",menutype:"company",sort:"100")
+			
             def m1 = new Menu(level: 1,menuid:"101", menuname:"订单管理", controller:"order",action:"companyOrderManager",menutype:"company",sort:"3")
             def m1_1 = new Menu(level: 2,menuid:"101101", menuname:"订单列表", controller:"order",action:"companyOrderList",menutype:"company",sort:"3")
             def m1_1_1 = new Menu(level: 3,menuid:"101101101", menuname:"查看订单", controller:"order",action:"companyOrderDetail",menutype:"company",sort:"3")
@@ -36,6 +39,9 @@ class BootStrap {
             
             
             def companyrole = new Role(rolename:"company");
+	    companyrole.addToMenus(m0);
+            companyrole.addToMenus(m0_1)
+			
             companyrole.addToMenus(m1);
             companyrole.addToMenus(m1_1)
             companyrole.addToMenus(m1_1_1)

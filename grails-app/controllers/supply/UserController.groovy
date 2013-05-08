@@ -1,7 +1,6 @@
 package supply
 
 import grails.converters.JSON
-import grails.converters.JSON
 class UserController {
     
     def areaService
