@@ -15,6 +15,28 @@ class AlipayController {
 		shoppingOrder.payTime = new Date().getTime()
 		shoppingOrder.status = "waitship"
 		println "订单支付成功，回调执行修改订单状态："+ (shoppingOrder as JSON)
+		
+		//转换购买的商品到门店的库存中
+		def orderGoods = shoppingOrder.orderGoods
+		orderGoods.each{
+			
+			
+			Stock stock = Stock.findByStore_idAndGoods_id(shoppingOrder.store_id,it.goods.id)
+			if(stock){
+				stock.num = stock.num + it.num
+			}else{
+				stock = new Stock()
+				stock.store_id = shoppingOrder.store_id
+				stock.goods_name = it.goods.goods_name
+				stock.goods_id = it.goods.id
+				stock.num = it.num
+				stock.price = it.price
+				stock.save()
+			}
+			
+		}
+		
+		
 	}
 	
 	def alireturn(){

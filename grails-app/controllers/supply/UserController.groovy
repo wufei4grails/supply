@@ -13,7 +13,49 @@ class UserController {
         [userInstanceList: User.list(params), userInstanceTotal: User.count()]
     }
     
+    def reqNewPassword(){
+	    def map = [:]
+	    render(view: "/user/reqNewPassword", model:map)
+    }
     
+	def reqNewStorePassword(){
+	    def map = [:]
+	    render(view: "/store/reqNewPassword", model:map)
+    }
+    
+	def doNewSotrePassword(){
+		def oldPassword = params.oldPassword.encodeAsPassword()
+	
+		if(oldPassword!=session.loginPOJO.user.password){
+			flash.message = "输入旧密码不正确！"
+		}else{
+			def user = User.findByLoginAndPassword(session.loginPOJO.user.login, oldPassword)
+			user.password = params.password.encodeAsPassword()
+			user.save()
+			session.loginPOJO.user = user;
+			flash.message = "修改新密码成功！"
+		}
+		
+	    
+	    render(view: "/store/reqNewPassword")
+    }
+	
+    def doNewPassword(){
+		def oldPassword = params.oldPassword.encodeAsPassword()
+	
+		if(oldPassword!=session.loginPOJO.user.password){
+			flash.message = "输入旧密码不正确！"
+		}else{
+			def user = User.findByLoginAndPassword(session.loginPOJO.user.login, oldPassword)
+			user.password = params.password.encodeAsPassword()
+			user.save()
+			session.loginPOJO.user = user;
+			flash.message = "修改新密码成功！"
+		}
+		
+	    
+	    render(view: "/user/reqNewPassword")
+    }
     
     //门店列表
     def companyStoreList(){

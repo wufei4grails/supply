@@ -13,6 +13,17 @@ class StoreController {
         render(view: "login")
     }
     
+	
+	def indexManager() { 
+        redirect(controller:"store",action: "allInfo", params: params)
+    }
+    
+    def allInfo() { 
+	    
+	def map = [:]
+        render(view: "index/allInfo", model:map)
+    }
+    
     
      def authenticate = {
 //        println(params.login)

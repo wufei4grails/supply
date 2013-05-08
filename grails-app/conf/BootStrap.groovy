@@ -16,6 +16,8 @@ class BootStrap {
             //初始化菜单
 	    def m0 = new Menu(level: 1,menuid:"100", menuname:"企业首页", controller:"company",action:"indexManager",menutype:"company",sort:"100")
 	    def m0_1 = new Menu(level: 2,menuid:"100101", menuname:"信息中心", controller:"company",action:"allInfo",menutype:"company",sort:"100")
+	    def m0_2 = new Menu(level: 2,menuid:"100102", menuname:"修改密码", controller:"user",action:"reqNewPassword",menutype:"company",sort:"90")
+	    def m0_2_1 = new Menu(level: 3,menuid:"100102101", menuname:"修改密码", controller:"user",action:"doNewPassword",menutype:"company",sort:"100")
 			
             def m1 = new Menu(level: 1,menuid:"101", menuname:"订单管理", controller:"order",action:"companyOrderManager",menutype:"company",sort:"3")
             def m1_1 = new Menu(level: 2,menuid:"101101", menuname:"订单列表", controller:"order",action:"companyOrderList",menutype:"company",sort:"3")
@@ -41,6 +43,8 @@ class BootStrap {
             def companyrole = new Role(rolename:"company");
 	    companyrole.addToMenus(m0);
             companyrole.addToMenus(m0_1)
+	    companyrole.addToMenus(m0_2)
+	    companyrole.addToMenus(m0_2_1)
 			
             companyrole.addToMenus(m1);
             companyrole.addToMenus(m1_1)
@@ -87,8 +91,24 @@ class BootStrap {
 	    def m6_1 = new Menu(level: 2,menuid:"106101", menuname:"采购订单列表", controller:"order",action:"storeOrderList",menutype:"store",sort:"8")
 	    def m6_1_1 = new Menu(level: 3,menuid:"106101101", menuname:"查看采购订单详情", controller:"order",action:"storeOrderDetail",menutype:"store",sort:"8")
             def m6_1_2 = new Menu(level: 3,menuid:"106101102", menuname:"订单收货确认", controller:"order",action:"storeConfirmOrder",menutype:"store",sort:"8")
+	    
+			
+	    def m7 = new Menu(level: 1,menuid:"107", menuname:"库存", controller:"stock",action:"stockManger",menutype:"store",sort:"2")
+	    def m7_1 = new Menu(level: 2,menuid:"107101", menuname:"查看库存", controller:"stock",action:"list",menutype:"store",sort:"2")
+	    
+	    def s0 = new Menu(level: 1,menuid:"108", menuname:"门店首页", controller:"store",action:"indexManager",menutype:"store",sort:"100")
+	    def s0_1 = new Menu(level: 2,menuid:"108101", menuname:"信息中心", controller:"store",action:"allInfo",menutype:"store",sort:"100")
+	    def s0_2 = new Menu(level: 2,menuid:"108102", menuname:"修改密码", controller:"user",action:"reqNewStorePassword",menutype:"store",sort:"90")
+	    def s0_2_1 = new Menu(level: 3,menuid:"108102101", menuname:"修改密码", controller:"user",action:"doNewSotrePassword",menutype:"store",sort:"100")
+			
 			
             def storerole = new Role(rolename:"store");
+	    storerole.addToMenus(s0);
+	    storerole.addToMenus(s0_1);
+	    storerole.addToMenus(s0_2);
+	    storerole.addToMenus(s0_2_1);
+			
+			
             storerole.addToMenus(m4);
             storerole.addToMenus(m4_1);
             storerole.addToMenus(m4_2);
@@ -107,6 +127,8 @@ class BootStrap {
             storerole.addToMenus(m6_1);
 	    storerole.addToMenus(m6_1_1);
 	    storerole.addToMenus(m6_1_2);
+	    storerole.addToMenus(m7);
+            storerole.addToMenus(m7_1);
             def store = new Store(store_name:"门店测试",store_type:"store",address:"");
             def member = new User(login:"test", password:"111111".encodeAsPassword(),name:"testname",user_type:"store")
             member.addToRoles(storerole)

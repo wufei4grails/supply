@@ -60,7 +60,6 @@ class ShoppingController {
 	def buyGoodsDetail(){
 		def goods = Goods.get(params.id)
 		
-		println goods.goods_name.encodeAsPassword()
 		
 		def attachList = Attach.findAllByAttach_id(params.id)
 		def goodsAttrList = GoodsAttr.findAllByGoods_id(params.id)
@@ -190,7 +189,6 @@ class ShoppingController {
 			}
 		}
 		
-		println(shoppingOrder as JSON)
 		shoppingOrder.save(flash:true);
 		redirect(action: "reqPayOrder",params: [order_sn:shoppingOrder.order_sn]) 
 	}
