@@ -10,9 +10,8 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-	 
+	  
     <div class="container">
-
       <g:render template="/layouts/header"/>
 
 
@@ -43,9 +42,9 @@
 		</table>
 		</div>
 		<div class="span6">
-			<canvas id="canvas" height="" width=""></canvas>
+			<div id="container" style="height: 300px"></div>
 		</div>
-		</div>
+	</div>
 		<div class="row-fluid">
 			<div class="span6">
 				a
@@ -74,23 +73,31 @@
 
     </style>
     <script>
-
-		var barChartData = {
-			labels : ["上架商品","下架商品"],
-			datasets : [
-				{
-					fillColor : "rgba(220,220,220,0.5)",
-					data : [65,1]
-				},
-				{
-					strokeColor : "rgba(151,187,205,1)",
-					data : [28,2]
-				}
-			]
-			
-		}
-
-	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData);
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }],
+    });
+});
 	
 	</script>
 

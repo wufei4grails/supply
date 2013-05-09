@@ -6,7 +6,7 @@
       <r:require modules="bootstrap"/>
       <r:layoutResources/>
       <r:require modules="parsley"/>
-      <r:require modules="chart"/>
+      <r:require modules="highcharts"/>
       <r:layoutResources/>
       <style>
     .pagination-right {

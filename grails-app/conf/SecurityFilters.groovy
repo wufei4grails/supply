@@ -9,6 +9,13 @@
  */
 class SecurityFilters {
     def filters = {
+	    
+		googlevisualizationFilter(controller:"company",action:"googlevisualization"){
+			before = {
+				return true
+			     }
+		}
+		
 	logginFilter(controller:"runtimeLogging",action:"*") {
 		before = {
 		   return true

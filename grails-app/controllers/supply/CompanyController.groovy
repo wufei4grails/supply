@@ -3,6 +3,10 @@ package supply
 class CompanyController {
     //test git
     
+	def googlevisualization(){
+		render(view: "googlevisualization")
+	}
+	
     def index() { 
         redirect(controller:"user",action: "login", params: params)
     }

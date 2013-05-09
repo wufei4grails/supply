@@ -16,8 +16,8 @@ modules = {
         resource url:'resource/Parsley.js-1.1.15/parsley.js'
     }
     
-    chart {
-        resource url:'resource/Chart.js-master/Chart.min.js'
+    highcharts {
+	resource url:'resource/Highcharts-3.0.1/js/highcharts.js'
+	resource url:'resource/Highcharts-3.0.1/js/modules/exporting.js'
     }
-    
 }
