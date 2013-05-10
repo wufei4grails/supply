@@ -35,7 +35,7 @@
 		    </tr>
 		    <tr>
 		      <td>账户</td>
-		      <td>2000</td>
+		      <td>2000元</td>
 		    </tr>
 
 		  </tbody>
@@ -76,27 +76,39 @@
 $(function () {
     $('#container').highcharts({
         chart: {
-            type: 'bar'
+            type: 'column'
         },
         title: {
-            text: 'Fruit Consumption'
+            text: '企业分类商品统计'
         },
         xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
+            categories: ['水果', '蔬菜', '山货']
         },
         yAxis: {
             title: {
-                text: 'Fruit eaten'
+                text: '数量'
             }
         },
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
-        }],
+            name: '分类',
+            data: [1, { y: 3, color: '#BF0B23'}, 4]
+        }
+//        , {
+//            name: 'John',
+//            data: [5, 7, 3]
+//        }
+      ],
     });
+    
+    
+    jQuery("tspan").each(function(){
+        
+        if(jQuery(this).text()=='Highcharts.com'){
+          jQuery(this).remove();
+        }
+      
+    });
+    
 });
 	
 	</script>

@@ -18,6 +18,6 @@ modules = {
     
     highcharts {
 	resource url:'resource/Highcharts-3.0.1/js/highcharts.js'
-	resource url:'resource/Highcharts-3.0.1/js/modules/exporting.js'
+//	resource url:'resource/Highcharts-3.0.1/js/modules/exporting.js'
     }
 }
