@@ -10,6 +10,8 @@ class AreaController {
     def areaSelect(){
         def id = params.id //当前选择的区域id
    
+		
+		
         render areaService.areaSelect(id);
     }
     

@@ -10,31 +10,44 @@ class AlipayController {
     def index() { }
     
 	def alinotify(){
-		def order_sn = params.out_trade_no;
-		def shoppingOrder = ShoppingOrder.findByOrder_sn(order_sn)
-		shoppingOrder.payTime = new Date().getTime()
-		shoppingOrder.status = "waitship"
-		println "订单支付成功，回调执行修改订单状态："+ (shoppingOrder as JSON)
-		
-		//转换购买的商品到门店的库存中
-		def orderGoods = shoppingOrder.orderGoods
-		orderGoods.each{
-			
-			
-			Stock stock = Stock.findByStore_idAndGoods_id(shoppingOrder.store_id,it.goods.id)
-			if(stock){
-				stock.num = stock.num + it.num
-			}else{
-				stock = new Stock()
-				stock.store_id = shoppingOrder.store_id
-				stock.goods_name = it.goods.goods_name
-				stock.goods_id = it.goods.id
-				stock.num = it.num
-				stock.price = it.price
-				stock.save()
+		Map<String,String> params = new HashMap<String,String>();
+		Map requestParams = request.getParameterMap();
+		for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+			String name = (String) iter.next();
+			String[] values = (String[]) requestParams.get(name);
+			String valueStr = "";
+			for (int i = 0; i < values.length; i++) {
+				valueStr = (i == values.length - 1) ? valueStr + values[i]
+						: valueStr + values[i] + ",";
 			}
-			
+			//乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
+			//valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
+			params.put(name, valueStr);
 		}
+		
+		
+		
+		if(!AlipayNotify.verify(params)){//验证不通过,后面的业务将都不执行
+			render "fail"
+				return;
+		}
+		
+		
+		def trade_status = params.trade_status;
+		
+		if(trade_status=="TRADE_SUCCESS"){
+			def order_sn = params.out_trade_no;
+			def shoppingOrder = ShoppingOrder.findByOrder_sn(order_sn)
+			shoppingOrder.payTime = new Date().getTime()
+			shoppingOrder.status = "waitship"
+			println "订单支付成功，回调执行修改订单状态："+ (shoppingOrder as JSON)
+
+			
+			render "success"
+				return;
+		}
+		
+		
 		
 		
 	}

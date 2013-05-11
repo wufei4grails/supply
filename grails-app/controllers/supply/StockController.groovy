@@ -34,7 +34,34 @@ class StockController {
         def results = s.list(params,searchClosure)
         def map = [stockList: results, stockTotal: results.totalCount]
         
-        render(view: "/company/stock/stockList", model:map)
+        render(view: "/member/stock/stockList", model:map)
+    }
+    
+	
+	
+    def stocklog() {
+        if (!params.max) params.max = 10
+        if (!params.offset) params.offset = 0  
+        if (!params.sort) params.sort = "lastUpdated"  
+        if (!params.order) params.order = "desc" 
+        
+        def searchClosure =  {
+//             if(params.goods_name) {
+//                 like('goods_name',"%${params.goods_name}%")
+//             }
+//             if(params.status) {
+//                 eq('status',"${params.status}")
+//             }
+		eq('store_goods_id',params.store_goods_id)
+        }
+        
+	def stock = Stock.get(params.store_goods_id)
+		
+        def s = StockLog.createCriteria();
+        def results = s.list(params,searchClosure)
+        def map = [stockLogList: results, stockLogTotal: results.totalCount,stock:stock]
+        
+        render(view: "/member/stock/stockLogList", model:map)
     }
 
     def create() {

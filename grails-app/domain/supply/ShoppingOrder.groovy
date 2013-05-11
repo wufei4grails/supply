@@ -1,5 +1,6 @@
 package supply
 
+//门店进货订单
 class ShoppingOrder {
 
 	static constraints = {

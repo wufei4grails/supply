@@ -44,6 +44,7 @@
               <th>库存</th>
               <th>进库时间</th>
               <th>更新时间</th>
+	      <th>明细</th>
               <!--<th>操作</th>-->
             </tr>
           </thead>
@@ -54,8 +55,9 @@
 				<td>${stock.num}</td>
 				<td>${stock.dateCreated}</td>
 				<td>${stock.lastUpdated}</td>
-<!--				<td>
-				</td>-->
+				<td>
+					<g:link controller="stock" action="stocklog" params="[store_goods_id: stock.id]">查看</g:link>
+				</td>
 			      </tr>
 			  
 		  </g:each>
