@@ -20,4 +20,13 @@ modules = {
 	resource url:'resource/Highcharts-3.0.1/js/highcharts.js'
 //	resource url:'resource/Highcharts-3.0.1/js/modules/exporting.js'
     }
+    
+    pin {
+	resource url:'resource/jquery.pin.js'
+    }
+    
+    bootstrapSwitch {
+	  resource url:'resource/bootstrap-switch-master/static/js/bootstrapSwitch.js'
+	  resource url:'resource/bootstrap-switch-master/static/stylesheets/bootstrapSwitch.css'
+    }
 }

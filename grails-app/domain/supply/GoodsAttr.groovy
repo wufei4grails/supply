@@ -1,5 +1,6 @@
 package supply
-
+import groovy.transform.AutoClone
+@AutoClone
 class GoodsAttr {
 
     static constraints = {

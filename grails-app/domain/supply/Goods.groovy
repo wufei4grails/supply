@@ -1,5 +1,7 @@
 package supply
+import groovy.transform.AutoClone
 
+@AutoClone
 class Goods {
 
     static constraints = {
@@ -8,6 +10,7 @@ class Goods {
     }
     
     BigDecimal price;
+    String store_id;//
     String goods_name;
     String goods_sn;
     String c_id;

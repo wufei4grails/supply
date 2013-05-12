@@ -24,6 +24,7 @@ class ShoppingController {
 		if (!params.order) params.order = "desc" 
         
 		def searchClosure =  {
+			eq('store_id','1')//查询企业的商品，以购买
 			if(params.goods_name) {
 				like('goods_name',"%${params.goods_name}%")
 			}
@@ -60,6 +61,10 @@ class ShoppingController {
 	def buyGoodsDetail(){
 		def goods = Goods.get(params.id)
 		
+		if(goods.store_id!="1"){
+			render "非企业商品，不能购买"
+			return
+		}
 		
 		def attachList = Attach.findAllByAttach_id(params.id)
 		def goodsAttrList = GoodsAttr.findAllByGoods_id(params.id)

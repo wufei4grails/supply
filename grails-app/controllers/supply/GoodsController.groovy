@@ -118,6 +118,7 @@ class GoodsController {
         if (!params.order) params.order = "desc" 
         
         def searchClosure =  {
+		eq('store_id','1')
              if(params.goods_name) {
                  like('goods_name',"%${params.goods_name}%")
              }
@@ -141,6 +142,12 @@ class GoodsController {
     
     def reqUpdateGoods(){
         def goods = Goods.get(params.id);
+	
+	if(goods.store_id!=session.loginPOJO.store.id.toString()){
+		render "只能查看自己的商品"
+		return
+	}
+		
         def attachList = Attach.findAllByAttach_id(params.id)
         def goodsAttrList = GoodsAttr.findAllByGoods_id(params.id)
         def map = [goods: goods,attachList:attachList,goodsAttrList:goodsAttrList]
@@ -201,6 +208,96 @@ class GoodsController {
         Attach.executeUpdate("delete Attach a where a.attach_id = :attach_id ",[attach_id:params.id])
         GoodsAttr.executeUpdate("delete GoodsAttr g where g.goods_id = :goods_id ",[goods_id:params.id])
    
+    }
+    
+	def storeGoodsManger(){
+		redirect(action: "reqStoreGoodsList", params: params)
+	}
+	
+	def reqStoreGoodsList(){
+		if (!params.max) params.max = 10  
+		if (!params.offset) params.offset = 0  
+		if (!params.sort) params.sort = "lastUpdated"  
+		if (!params.order) params.order = "desc" 
+
+		def searchClosure =  {
+			eq('store_id',"${session.loginPOJO.store.id}")
+		     if(params.goods_name) {
+			 like('goods_name',"%${params.goods_name}%")
+		     }
+		     if(params.goods_sn) {
+			 like('goods_sn',"%${params.goods_sn}%")
+		     }
+		     if(params.status) {
+			 eq('status',"${params.status}")
+		     }
+		}
+
+		def g = Goods.createCriteria();
+		def results = g.list(params,searchClosure)
+		def map = [goodsList: results, goodsTotal: results.totalCount]
+
+
+		render(view: "/member/goods/goodsList", model:map)
+	}
+	
+	def reqUpdateStoreGoods(){
+		def goods = Goods.get(params.id);
+		
+		if(goods.store_id!=session.loginPOJO.store.id.toString()){
+			render "只能查看自己的商品"
+			return
+		}
+		
+		def attachList = Attach.findAllByAttach_id(params.id)
+		def goodsAttrList = GoodsAttr.findAllByGoods_id(params.id)
+		def map = [goods: goods,attachList:attachList,goodsAttrList:goodsAttrList]
+		render(view: "/member/goods/goodsUpdate", model:map)
+	}
+	
+	
+	
+	
+	def doUpdateStoreGoods(Long id){
+        def img_urls = params.img_url.tokenize(",")
+	
+		
+	img_urls.each{
+            def attach = new Attach(attach_id:id,url:it.replace(request.getContextPath(),''))
+            attach.save()
+        }
+
+	def attachList = Attach.findAllByAttach_id(params.id)
+		
+        def goods = Goods.get(id);
+        goods.properties = params
+        if(attachList[0]){//取图片第一张为主图
+            goods.img=attachList[0].url
+        }
+        
+        goods.save();
+        
+        
+        
+        
+        
+        GoodsAttr.executeUpdate("delete GoodsAttr g where g.goods_id = :goods_id ",[goods_id:params.id])
+        //维护商品属性数据
+        def attr_name = params.attr_name
+        def attr_val = params.attr_val
+        
+        if(attr_name!=""){
+            (0..<attr_name.length).each{
+                if(attr_name[it]!=""){
+                    GoodsAttr goodsAttr = new GoodsAttr(goods_id:goods.id,attr_name:attr_name[it],attr_val:attr_val[it])
+                    goodsAttr.save()
+                }
+            }
+        }
+        
+        
+        flash.message = "修改商品成功！"
+        redirect(action: "reqUpdateStoreGoods",id: goods.id)
     }
     
 }

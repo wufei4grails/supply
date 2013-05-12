@@ -1,5 +1,6 @@
 package supply
-
+import org.codehaus.groovy.grails.commons.ApplicationHolder
+import grails.converters.JSON
 class OrderController {
 
     def index() { }
@@ -37,6 +38,9 @@ class OrderController {
     
     def companyOrderDetail(){
 	ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
+	
+		
+		
 	def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
         render(view: "/company/order/orderDetail", model:map)
     }
@@ -60,8 +64,39 @@ class OrderController {
 		//转换购买的商品到门店的库存中
 			def orderGoods = shoppingOrder.orderGoods
 			orderGoods.each{
-
-
+				
+			//维护门店自己的商品库
+				Goods goods = it.goods.clone()
+				goods.store_id = session.loginPOJO.store.id;
+				
+			
+//				def ctx = ApplicationHolder.application.mainContext
+//				def sessionFactory = ctx.sessionFactory
+//				def currentSession = sessionFactory.currentSession
+//			
+//				currentSession.clear()
+				goods.id=null;
+				def store_goods_id =  goods.save().id;
+				
+				def goods_att_list = GoodsAttr.findAllByGoods_id(it.goods.id);
+				//维护门店自己商品库的分类属性信息
+				goods_att_list.each{
+					GoodsAttr goodsAttr = it.clone();
+					goodsAttr.id = null;
+					goodsAttr.goods_id = store_goods_id;
+					goodsAttr.save()
+				}
+				
+			//维护门店自己商品库的图片
+				def attach_list = Attach.findAllByAttach_id(it.goods.id)
+				attach_list.each{
+					Attach attach = it.clone();
+					attach.id = null;
+					attach.attach_id = store_goods_id
+					attach.save()
+				}
+			
+				//库存数据
 				Stock stock = Stock.findByStore_idAndCompany_goods_id(shoppingOrder.store_id,it.goods.id)
 				if(stock){
 					stock.num = stock.num + it.num
@@ -75,6 +110,7 @@ class OrderController {
 					stock.save()
 				}
 
+				//进货记录
 				StockLog stockLog = new StockLog()
 				stockLog.store_id = shoppingOrder.store_id
 				stockLog.store_goods_id = stock.id//关联门店新生成的商品id.因为门店也有可能自己维护商品数据，所以每个门店的商品id有自己的，而不是信赖企业的商品id
@@ -90,7 +126,7 @@ class OrderController {
 		
 		
 		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
-		render(view: "/company/order/orderDetail", model:map)
+		redirect(action: "storeOrderDetail", params: params)
 	}
     
 	def companyUpdateOrderAmount(){
@@ -109,7 +145,7 @@ class OrderController {
 		}
 		
 		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
-		render(view: "/company/order/orderDetail", model:map)
+		render(view: "/order/orderDetail", model:map)
 	}
     
   //订单管理
@@ -127,6 +163,7 @@ class OrderController {
         if (!params.order) params.order = "desc" 
         
         def searchClosure =  {
+		eq('store_id',"${session.loginPOJO.store.id}")
              if(params.order_sn) {
                  like('order_sn',"%${params.order_sn}%")
              }
@@ -146,7 +183,10 @@ class OrderController {
     def storeOrderDetail(){
 	    ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
 	    
-		
+		if(shoppingOrder.store_id!=session.loginPOJO.store.id.toString()){
+			render "只能查看自己店铺的订单"
+			return
+		}
 		
 	    def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
         render(view: "/member/order/orderDetail", model:map)

@@ -93,15 +93,28 @@ class BootStrap {
             def m6_1_2 = new Menu(level: 3,menuid:"106101102", menuname:"订单收货确认", controller:"order",action:"storeConfirmOrder",menutype:"store",sort:"8")
 	    
 			
-	    def m7 = new Menu(level: 1,menuid:"107", menuname:"库存", controller:"stock",action:"stockManger",menutype:"store",sort:"2")
+	    def m7 = new Menu(level: 1,menuid:"107", menuname:"库存", controller:"stock",action:"stockManger",menutype:"store",sort:"1")
 	    def m7_1 = new Menu(level: 2,menuid:"107101", menuname:"查看库存", controller:"stock",action:"list",menutype:"store",sort:"2")
 	    def m7_1_1 = new Menu(level: 3,menuid:"107101101", menuname:"查看库存明细", controller:"stock",action:"stocklog",menutype:"store",sort:"2")
 	    
+			
+			
+			
 	    def s0 = new Menu(level: 1,menuid:"108", menuname:"门店首页", controller:"store",action:"indexManager",menutype:"store",sort:"100")
 	    def s0_1 = new Menu(level: 2,menuid:"108101", menuname:"信息中心", controller:"store",action:"allInfo",menutype:"store",sort:"100")
 	    def s0_2 = new Menu(level: 2,menuid:"108102", menuname:"修改密码", controller:"user",action:"reqNewStorePassword",menutype:"store",sort:"90")
 	    def s0_2_1 = new Menu(level: 3,menuid:"108102101", menuname:"修改密码", controller:"user",action:"doNewSotrePassword",menutype:"store",sort:"100")
+		
 			
+	    def m9 = new Menu(level: 1,menuid:"109", menuname:"收银台", controller:"sale",action:"saleManger",menutype:"store",sort:"2")
+	    def m9_1 = new Menu(level: 2,menuid:"109101", menuname:"收银台", controller:"sale",action:"saleGoodsList",menutype:"store",sort:"2")
+	    def m9_1_1 = new Menu(level: 3,menuid:"109101101", menuname:"出售", controller:"sale",action:"saleGoodsD",menutype:"store",sort:"2")
+	    
+			
+	    def m10 = new Menu(level: 1,menuid:"110", menuname:"商品库", controller:"goods",action:"storeGoodsManger",menutype:"store",sort:"1")
+	    def m10_1 = new Menu(level: 2,menuid:"110101", menuname:"商品库列表", controller:"goods",action:"reqStoreGoodsList",menutype:"store",sort:"2")
+	    def m10_1_1 = new Menu(level: 3,menuid:"110101101", menuname:"修改商品", controller:"goods",action:"reqUpdateStoreGoods",menutype:"store",sort:"2")
+	    def m10_1_2 = new Menu(level: 3,menuid:"110101102", menuname:"修改商品", controller:"goods",action:"doUpdateStoreGoods",menutype:"store",sort:"2")
 			
             def storerole = new Role(rolename:"store");
 	    storerole.addToMenus(s0);
@@ -131,6 +144,19 @@ class BootStrap {
 	    storerole.addToMenus(m7);
             storerole.addToMenus(m7_1);
 	    storerole.addToMenus(m7_1_1);
+	    storerole.addToMenus(s0);
+            storerole.addToMenus(s0_1);
+	    storerole.addToMenus(s0_2);
+	    storerole.addToMenus(s0_2_1);
+	    
+	    storerole.addToMenus(m9);
+	    storerole.addToMenus(m9_1);
+	    storerole.addToMenus(m9_1_1);
+	    
+	    storerole.addToMenus(m10);
+	    storerole.addToMenus(m10_1);
+	    storerole.addToMenus(m10_1_1);
+	    storerole.addToMenus(m10_1_2);
 			
             def store = new Store(store_name:"门店测试",store_type:"store",address:"");
             def member = new User(login:"test", password:"111111".encodeAsPassword(),name:"testname",user_type:"store")
@@ -159,7 +185,7 @@ class BootStrap {
             def goodsArray = ["精品樱桃礼盒66","精品樱桃礼盒77","精品樱桃礼盒88","精品樱桃礼盒8","精品樱桃礼盒7","精品樱桃礼盒6","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒5","精品樱桃礼盒4","精品樱桃礼盒3","精品樱桃礼盒2","精品樱桃礼盒1","精品樱桃礼盒","精品樱桃礼盒"]
             
             goodsArray.each{
-                def goods = new Goods(goods_name:it,goods_sn:"9088",c_id:"2",price:100.00,status:"on",img:"/attached/image/20130421/20130421181931_791.jpg")
+                def goods = new Goods(store_id:"1",goods_name:it,goods_sn:"9088",c_id:"2",price:100.00,status:"on",img:"/attached/image/20130421/20130421181931_791.jpg")
                 goods.save()
             }
             
