@@ -23,8 +23,14 @@
 	<r:require modules="bootstrapSwitch"/>
 	
     <g:render template="/layouts/header"/>
+	<g:if test="${flash.message}">
+		<div class="alert alert-success">
+		    <button type="button" class="close" data-dismiss="alert">&times;</button>
+		    <h3>${flash.message}</h3>
+		    <!--<p>金额：200元</p>-->
 
-
+	    </div>
+	</g:if>
     <div class="row-fluid">
       <div class="span3">
 <!--        <div class="well sidebar-nav">
@@ -39,40 +45,40 @@
 			<ul id="saletabledetail" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: none; position: absolute;top:0px;left:232px; margin-bottom: 5px; width: 300px;z-index: 1000">
 				<li><a tabindex="-1" href="#">购买数量</a></li>
 				<li class="divider"></li>
-				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text"  value="1"></li>
-				<li class="divider"></li>
-				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text" value="1"></li>
-				<li class="divider"></li>
-				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text" value="1"></li>
-				<li class="divider"></li>
-				<li>
-					<span id="rightAmount" style="float:left;margin-left:10px;">合计：100</span>
+				<li class="salegoodsnum" goods_id=""  style="display:none"><input onchange="changeGoodsNum(this)" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text"  value="1"></li>
+				<g:each in="${saleTableList}" status="i" var="salePOJO">
+					<li class="salegoodsnum" goods_id="${salePOJO.goods.id}" style="display:block;"><input onchange="changeGoodsNum(this)" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text"  value="${salePOJO.num}"></li>
+					<li class="divider"></li>
+				</g:each>
+				
+				
+				<li class="rightAmount">
+					<span id="rightAmount" style="float:left;margin-left:10px;">合计：0</span>
 					
-					<input style="float:right;margin-right: 10px;" type="submit" class="btn btn-primary" value="确认出售">
+					<input style="float:right;margin-right: 10px;" type="button" class="btn btn-primary" value="确认出售" onclick="$('#submitSaleOrder').submit()">
 				
 				</li>
 			    </ul>
 		
 		</li>
 		<li class="divider"></li>
-                <li class="salegoods" goods_id="">
+                <li class="salegoods" goods_id="" style="display:none">
 			<a  href="#"><span class="salegoodsname">精品樱桃礼盒6</span><span style="float: right;" class="label label-important delSaleGoods" onclick="delSaleGoods(this)">删除</span>
-				<br/><span class="saleprice">30.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">1</span></span>  </a></li>
-		<li class="divider"></li>
-                <li class="salegoods" goods_id="">
-			<a  href="#"><span class="salegoodsname">精品樱桃礼盒5</span><span style="float: right;" class="label label-important delSaleGoods" onclick="delSaleGoods(this)">删除</span>
-				<br/>
-				<span class="saleprice">40.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">2</span></span></a></li>
-		<li class="divider"></li>
-                <li class="salegoods" goods_id="">
-			<a  href="#"><span class="salegoodsname">精品樱桃礼盒3</span><span style="float: right;" class="label label-important delSaleGoods" onclick="delSaleGoods(this)">删除</span><br/><span class="saleprice">50.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">3</span>
-				</span>
-			</a>
-		</li>
-		<li class="divider"></li>
-		<li>
-			<span id="leftAmount" style="float:left;margin-left:20px;">合计：100</span>
-			<input id="leftsubmit" style="float:right;margin-right: 10px;" type="submit" class="btn btn-primary" value="确认出售"></li>
+				<br/><span class="saleprice">0.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">1</span></span>  </a></li>
+	
+		<g:each in="${saleTableList}" status="i" var="salePOJO">
+			<li class="salegoods" goods_id="${salePOJO.goods.id}" style="display:block;">
+			<a  href="#"><span class="salegoodsname">${salePOJO.goods.goods_name}</span><span style="float: right;" class="label label-important delSaleGoods" onclick="delSaleGoods(this)">删除</span>
+				<br/><span class="saleprice">${salePOJO.goods.price}</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">${salePOJO.num}</span></span>  </a></li>
+			<li class="divider"></li>
+		</g:each>
+				
+				
+				
+				
+		<li class="leftAmount">
+			<span id="leftAmount" style="float:left;margin-left:20px;">合计：0</span>
+			<input id="leftsubmit" style="float:right;margin-right: 10px;" type="button" class="btn btn-primary" value="确认出售" onclick="$('#submitSaleOrder').submit()"></li>
             </ul>
 	</div>
 		
@@ -109,7 +115,7 @@
 				<td class="goods_price">${goods.price}</td>
 				<td>
 					<div goods_id="${goods.id}" class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-barcode'></i>待售" >
-    <input type="checkbox"  />
+					<input type="checkbox" <g:if test="${session.saleTablePOJO?.salePOJOMap?.containsKey(goods.id.toString())}"> checked</g:if> />	
 </div>
 				</td>
 			      </tr>
@@ -128,7 +134,21 @@
         </div>
       </div><!--/span-->
     </div><!--/row-->
-
+	<g:formRemote id="addSaleTable" name="addSaleTable" on404="alert('not found!')" update="" onSuccess=""
+	url="[controller: 'sale', action:'addSaleTable']">
+	    <g:hiddenField id="id" name="id" value="" />
+	    <g:hiddenField id="num" name="num" value="" />
+	</g:formRemote>
+    
+    
+	<g:formRemote id="removeGoods" name="removeGoods" on404="alert('not found!')" update="" onSuccess=""
+	url="[controller: 'sale', action:'removeGoods']">
+	    <g:hiddenField id="id" name="id" value="" />
+	</g:formRemote>
+    
+    
+	<g:form id="submitSaleOrder" name="submitSaleOrder" on404="alert('not found!')" update="" onSuccess="" url="[controller: 'sale', action:'submitSaleOrder']">
+	</g:form>
 
     <g:render template="/layouts/company_footer"/>
 
@@ -150,6 +170,9 @@
 			}
 				
 		    });  
+		    
+		    
+		 totalAmount();
 	  });
 	  
   
@@ -200,17 +223,23 @@
 	
 	
 	function addSaleGoods(goods_id,goods_name,goods_price){
-		var salegoodsli = jQuery(".salegoods:last").clone();
-//		alert(salegoodsli.html())
+		var salegoodsli = jQuery(".salegoods:first").clone();
+		salegoodsli.show();
 		salegoodsli.attr("goods_id",goods_id);
 		salegoodsli.find(".salegoodsname").html(goods_name);
 		salegoodsli.find(".saleprice").html(goods_price);
 		salegoodsli.find(".salenum").html("1");
-		jQuery(".salegoods:last").next().after("<li class='divider'></li>").after(salegoodsli);
-		var salegoodsnumli = jQuery(".salegoodsnum:last").clone();
+		jQuery(".leftAmount").before(salegoodsli).before("<li class='divider'></li>");
+		var salegoodsnumli = jQuery(".salegoodsnum:first").clone();
+		salegoodsnumli.show();
+		salegoodsnumli.attr("goods_id",goods_id);
 		salegoodsnumli.find(".salegoodsnuminput").val("1");
-		jQuery(".salegoodsnum:last").next().after("<li class='divider'></li>").after(salegoodsnumli);
+		jQuery(".rightAmount").before(salegoodsnumli).before("<li class='divider'></li>");
 		totalAmount();
+		
+		jQuery("#addSaleTable").find("#id").val(goods_id);
+		jQuery("#addSaleTable").find("#num").val("1")
+		jQuery("#addSaleTable").submit();
 	}
 	
 	//从购物清单中删除商品
@@ -233,6 +262,21 @@
 		
 		$(".switch[goods_id="+goods_id+"]").bootstrapSwitch('setState', false);
 		
+		jQuery("#removeGoods").find("#id").val(goods_id);
+		jQuery("#removeGoods").submit();
+		
+	}
+	
+	function changeGoodsNum(o){
+		
+		totalAmount();
+		
+		var num = $(o).val();
+		var goods_id = $(o).parents("li").attr('goods_id');
+		
+		jQuery("#addSaleTable").find("#id").val(goods_id);
+		jQuery("#addSaleTable").find("#num").val(num)
+		jQuery("#addSaleTable").submit();
 	}
 	
 	function totalAmount(){

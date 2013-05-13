@@ -91,7 +91,8 @@ class BootStrap {
 	    def m6_1 = new Menu(level: 2,menuid:"106101", menuname:"采购订单列表", controller:"order",action:"storeOrderList",menutype:"store",sort:"8")
 	    def m6_1_1 = new Menu(level: 3,menuid:"106101101", menuname:"查看采购订单详情", controller:"order",action:"storeOrderDetail",menutype:"store",sort:"8")
             def m6_1_2 = new Menu(level: 3,menuid:"106101102", menuname:"订单收货确认", controller:"order",action:"storeConfirmOrder",menutype:"store",sort:"8")
-	    
+	    def m6_2 = new Menu(level: 2,menuid:"106102", menuname:"销售订单列表", controller:"order",action:"storeSaleOrderList",menutype:"store",sort:"7")
+	    def m6_2_1 = new Menu(level: 3,menuid:"106102101", menuname:"查看销售订单详情", controller:"order",action:"storeSaleOrderDetail",menutype:"store",sort:"8")
 			
 	    def m7 = new Menu(level: 1,menuid:"107", menuname:"库存", controller:"stock",action:"stockManger",menutype:"store",sort:"1")
 	    def m7_1 = new Menu(level: 2,menuid:"107101", menuname:"查看库存", controller:"stock",action:"list",menutype:"store",sort:"2")
@@ -141,6 +142,8 @@ class BootStrap {
             storerole.addToMenus(m6_1);
 	    storerole.addToMenus(m6_1_1);
 	    storerole.addToMenus(m6_1_2);
+	    storerole.addToMenus(m6_2);
+	    storerole.addToMenus(m6_2_1);
 	    storerole.addToMenus(m7);
             storerole.addToMenus(m7_1);
 	    storerole.addToMenus(m7_1_1);

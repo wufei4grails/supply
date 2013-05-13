@@ -105,15 +105,17 @@ class OrderController {
 					stock.store_id = shoppingOrder.store_id
 					stock.goods_name = it.goods.goods_name
 					stock.company_goods_id = it.goods.id
+					stock.store_goods_id = store_goods_id;
 					stock.num = it.num
 					stock.price = it.price
 					stock.save()
+					println stock as JSON
 				}
 
 				//进货记录
 				StockLog stockLog = new StockLog()
 				stockLog.store_id = shoppingOrder.store_id
-				stockLog.store_goods_id = stock.id//关联门店新生成的商品id.因为门店也有可能自己维护商品数据，所以每个门店的商品id有自己的，而不是信赖企业的商品id
+				stockLog.store_goods_id = store_goods_id//关联门店新生成的商品id.因为门店也有可能自己维护商品数据，所以每个门店的商品id有自己的，而不是信赖企业的商品id
 				stockLog.stock_type = "in"
 				stockLog.num = it.num
 				stockLog.actnum = stock.num//
@@ -170,7 +172,6 @@ class OrderController {
              if(params.status) {
                  eq('status',"${params.status}")
              }
-	     eq('store_id',session.loginPOJO.store.id.toString())
         }
         
         def s = ShoppingOrder.createCriteria();
@@ -191,4 +192,39 @@ class OrderController {
 	    def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
         render(view: "/member/order/orderDetail", model:map)
     }
+    
+	
+	def storeSaleOrderList(){
+		if (!params.max) params.max = 10  
+		if (!params.offset) params.offset = 0  
+		if (!params.sort) params.sort = "lastUpdated"  
+		if (!params.order) params.order = "desc" 
+
+		def searchClosure =  {
+			eq('store_id',"${session.loginPOJO.store.id}")
+		     if(params.order_sn) {
+			 like('order_sn',"%${params.order_sn}%")
+		     }
+		     if(params.status) {
+			 eq('status',"${params.status}")
+		     }
+		}
+
+		def s = SaleOrder.createCriteria();
+		def results = s.list(params,searchClosure)
+		def map = [orderList: results, orderTotal: results.totalCount]
+
+		render(view: "/member/order/saleOrderList", model:map)
+	}
+	def storeSaleOrderDetail(){
+		 SaleOrder saleOrder = SaleOrder.get(params.id)
+	    
+		if(saleOrder.store_id!=session.loginPOJO.store.id.toString()){
+			render "只能查看自己店铺的订单"
+			return
+		}
+		
+	    def map = [saleOrder: saleOrder,orderGoods:saleOrder.saleOrderGoods]
+		render(view: "/member/order/saleOrderDetail", model:map)
+	}
 }

@@ -9,9 +9,7 @@ package supply
  *
  * @author wufei
  */
-//门店销售商品收银单
-class SalePOJO {
-	Goods goods
-	int num
+class SaleTablePOJO {
+	Map salePOJOMap;
 }
 

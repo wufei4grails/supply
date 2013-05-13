@@ -8,7 +8,6 @@ class ShoppingOrder {
 		payTime(blank:true,nullable:true)
 		shipTime(blank:true,nullable:true)
 		confirmTime(blank:true,nullable:true)
-		confirmTime(blank:true,nullable:true)
 	}
     
 	static hasMany = [ orderGoods : OrderGoods ]

@@ -55,7 +55,7 @@ class StockController {
 		eq('store_goods_id',params.store_goods_id)
         }
         
-	def stock = Stock.get(params.store_goods_id)
+	def stock = Stock.findByStore_goods_id(params.store_goods_id) //.get(params.store_goods_id)
 		
         def s = StockLog.createCriteria();
         def results = s.list(params,searchClosure)

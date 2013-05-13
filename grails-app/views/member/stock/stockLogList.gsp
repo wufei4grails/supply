@@ -50,7 +50,15 @@
 				<td>${stocklog.num}</td>
 				
 				<td>${stocklog.actnum}</td>
-				<td><g:link controller="order" action="storeOrderDetail" id="${stocklog.attach_id}">${stocklog.attach_sn}</g:link></td>
+				<td>
+				<g:if test="${stocklog.stock_type=='in'}">
+					<g:link controller="order" action="storeOrderDetail" id="${stocklog.attach_id}">${stocklog.attach_sn}</g:link>
+				</g:if>
+				<g:if test="${stocklog.stock_type=='out'}">
+					<g:link controller="order" action="storeSaleOrderDetail" id="${stocklog.attach_id}">${stocklog.attach_sn}</g:link>
+				</g:if>
+					
+					</td>
 			      </tr>
 			  
 		  </g:each>

@@ -89,7 +89,7 @@ class ShoppingController {
 				//如果商品在购物车中已存在，则直接修改数量
 				def buyPOJOOfMap = session.cartPOJO.buyPOJOMap.get(goods.id)
 				buyPOJOOfMap.num = params.num.toInteger()
-				println(buyPOJOOfMap)
+//				println(buyPOJOOfMap)
 			}else{
 				session.cartPOJO.buyPOJOMap.put(params.id,buyPOJO)	
 			}

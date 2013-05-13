@@ -56,7 +56,7 @@
 				<td>${stock.dateCreated}</td>
 				<td>${stock.lastUpdated}</td>
 				<td>
-					<g:link controller="stock" action="stocklog" params="[store_goods_id: stock.id]">查看</g:link>
+					<g:link controller="stock" action="stocklog" params="[store_goods_id: stock.store_goods_id]">查看</g:link>
 				</td>
 			      </tr>
 			  
