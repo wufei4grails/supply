@@ -39,11 +39,11 @@
 			<ul id="saletabledetail" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: none; position: absolute;top:0px;left:232px; margin-bottom: 5px; width: 300px;z-index: 1000">
 				<li><a tabindex="-1" href="#">购买数量</a></li>
 				<li class="divider"></li>
-				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6" type="text" ></li>
+				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text"  value="1"></li>
 				<li class="divider"></li>
-				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6" type="text" ></li>
+				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text" value="1"></li>
 				<li class="divider"></li>
-				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6" type="text" ></li>
+				<li class="salegoodsnum"><input onchange="totalAmount()" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text" value="1"></li>
 				<li class="divider"></li>
 				<li>
 					<span id="rightAmount" style="float:left;margin-left:10px;">合计：100</span>
@@ -55,16 +55,17 @@
 		
 		</li>
 		<li class="divider"></li>
-                <li class="salegoods"><a  href="#">精品樱桃礼盒6<span style="float: right;" class="label label-important" onclick="delGoods(this)">删除</span>
+                <li class="salegoods" goods_id="">
+			<a  href="#"><span class="salegoodsname">精品樱桃礼盒6</span><span style="float: right;" class="label label-important delSaleGoods" onclick="delSaleGoods(this)">删除</span>
 				<br/><span class="saleprice">30.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">1</span></span>  </a></li>
 		<li class="divider"></li>
-                <li class="salegoods">
-			<a  href="#">精品樱桃礼盒5<span style="float: right;" class="label label-important" onclick="delGoods(this)">删除</span>
+                <li class="salegoods" goods_id="">
+			<a  href="#"><span class="salegoodsname">精品樱桃礼盒5</span><span style="float: right;" class="label label-important delSaleGoods" onclick="delSaleGoods(this)">删除</span>
 				<br/>
 				<span class="saleprice">40.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">2</span></span></a></li>
 		<li class="divider"></li>
-                <li class="salegoods">
-			<a  href="#">精品樱桃礼盒3 <span style="float: right;" class="label label-important" onclick="delGoods(this)">删除</span><br/><span class="saleprice">50.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">3</span>
+                <li class="salegoods" goods_id="">
+			<a  href="#"><span class="salegoodsname">精品樱桃礼盒3</span><span style="float: right;" class="label label-important delSaleGoods" onclick="delSaleGoods(this)">删除</span><br/><span class="saleprice">50.00</span><span class="salefina"><i  class="icon-remove "></i><span class="salenum">3</span>
 				</span>
 			</a>
 		</li>
@@ -103,37 +104,11 @@
           <tbody>
 		  <g:each in="${goodsList}" status="i" var="goods">
 			  <tr>
-				<td>${goods.goods_name}</td>
+				  <td class="goods_name">${goods.goods_name}</td>
 				<td>${goods.goods_sn}</td>
-				<td>${goods.price}</td>
+				<td class="goods_price">${goods.price}</td>
 				<td>
-					<div class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-barcode'></i>待售" >
-    <input type="checkbox"  />
-</div>
-				</td>
-			      </tr>
-			  
-		  </g:each>
-	  <g:each in="${goodsList}" status="i" var="goods">
-			  <tr>
-				<td>${goods.goods_name}</td>
-				<td>${goods.goods_sn}</td>
-				<td>${goods.price}</td>
-				<td>
-					<div class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-barcode'></i>待售" >
-    <input type="checkbox"  />
-</div>
-				</td>
-			      </tr>
-			  
-		  </g:each>
-	  <g:each in="${goodsList}" status="i" var="goods">
-			  <tr>
-				<td>${goods.goods_name}</td>
-				<td>${goods.goods_sn}</td>
-				<td>${goods.price}</td>
-				<td>
-					<div class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-barcode'></i>待售" >
+					<div goods_id="${goods.id}" class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-barcode'></i>待售" >
     <input type="checkbox"  />
 </div>
 				</td>
@@ -159,6 +134,24 @@
 
   </div> <!-- /container -->
   <script>
+	  
+	  $(document).ready(function(){
+		$('.switch').on('switch-change', function (e, data) {
+			var $el = $(data.el) , value = data.value;
+			var goods_name = $el.parents("tr").find(".goods_name").html();
+			var goods_price = $el.parents("tr").find(".goods_price").html();
+			var goods_id = $(this).attr("goods_id");
+			if(value){
+				addSaleGoods(goods_id,goods_name,goods_price)
+			}else{
+//				alert($(".salegoods[goods_id="+goods_id+"]").html());
+				var delem = $(".salegoods[goods_id="+goods_id+"]").find(".delSaleGoods");
+				delSaleGoods(delem);
+			}
+				
+		    });  
+	  });
+	  
   
 	jQuery("#saletable").pin();
 	
@@ -198,35 +191,61 @@
 //			alert(i)
 //			alert(jQuery(d).html())
 			
-			jQuery("#saletabledetail input:eq("+i+")").val(jQuery(d).html())
+			jQuery("#saletabledetail .salegoodsnuminput:eq("+i+")").val(jQuery(d).html())
 			
 		});
 		
 //		alert(jQuery("#saletabledetail").is(":hidden"))
 	}
 	
-	function delGoods(o){
+	
+	function addSaleGoods(goods_id,goods_name,goods_price){
+		var salegoodsli = jQuery(".salegoods:last").clone();
+//		alert(salegoodsli.html())
+		salegoodsli.attr("goods_id",goods_id);
+		salegoodsli.find(".salegoodsname").html(goods_name);
+		salegoodsli.find(".saleprice").html(goods_price);
+		salegoodsli.find(".salenum").html("1");
+		jQuery(".salegoods:last").next().after("<li class='divider'></li>").after(salegoodsli);
+		var salegoodsnumli = jQuery(".salegoodsnum:last").clone();
+		salegoodsnumli.find(".salegoodsnuminput").val("1");
+		jQuery(".salegoodsnum:last").next().after("<li class='divider'></li>").after(salegoodsnumli);
+		totalAmount();
+	}
+	
+	//从购物清单中删除商品
+	function delSaleGoods(o){
 		var li = jQuery(o).parents("li");
+		var goods_id = li.attr("goods_id");
+		
 		var i = jQuery(".salegoods").index(li);
+		if(i==-1){//当点击删除按钮会触发switch切换，将再次进入删除方法。此时对应商品已删除，找到的这个索引为－1.所以，－1时就不再往下执行。
+			return;
+		}
+			
 		li.next().remove();
 		li.remove();
 		jQuery(".salegoodsnum:eq("+i+")").next().remove();
 		jQuery(".salegoodsnum:eq("+i+")").remove();
 		
 		totalAmount();
+		
+		
+		$(".switch[goods_id="+goods_id+"]").bootstrapSwitch('setState', false);
+		
 	}
 	
 	function totalAmount(){
 		var totalPrice = 0.00 ;
 		jQuery(".saleprice").each(function(i,d){
 			var saleprice = jQuery(d).html();
-			var salenum = jQuery("#saletabledetail input:eq("+i+")").val();
+			var salenum = jQuery("#saletabledetail .salegoodsnuminput:eq("+i+")").val();
 			
 			var re = /^[1-9]+[0-9]*]*$/;       //判断正整数 /^[1-9]+[0-9]*]*$/   
 			if (!re.test(salenum)){
 			   alert("请输入有效数量！");
 
-			   jQuery("#saletabledetail input:eq("+i+")").focus();
+			   jQuery("#saletabledetail .salegoodsnuminput:eq("+i+")").focus();
 			   return false;
 			} 
 		
