@@ -188,7 +188,7 @@ class BootStrap {
             def goodsArray = ["精品樱桃礼盒66","精品樱桃礼盒77","精品樱桃礼盒88","精品樱桃礼盒8","精品樱桃礼盒7","精品樱桃礼盒6","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒","精品樱桃礼盒5","精品樱桃礼盒4","精品樱桃礼盒3","精品樱桃礼盒2","精品樱桃礼盒1","精品樱桃礼盒","精品樱桃礼盒"]
             
             goodsArray.each{
-                def goods = new Goods(store_id:"1",goods_name:it,goods_sn:"9088",c_id:"2",price:100.00,status:"on",img:"/attached/image/20130421/20130421181931_791.jpg")
+                def goods = new Goods(store_id:"1",goods_name:it,goods_sn:"9088",c_id:"2",price:0.01,status:"on",img:"/attached/image/20130421/20130421181931_791.jpg")
                 goods.save()
             }
             

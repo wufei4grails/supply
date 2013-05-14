@@ -72,9 +72,11 @@ class GoodsController {
         def img_urls = params.img_url.tokenize(',')
         def goods = new Goods(params)
         goods.status="on"//发布商品默认上架
+	goods.store_id = session.loginPOJO.store.id;
         if(img_urls[0]){
             goods.img=img_urls[0].replace(request.getContextPath(),'')
         }
+	println goods as JSON;
         goods.save(flush:true);
         def attach_id = goods.id;
         

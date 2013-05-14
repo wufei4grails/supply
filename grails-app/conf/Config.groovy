@@ -253,4 +253,4 @@ grails.war.dependencies = {
 }
 
 
-grails.config.locations=["file:${System.properties['base.dir']}/grails-app/conf/sysSetting.properties"]
+grails.config.locations=["classpath:sysSetting.properties"]
