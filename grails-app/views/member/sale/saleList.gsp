@@ -55,7 +55,7 @@
 				<li class="rightAmount">
 					<span id="rightAmount" style="float:left;margin-left:10px;">合计：0</span>
 					
-					<input style="float:right;margin-right: 10px;" type="button" class="btn btn-primary" value="确认出售" onclick="$('#submitSaleOrder').submit()">
+					<input id="rightsubmit" style="float:right;margin-right: 10px;" type="button" class="btn btn-primary" value="确认出售" onclick="$('#submitSaleOrder').submit()">
 				
 				</li>
 			    </ul>
@@ -78,7 +78,7 @@
 				
 		<li class="leftAmount">
 			<span id="leftAmount" style="float:left;margin-left:20px;">合计：0</span>
-			<input id="leftsubmit" style="float:right;margin-right: 10px;" type="button" class="btn btn-primary" value="确认出售" onclick="$('#submitSaleOrder').submit()"></li>
+			<input  id="leftsubmit" style="float:right;margin-right: 10px;" type="button" class="btn btn-primary" value="确认出售" onclick="$('#submitSaleOrder').submit()"></li>
             </ul>
 	</div>
 		
@@ -298,6 +298,14 @@
 		});
 		jQuery("#leftAmount").html("合计："+totalPrice.toFixed(2));
 		jQuery("#rightAmount").html("合计："+totalPrice.toFixed(2));
+		
+		if(totalPrice.toFixed(2)==0){
+			jQuery("#leftsubmit").attr("disabled",true);
+			jQuery("#rightsubmit").attr("disabled",true);
+		}else{
+			jQuery("#leftsubmit").attr("disabled",false);
+			jQuery("#rightsubmit").attr("disabled",false);
+		}
 	}
   </script>
 </body>

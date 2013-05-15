@@ -109,7 +109,7 @@
 			<g:hiddenField class="area_id" name="area_id" value="" />
 			<g:hiddenField class="telphone" name="telphone" value="" />
 			<g:hiddenField class="person_name" name="person_name" value="" />
-			  <button type="submit" class="btn btn-primary pull-right"><i class="icon-tags icon-white"></i>提交订单</button>
+			  <button id="subbotton" type="submit" class="btn btn-primary pull-right" data-loading-text="正在提交..."><i class="icon-tags icon-white"></i>提交订单</button>
 			  
 			  </td>
                         </tr>
@@ -271,6 +271,7 @@
 	  }
 	  
 	  function pubOrder(o){
+		  $('#subbotton').button('loading');
 		  var f = false
 		  $(".radioinput:checked").each(function(){
 			  
