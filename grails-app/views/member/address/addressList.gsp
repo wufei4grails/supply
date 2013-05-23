@@ -68,7 +68,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
                 </td>
                 <td>
                   <g:link action="reqUpdateAddress" id="${fieldValue(bean: address, field: "id")}">修改</g:link>
-                  <g:remoteLink controller="member" action="delAddress"  id="${address.id}"  onComplete="delGoods(${address.id})">
+                  <g:remoteLink before="return tip()" controller="member" action="delAddress"  id="${address.id}"  onComplete="delGoods(${address.id})">
                       删除
                       </g:remoteLink>
                 </td>
@@ -85,6 +85,15 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 
   </div> <!-- /container -->
   <script>
+	  
+	  function tip(){
+		  
+		  var f = confirm("是否确认删除收货地址");
+		  if(!f){
+			  return false;
+		  }
+	  }
+	  
     function delGoods(o){
       jQuery("#"+o).remove();
       alert("收货地址已成功删除！");

@@ -123,7 +123,7 @@ class MemberController {
 	def delAddress(){
 		def address = Address.get(params.id);
 		address.delete()
-   
+		redirect(action: "reqAddressList")
 	}
     
 }

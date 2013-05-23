@@ -143,11 +143,14 @@ class OrderController {
 			shoppingOrder.amount = newamount
 		}
 		if(discount){
-			shoppingOrder.amount = new Float(shoppingOrder.amount) * (new Float(discount)/10)
+			 shoppingOrder.amount = new BigDecimal(shoppingOrder.amount) * (new BigDecimal(discount)/10)
+			 shoppingOrder.amount = new BigDecimal(shoppingOrder.amount).setScale(2, BigDecimal.ROUND_HALF_UP); 
 		}
 		
 		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
-		render(view: "/order/orderDetail", model:map)
+//		render(view: "/order/orderDetail", model:map)
+		
+		redirect(action: "companyOrderDetail", params: params)
 	}
     
   //订单管理

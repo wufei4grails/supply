@@ -271,7 +271,7 @@
 	  }
 	  
 	  function pubOrder(o){
-		  $('#subbotton').button('loading');
+		 
 		  var f = false
 		  $(".radioinput:checked").each(function(){
 			  
@@ -286,8 +286,10 @@
 		})
 		if(!f){
 			alert("请先填写收货地址信息，再提交订单！")
+			$('.nav-tabs a:last').tab('show');
 			return false;
 		}else{
+			 $('#subbotton').button('loading');
 			return true; 
 		}
 		

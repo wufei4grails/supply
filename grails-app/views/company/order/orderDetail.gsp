@@ -66,7 +66,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">金额</label>
                   <div class="controls">
-                    <p class="help-block text-center" >${shoppingOrder.amount}</p>
+                    <p class="help-block text-center" >${shoppingOrder.amount}元</p>
                     
 		    <g:if test="${shoppingOrder.status=='waitpay'}">
 		    <a style="margin-left:5px;" href="#updatePrice" role="button" class="btn" data-toggle="modal">修改金额</a>

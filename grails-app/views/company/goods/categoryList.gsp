@@ -39,7 +39,7 @@
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane fade in active" id="home">
-                <g:formRemote id="addCategory" data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
+                <g:formRemote  id="addCategory" data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
                               url="[controller: 'goods', action:'addCategory']">
                   <input type="hidden" name="parent_id" id="parent_id" value=""/>
                   <input type="hidden" name="name" id="name" value=""/>
@@ -52,8 +52,7 @@
                   <input type="hidden" name="node_id" id="node_id" value=""/>
                 </g:formRemote>
 
-
-                <g:formRemote data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
+                <g:formRemote  data-validate="parsley" onSuccess="addCategorySuccess(data)" class="form-horizontal" name="addCategory" on404="alert('not found!')" 
                               url="[controller: 'goods', action:'addCategory']">
                   <input type="hidden" name="parent_id" id="parent_id" value="1"/>
                   <fieldset >
@@ -61,7 +60,7 @@
 
                       <label class="control-label" for="input01" style="width:60px;">分类名称</label>
                       <div class="controls" style="margin-left:80px;">
-                        <input name="name" data-required-message="分类名称不能为空" data-required="true" type="text" placeholder="请输入分类名称" class="input-xlarge">
+                        <input  name="name" data-required-message="分类名称不能为空" data-required="true" type="text" placeholder="请输入分类名称" class="input-xlarge catename">
                         <p class="help-block"></p>
                       </div>
                     </div>
@@ -69,7 +68,7 @@
                       <label class="control-label" style="width:60px;"></label>
 
                       <div class="controls" style="margin-left:80px;">
-                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button id='addCateButton' data-loading-text="正在提交..." type="submit" class="btn btn-primary">提交</button>
                       </div>
                     </div>
                   </fieldset>
