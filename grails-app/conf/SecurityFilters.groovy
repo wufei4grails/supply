@@ -30,6 +30,7 @@ class SecurityFilters {
         loginCheck(controller:'*', action:'*') {
             before = {
                 if(!session.loginPOJO 
+		    && !actionName.equals('saveShoppingLog')//保存物流记录
                     && !actionName.equals('login')
                     && !actionName.equals('jpeg')
                     && !actionName.equals('authenticate')

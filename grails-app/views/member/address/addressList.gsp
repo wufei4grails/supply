@@ -26,13 +26,15 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
-        <div id="legend" class="">
-          <legend class="">
-            收货地址列表
-            <g:link class="btn pull-right" action="reqAddAddress" >添加新收货地址</g:link>
-          </legend>
-          
-        </div>
+	      <fieldset>
+		      <div id="legend" class="">
+			      <legend class="">
+				      收货地址列表
+				      <g:link class="btn pull-right" action="reqAddAddress" >添加新收货地址</g:link>
+			      </legend>
+
+		      </div>
+	      </fieldset>
         <g:if test="${flash.message}">
                 <div class="alert alert-error">
                   <button type="button" class="close" data-dismiss="alert">&times;</button>

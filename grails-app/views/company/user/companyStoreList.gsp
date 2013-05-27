@@ -23,9 +23,11 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
+		<fieldset> 
           <div id="legend" class="">
             <legend class="">门店列表</legend>
           </div>
+		</fieldset>
             
             
             <g:form  class="form-inline" controller="user" action="companyStoreList" method="post">

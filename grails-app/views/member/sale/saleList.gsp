@@ -84,9 +84,10 @@
 		
       </div><!--/span-->
       <div class="span9">
+	      <fieldset> 
         <div id="legend" class="">
           <legend class="">收银<span class="label label-info">提示:通过选择售出按钮将待售商品加入到左侧收银台结算</span></legend>
-        </div>
+        </div></fieldset>
 	<g:form class="form-inline" name="myForm" action="saleGoodsList" >
         
           商品：<input value='${params.goods_name}' type="text" name="goods_name" class="input-small" placeholder="商品">

@@ -24,9 +24,10 @@
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
+	      <fieldset> 
         <div id="legend" class="">
           <legend class="">销售订单列表</legend>
-        </div>
+        </div></fieldset>
 	<g:form class="form-inline" name="myForm" action="storeSaleOrderList" >
         
           订单编号：<input value='${params.order_sn}' type="text" name="order_sn" class="input-small" placeholder="订单编号">

@@ -25,9 +25,11 @@
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
+	      <fieldset>
         <div id="legend" class="">
           <legend class="">商品分类列表</legend>
         </div>
+		      </fieldset>
         <div class="row-fluid">
           <div class="span4">
             <ul id="treeDemo" class="ztree"></ul>

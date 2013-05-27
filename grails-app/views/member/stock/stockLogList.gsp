@@ -24,9 +24,10 @@
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
+	      <fieldset> 
         <div id="legend" class="">
           <legend class="">${stock.goods_name}库存明细</legend>
-        </div>
+        </div></fieldset>
 
 
         <table class="table table-hover">

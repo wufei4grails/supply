@@ -26,10 +26,11 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
+	     <fieldset>
         <div id="legend" class="">
           <legend class="">商品列表</legend>
         </div>
-        
+         </fieldset>
         <g:form class="form-inline" name="myForm" action="reqGoodsList" >
         
           商品名称：<input name='goods_name' value='${params.goods_name}' type="text" class="input-small" placeholder="商品名称">

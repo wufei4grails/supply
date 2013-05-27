@@ -24,9 +24,10 @@
         </div><!--/.well -->
       </div><!--/span-->
       <div class="span9">
+	      <fieldset> 
         <div id="legend" class="">
           <legend class="">门店库存</legend>
-        </div>
+        </div></fieldset>
 	<g:form class="form-inline" name="myForm" action="list" >
         
           商品：<input value='${params.goods_name}' type="text" name="goods_name" class="input-small" placeholder="商品">
