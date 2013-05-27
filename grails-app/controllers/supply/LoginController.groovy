@@ -17,11 +17,11 @@ class LoginController {
     
     
     def authenticate = {
-//        if (!jcaptchaService.validateResponse("imageCaptcha", session.id, params.valiCode)){  
-//            flash.message = "验证码错误！"  
-//            forward(action: "companyLogin", params: params)
-//            return
-//        } 
+        if (!jcaptchaService.validateResponse("imageCaptcha", session.id, params.valiCode)){  
+            flash.message = "验证码错误！"  
+            forward(action: "login", params: params)
+            return
+        } 
 //        println(request.post);
 //        println(request.forwardURI);
         
