@@ -73,7 +73,7 @@
 			<td>
 				
 				
-			<g:img width="50px;" height="50px;"  uri="${buyPOJO.goods.img}"/>
+			<g:img style="max-width:50px;max-height:50px;" width="50px;" height="50px;"  uri="${buyPOJO.goods.img}"/>
 			<g:link controller="shopping" action="buyGoodsDetail" id="${buyPOJO.goods.id}">${buyPOJO.goods.goods_name}</g:link>
 			 </td>
 

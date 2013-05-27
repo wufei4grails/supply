@@ -138,8 +138,8 @@
                     }
       
                     function removeCategorySuccess(t){
-                      alert("设置分类成功！")
-                      window.location.reload();
+                      alert("删除分类成功！")
+//                      window.location.reload();
                     }
         
                     function addCategorySuccess(t){
