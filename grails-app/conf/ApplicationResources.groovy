@@ -29,4 +29,9 @@ modules = {
 	  resource url:'resource/bootstrap-switch-master/static/js/bootstrapSwitch.js'
 	  resource url:'resource/bootstrap-switch-master/static/stylesheets/bootstrapSwitch.css'
     }
+    bootstrapDatetimepicker{
+	  resource url:'resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js'
+	  resource url:'resource/bootstrap-datetimepicker-master/css/datetimepicker.css'
+	  resource url:'resource/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js'
+    }
 }

@@ -29,7 +29,7 @@
           <legend class="">采购订单列表</legend>
         </div>
 		      </fieldset>
-	<g:form class="form-inline" name="myForm" action="storeOrderList" >
+	<g:form class="form-inline" name="myForm" action="companyOrderList" >
         
           订单编号：<input value='${params.order_sn}' type="text" name="order_sn" class="input-small" placeholder="订单编号">
           状态：

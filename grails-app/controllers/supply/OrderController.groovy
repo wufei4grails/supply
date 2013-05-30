@@ -38,10 +38,16 @@ class OrderController {
     
     def companyOrderDetail(){
 	ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
+	//shippingLog/saveShippingLog?order_id=1&operuser=wufei&remark=合肥高新提货站
+		
+	def searchClosure =  {
+		eq('order_id',params.id.toLong())
+        }
 	
-		
-		
-	def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
+	def shippingC = ShippingLog.createCriteria();
+        def results = shippingC.list(params,searchClosure)
+//	println "results:"+results
+	def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods,shippingList:results]
         render(view: "/company/order/orderDetail", model:map)
     }
     
@@ -109,7 +115,7 @@ class OrderController {
 					stock.num = it.num
 					stock.price = it.price
 					stock.save()
-					println stock as JSON
+//					println stock as JSON
 				}
 
 				//进货记录

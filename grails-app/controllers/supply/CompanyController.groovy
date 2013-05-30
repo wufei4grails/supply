@@ -21,8 +21,52 @@ class CompanyController {
     }
     
     def allInfo() { 
-	    
-	def map = [:]
+	def waitpaySearch =  {
+                 eq('status',"waitpay")
+        }
+	def waitpayC = ShoppingOrder.createCriteria();
+        def waitpayR = waitpayC.list(params,waitpaySearch)
+	
+	def waitshipSearch =  {
+                 eq('status',"waitship")
+        }
+	def waitshipC = ShoppingOrder.createCriteria();
+        def waitshipR = waitshipC.list(params,waitshipSearch)
+	
+		
+		
+		
+	def waitconfirmSearch =  {
+                 eq('status',"waitconfirm")
+        }
+	def waitconfirmC = ShoppingOrder.createCriteria();
+        def waitconfirmR = waitconfirmC.list(params,waitconfirmSearch)
+	
+		
+	def successSearch =  {
+                 eq('status',"success")
+        }
+	def successC = ShoppingOrder.createCriteria();
+        def successR = successC.list(params,successSearch)
+
+		
+	def onGoodsSearch =  {
+		eq('store_id','1')
+                eq('status',"on")
+        }
+        
+        def onGoodsC = Goods.createCriteria();
+        def onGoodsR = onGoodsC.list(params,onGoodsSearch)
+	
+	def offGoodsSearch =  {
+		eq('store_id','1')
+                eq('status',"off")
+        }
+        
+        def offGoodsC = Goods.createCriteria();
+        def offGoodsR = offGoodsC.list(params,offGoodsSearch)
+		
+	def map = [waitpay:waitpayR.totalCount,waitship:waitshipR.totalCount,waitconfirm:waitconfirmR.totalCount,successCount:successR.totalCount,onGoodsCount:onGoodsR.totalCount,offGoodsCount:offGoodsR.totalCount]
         render(view: "index/allInfo", model:map)
     }
     

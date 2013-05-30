@@ -174,16 +174,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>2013-03-12 18:28:40</td>
-                  <td>已发货,运单号为2844837691</td>
-                  <td>企业客服</td>
-                </tr>
-                <tr>
-                  <td>2013-03-12 23:11:40</td>
-                  <td>扫描地点：广东省广州市天河区车陂，扫描信息：已打包</td>
-                  <td>快递人员</td>
-                </tr>
+		       <g:each in="${shippingList}" status="i" var="shipping">
+			       <tr>
+				<td>${shipping.dateCreated}</td>
+				<td>${shipping.remark}</td>
+				<td>${shipping.operuser}</td>
+			      </tr>
+		       </g:each>
               </tbody>
             </table>
           </div>

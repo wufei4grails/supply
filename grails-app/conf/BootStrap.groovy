@@ -19,28 +19,34 @@ class BootStrap {
 	    def m0_2 = new Menu(level: 2,menuid:"100102", menuname:"修改密码", controller:"user",action:"reqNewPassword",menutype:"company",sort:"90")
 	    def m0_2_1 = new Menu(level: 3,menuid:"100102101", menuname:"修改密码", controller:"user",action:"doNewPassword",menutype:"company",sort:"100")
 			
-            def m1 = new Menu(level: 1,menuid:"101", menuname:"订单管理", controller:"order",action:"companyOrderManager",menutype:"company",sort:"3")
+            def m1 = new Menu(level: 1,menuid:"101", menuname:"订单管理", controller:"order",action:"companyOrderManager",menutype:"company",sort:"99")
             def m1_1 = new Menu(level: 2,menuid:"101101", menuname:"订单列表", controller:"order",action:"companyOrderList",menutype:"company",sort:"3")
             def m1_1_1 = new Menu(level: 3,menuid:"101101101", menuname:"查看订单", controller:"order",action:"companyOrderDetail",menutype:"company",sort:"3")
             def m1_1_2 = new Menu(level: 3,menuid:"101101102", menuname:"修改订单金额", controller:"order",action:"companyUpdateOrderAmount",menutype:"company",sort:"3")
             def m1_1_3 = new Menu(level: 3,menuid:"101101103", menuname:"企业发货", controller:"order",action:"companyShipOrder",menutype:"company",sort:"3")
             
             
-            def m2 = new Menu(level: 1,menuid:"102", menuname:"门店管理", controller:"company",action:"storeManager",menutype:"company",sort:"2")
+            def m2 = new Menu(level: 1,menuid:"102", menuname:"门店管理", controller:"company",action:"storeManager",menutype:"company",sort:"97")
             def m2_1 = new Menu(level: 2,menuid:"102101", menuname:"门店列表", controller:"user",action:"companyStoreList",menutype:"company",sort:"1")
             def m2_2 = new Menu(level: 2,menuid:"102102", menuname:"分配门店账号", controller:"user",action:"reqCompanyStoreCreate",menutype:"company",sort:"2")
             def m2_2_1 = new Menu(level: 3,menuid:"102102101", menuname:"分配门店账号", controller:"user",action:"doCompanyStoreCreate",menutype:"company",sort:"2")
             
             
-            def m3 = new Menu(level: 1,menuid:"103", menuname:"商品管理", controller:"company",action:"goodsManager",menutype:"company",sort:"1")
+            def m3 = new Menu(level: 1,menuid:"103", menuname:"商品管理", controller:"company",action:"goodsManager",menutype:"company",sort:"95")
             def m3_1 = new Menu(level: 2,menuid:"103101", menuname:"商品分类管理", controller:"goods",action:"categoryManager",menutype:"company",sort:"1")
             def m3_2 = new Menu(level: 2,menuid:"103102", menuname:"发布商品", controller:"goods",action:"reqAddGoods",menutype:"company",sort:"2")
             def m3_3 = new Menu(level: 2,menuid:"103103", menuname:"商品列表", controller:"goods",action:"reqGoodsList",menutype:"company",sort:"3")
             def m3_4 = new Menu(level: 3,menuid:"103104", menuname:"修改商品", controller:"goods",action:"reqUpdateGoods",menutype:"company",sort:"3")
-            
+	    
+	    def com1 = new Menu(level: 1,menuid:"111", menuname:"统计报表", controller:"report",action:"companyReportManager",menutype:"company",sort:"94")
+            def com1_1 = new Menu(level: 2,menuid:"111101", menuname:"企业销售报表", controller:"report",action:"companySaleReport",menutype:"company",sort:"1")
             
             
             def companyrole = new Role(rolename:"company");
+	    
+	    companyrole.addToMenus(com1);
+            companyrole.addToMenus(com1_1)
+			
 	    companyrole.addToMenus(m0);
             companyrole.addToMenus(m0_1)
 	    companyrole.addToMenus(m0_2)

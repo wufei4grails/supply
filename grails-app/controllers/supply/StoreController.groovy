@@ -19,8 +19,58 @@ class StoreController {
     }
     
     def allInfo() { 
-	    
-	def map = [:]
+	  
+	def waitpaySearch =  {
+		eq('store_id',"${session.loginPOJO.store.id}")
+                 eq('status',"waitpay")
+        }
+	def waitpayC = ShoppingOrder.createCriteria();
+        def waitpayR = waitpayC.list(params,waitpaySearch)
+	
+	def waitshipSearch =  {
+		eq('store_id',"${session.loginPOJO.store.id}")
+                 eq('status',"waitship")
+        }
+	def waitshipC = ShoppingOrder.createCriteria();
+        def waitshipR = waitshipC.list(params,waitshipSearch)
+	
+		
+		
+		
+	def waitconfirmSearch =  {
+		eq('store_id',"${session.loginPOJO.store.id}")
+                 eq('status',"waitconfirm")
+        }
+	def waitconfirmC = ShoppingOrder.createCriteria();
+        def waitconfirmR = waitconfirmC.list(params,waitconfirmSearch)
+	
+		
+	def successSearch =  {
+                 eq('status',"success")
+        }
+	def successC = ShoppingOrder.createCriteria();
+        def successR = successC.list(params,successSearch)	
+		
+	//门店售出订单统计
+	def saleSearch =  {
+		eq('store_id',"${session.loginPOJO.store.id}")
+//		eq('status',"${params.status}")
+	}
+
+	def saleC = SaleOrder.createCriteria();
+	def saleR = saleC.list(params,saleSearch)
+		
+		
+	def goodsSearch =  {
+		eq('store_id',"${session.loginPOJO.store.id}")
+	}
+
+	def goodsC = Goods.createCriteria();
+	def goodsR = goodsC.list(params,goodsSearch)
+		
+		
+		
+	def map = [waitpay:waitpayR.totalCount,waitship:waitshipR.totalCount,waitconfirm:waitconfirmR.totalCount,sale:saleR.totalCount,goodsCount:goodsR.totalCount,successCount:successR.totalCount]
         render(view: "index/allInfo", model:map)
     }
     
