@@ -107,7 +107,7 @@
                 <!-- Text input-->
                 <label class="control-label" for="input01">密码<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input  data-required-message="密码不能为空"  data-required="true" type="password" id="password" name="password" placeholder="请输入密码" class="input-xlarge">
+                  <input data-minlength-message="密码至少需要6位数字" data-minlength="6"  data-required-message="密码不能为空"  data-required="true" type="password" id="password" name="password" placeholder="请输入密码" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>

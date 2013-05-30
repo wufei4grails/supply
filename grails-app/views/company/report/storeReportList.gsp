@@ -27,13 +27,14 @@
 	      <fieldset> 
 		<div id="legend" class="">
 		  <legend class="">
-		   企业销售统计报表
+		    门店销售统计报表
 		  </legend>
 		</div>
 		</fieldset>
 	      
-	      <g:form controller='report' class="form-inline" name="myForm" action="companySaleReport" >
-        
+	      <g:form controller='report' class="form-inline" name="myForm" action="storeSaleReport" >
+        请选择门店：&nbsp;<g:select class="input-medium" value="${params.store_id}" name="store_id" optionKey="id" optionValue="store_name" from="${storeList}" />
+	<br/>
     按时间统计：
     <input class='input-large datetime' name="start_time" type="text" value="${params.start_time}" readonly placeholder="起始时间">
     -

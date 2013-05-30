@@ -46,6 +46,7 @@ class StoreController {
 	
 		
 	def successSearch =  {
+		eq('store_id',"${session.loginPOJO.store.id}")
                  eq('status',"success")
         }
 	def successC = ShoppingOrder.createCriteria();
