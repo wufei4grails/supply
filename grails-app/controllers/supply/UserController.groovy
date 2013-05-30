@@ -71,6 +71,7 @@ class UserController {
        
         
         def searchClosure =  {
+		eq('store_type','store')
              if(params.store_name) {
                  like('store_name',"%${params.store_name}%")
              }
