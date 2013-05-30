@@ -30,7 +30,7 @@
         </div></fieldset>
 	<g:form class="form-inline" name="myForm" action="list" >
         
-          商品：<input value='${params.goods_name}' type="text" name="goods_name" class="input-small" placeholder="商品">
+          商品：<input value='${params.goods_name}' type="text" name="goods_name" class="input-small" placeholder="商品名称">
 
 
 

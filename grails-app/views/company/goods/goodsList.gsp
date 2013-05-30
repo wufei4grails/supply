@@ -35,7 +35,7 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
         
           商品名称：<input name='goods_name' value='${params.goods_name}' type="text" class="input-small" placeholder="商品名称">
           商品编号：<input name='goods_sn' value='${params.goods_sn}' type="text" class="input-small" placeholder="商品编号">
-          是否上架：<g:select value="${params.status}" name="status" optionKey="status" optionValue="queryShow" from="${[[status:"",queryShow:"全部"],[status:"on",queryShow:"上架"],[status:"off",queryShow:"下架"]]}" />
+          是否上架：<g:select class='input-small' value="${params.status}" name="status" optionKey="status" optionValue="queryShow" from="${[[status:"",queryShow:"全部"],[status:"on",queryShow:"上架"],[status:"off",queryShow:"下架"]]}" />
           <button type="submit" class="btn">搜索</button>
         </g:form>
         <table class="table table-hover">
