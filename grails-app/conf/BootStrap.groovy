@@ -79,13 +79,13 @@ class BootStrap {
             
            
             //门店菜单，角色，权限数据初始化
-            def m4 = new Menu(level: 1,menuid:"104", menuname:"门店信息管理", controller:"member",action:"memberManager",menutype:"store",sort:"9")
+            def m4 = new Menu(level: 1,menuid:"104", menuname:"门店信息管理", controller:"member",action:"memberManager",menutype:"store",sort:"99")
             def m4_1 = new Menu(level: 2,menuid:"104101", menuname:"门店基本资料", controller:"member",action:"reqStoreInfo",menutype:"store",sort:"1")
             def m4_2 = new Menu(level: 2,menuid:"104102", menuname:"门店收货地址", controller:"member",action:"reqAddressList",menutype:"store",sort:"2")
             def m4_2_1 = new Menu(level: 3,menuid:"104102101", menuname:"添加新收货地址", controller:"member",action:"reqAddAddress",menutype:"store",sort:"1")
             def m4_2_2 = new Menu(level: 3,menuid:"104102102", menuname:"修改收货地址", controller:"member",action:"reqUpdateAddress",menutype:"store",sort:"1")
             //采购商品流程
-            def m5 = new Menu(level: 1,menuid:"105", menuname:"采购商品", controller:"shopping",action:"shoppingManager",menutype:"store",sort:"8")
+            def m5 = new Menu(level: 1,menuid:"105", menuname:"采购商品", controller:"shopping",action:"shoppingManager",menutype:"store",sort:"98")
             def m5_1 = new Menu(level: 2,menuid:"105101", menuname:"采购商品", controller:"shopping",action:"shoppingGoodsList",menutype:"store",sort:"8")
             def m5_2 = new Menu(level: 3,menuid:"105101101", menuname:"查看商品", controller:"shopping",action:"buyGoodsDetail",menutype:"store",sort:"8")
 	    def m5_3 = new Menu(level: 3,menuid:"105101102", menuname:"直接购买跳转购物车", controller:"shopping",action:"gotoCart",menutype:"store",sort:"8")
@@ -95,14 +95,14 @@ class BootStrap {
 	    def m5_7 = new Menu(level: 3,menuid:"105101106", menuname:"订单提交成功,显示支付页面", controller:"shopping",action:"reqPayOrder",menutype:"store",sort:"8")
 	    def m5_8 = new Menu(level: 3,menuid:"105101107", menuname:"订单支付成功,显示支付成功提示页面", controller:"alipay",action:"alireturn",menutype:"store",sort:"8")
 	//订单管理
-            def m6 = new Menu(level: 1,menuid:"106", menuname:"订单管理", controller:"order",action:"storeOrderManager",menutype:"store",sort:"8")
+            def m6 = new Menu(level: 1,menuid:"106", menuname:"订单管理", controller:"order",action:"storeOrderManager",menutype:"store",sort:"97")
 	    def m6_1 = new Menu(level: 2,menuid:"106101", menuname:"采购订单列表", controller:"order",action:"storeOrderList",menutype:"store",sort:"8")
 	    def m6_1_1 = new Menu(level: 3,menuid:"106101101", menuname:"查看采购订单详情", controller:"order",action:"storeOrderDetail",menutype:"store",sort:"8")
             def m6_1_2 = new Menu(level: 3,menuid:"106101102", menuname:"订单收货确认", controller:"order",action:"storeConfirmOrder",menutype:"store",sort:"8")
 	    def m6_2 = new Menu(level: 2,menuid:"106102", menuname:"销售订单列表", controller:"order",action:"storeSaleOrderList",menutype:"store",sort:"7")
 	    def m6_2_1 = new Menu(level: 3,menuid:"106102101", menuname:"查看销售订单详情", controller:"order",action:"storeSaleOrderDetail",menutype:"store",sort:"8")
 			
-	    def m7 = new Menu(level: 1,menuid:"107", menuname:"库存", controller:"stock",action:"stockManger",menutype:"store",sort:"1")
+	    def m7 = new Menu(level: 1,menuid:"107", menuname:"库存", controller:"stock",action:"stockManger",menutype:"store",sort:"96")
 	    def m7_1 = new Menu(level: 2,menuid:"107101", menuname:"查看库存", controller:"stock",action:"list",menutype:"store",sort:"2")
 	    def m7_1_1 = new Menu(level: 3,menuid:"107101101", menuname:"查看库存明细", controller:"stock",action:"stocklog",menutype:"store",sort:"2")
 	    
@@ -115,21 +115,28 @@ class BootStrap {
 	    def s0_2_1 = new Menu(level: 3,menuid:"108102101", menuname:"修改密码", controller:"user",action:"doNewSotrePassword",menutype:"store",sort:"100")
 		
 			
-	    def m9 = new Menu(level: 1,menuid:"109", menuname:"收银台", controller:"sale",action:"saleManger",menutype:"store",sort:"2")
+	    def m9 = new Menu(level: 1,menuid:"109", menuname:"收银台", controller:"sale",action:"saleManger",menutype:"store",sort:"95")
 	    def m9_1 = new Menu(level: 2,menuid:"109101", menuname:"收银台", controller:"sale",action:"saleGoodsList",menutype:"store",sort:"2")
 	    def m9_1_1 = new Menu(level: 3,menuid:"109101101", menuname:"出售", controller:"sale",action:"saleGoodsD",menutype:"store",sort:"2")
 	    
 			
-	    def m10 = new Menu(level: 1,menuid:"110", menuname:"商品库", controller:"goods",action:"storeGoodsManger",menutype:"store",sort:"1")
+	    def m10 = new Menu(level: 1,menuid:"110", menuname:"商品库", controller:"goods",action:"storeGoodsManger",menutype:"store",sort:"94")
 	    def m10_1 = new Menu(level: 2,menuid:"110101", menuname:"商品库列表", controller:"goods",action:"reqStoreGoodsList",menutype:"store",sort:"2")
 	    def m10_1_1 = new Menu(level: 3,menuid:"110101101", menuname:"修改商品", controller:"goods",action:"reqUpdateStoreGoods",menutype:"store",sort:"2")
 	    def m10_1_2 = new Menu(level: 3,menuid:"110101102", menuname:"修改商品", controller:"goods",action:"doUpdateStoreGoods",menutype:"store",sort:"2")
+	
+	    def s2 = new Menu(level: 1,menuid:"112", menuname:"统计报表", controller:"report",action:"storeReportManager",menutype:"company",sort:"91")
+            def s2_1 = new Menu(level: 2,menuid:"112101", menuname:"门店销售报表", controller:"report",action:"storeOwnerSaleReport",menutype:"store",sort:"1")		
+			
 			
             def storerole = new Role(rolename:"store");
 	    storerole.addToMenus(s0);
 	    storerole.addToMenus(s0_1);
 	    storerole.addToMenus(s0_2);
 	    storerole.addToMenus(s0_2_1);
+	    
+	    storerole.addToMenus(s2);
+	    storerole.addToMenus(s2_1);
 			
 			
             storerole.addToMenus(m4);
