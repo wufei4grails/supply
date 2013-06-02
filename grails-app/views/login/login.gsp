@@ -13,7 +13,7 @@
 
   <div class="container">
 
-    <g:form data-validate="parsley" class="form-signin" action="authenticate" method="post">
+    <g:form onSubmit="checkForm(this)" data-validate="parsley" class="form-signin" action="authenticate" method="post">
       <h2 class="form-signin-heading">企业全程供应链管理平台</h2>
       <g:if test="${flash.message}">
         <div class="alert alert-error">
@@ -28,7 +28,7 @@
       <jcaptcha:jpeg name="imageCaptcha" id="imageCaptcha" style="width: 40%;margin-bottom: 10px;" width="10px;"/>
 
       <a href="javascript:void(0)" onclick="changeCode()">看不清?</a>
-      <button class="btn btn-large btn-primary" type="submit">登录</button>
+      <button data-loading-text="正在登录..." id="subbotton" class="btn btn-large btn-primary" type="submit">登录</button>
     </g:form>
 
   </div> <!-- /container -->
@@ -78,6 +78,15 @@
 
   </style>
   <script>
+	function checkForm(o){
+		var login = $(o).find("#login").val()
+		var password = $(o).find("#password").val()
+		if(login!=''&&password!=''){
+			$('#subbotton').button('loading');
+		}
+		
+	}
+	  
     function changeCode(){
       document.getElementById("imageCaptcha").src="<%=request.getContextPath()%>/jcaptcha/jpeg/imageCaptcha?id="+ new Date();
     }

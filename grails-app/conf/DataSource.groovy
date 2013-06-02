@@ -7,8 +7,10 @@ dataSource {
 //    username = "sa"
 //    password = ""
 
+    println properties.getProperty("DB.driverClass")
     
-    driverClassName = properties.getProperty("DB.driverClassName")
+	 println properties.getProperty("DB.username")
+    driverClassName = properties.getProperty("DB.driverClass")
     username = properties.getProperty("DB.username")
     password = properties.getProperty("DB.password")
 
