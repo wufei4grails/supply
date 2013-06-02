@@ -27,7 +27,9 @@
         <ul id="myTab" class="nav nav-tabs">
           <li class="active"><a href="#home" data-toggle="tab">订单信息</a></li>
           <li class=""><a href="#profile" data-toggle="tab">商品信息</a></li>
-          <li class=""><a href="#wuliu" data-toggle="tab">物流跟踪</a></li>
+         <g:if test="${shoppingOrder.status=='waitconfirm'||shoppingOrder.status=='success'}">
+	  <li class=""><a href="#wuliu" data-toggle="tab">物流跟踪</a></li>
+	 </g:if>
           <li class=""><a href="#shouhuo" data-toggle="tab">收货人信息</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
@@ -107,9 +109,52 @@
                   </div>
                 </div>
 
+		<g:if test="${shoppingOrder.status=='waitconfirm'||shoppingOrder.status=='success'}">
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流公司</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_compay}</p>
+			</div>
+		      </div>
+			
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流单号</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_no}</p>
+			</div>
+		      </div>
+			
+		</g:if>
 
 
+		
+<g:if test="${shoppingOrder.status=='waitship'}">
 
+	
+		<div class="control-group">
+                  <!-- Text input-->
+                  <label class="control-label" for="input01">物流公司<font color="red">&nbsp;*</font></label>
+                  <div class="controls">
+                    <g:select class="input-medium" value="" name="logistics_compay" optionKey="logistics_compay_value" optionValue="logistics_compay" from="${[[logistics_compay_value:"",logistics_compay:"请选择物流公司"],[logistics_compay_value:"申通",logistics_compay:"申通"],[logistics_compay_value:"顺风",logistics_compay:"顺风"]]}" />
+                  </div>
+                </div>
+	
+	
+	
+		<div class="control-group">
+
+              <!-- Text input-->
+              <label class="control-label" for="input01">物流单号<font color="red">&nbsp;*</font></label>
+              <div class="controls">
+                <input data-error-message="商品名称不能为空" data-required="true" id="logistics_no"  name="logistics_no"  type="text" placeholder="请输入物流单号" class="input-xlarge">
+                <p class="help-block"></p>
+              </div>
+            </div>
+	
+	
+	
 
                 <div class="control-group">
                   <label class="control-label"></label>
@@ -119,14 +164,17 @@
 			  
 		
 	
-			  <g:if test="${shoppingOrder.status=='waitship'}">
-				  
-				  <input type="button" onclick="$('.waitship').submit()" class="btn btn-default btn-primary" value="发货">
 				  
 				  
-			  </g:if>
+				  
+				  <input type="button" onclick="shipOrder(this)" class="btn btn-default btn-primary" value="发货">
+				  
+				  
+			  
                   </div>
                 </div>
+	
+	</g:if>
               </fieldset>
             </form>
           </div>
@@ -165,7 +213,34 @@
             </table>
           </div>
           <div class="tab-pane fade" id="wuliu">
-            <table class="table table-hover">
+		  <form class="form-horizontal">
+		   <fieldset>
+		  <g:if test="${shoppingOrder.status=='waitconfirm'||shoppingOrder.status=='success'}">
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流公司</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_compay}</p>
+			</div>
+		      </div>
+			
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流单号</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_no}</p>
+			</div>
+		      </div>
+			
+		</g:if>
+		   </fieldset>
+		  </form>
+		  <g:if test="${grailsApplication.config.Logistics.kuaidi100}">
+		 <iframe name="kuaidi100" src="http://www.kuaidi100.com/frame/app/index2.html" width="600" height="400" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></iframe>
+		  </g:if>
+
+
+<!--            <table class="table table-hover">
               <thead>
                 <tr>
                   <th>处理时间</th>
@@ -182,7 +257,7 @@
 			      </tr>
 		       </g:each>
               </tbody>
-            </table>
+            </table>-->
           </div>
           <div class="tab-pane fade" id="shouhuo">
             <form class="form-horizontal">
@@ -236,7 +311,8 @@
     </div><!--/row-->
 
     <g:form   id="${shoppingOrder?.id}" class="form-horizontal waitship" controller="order" action="companyShipOrder" method="post">
-	    
+	    <g:hiddenField name="logistics_compay" id="logistics_compay" />
+	    <g:hiddenField name="logistics_no" id="logistics_no" />
 	    
 	</g:form>
 	
@@ -303,6 +379,28 @@
     }
   </style>
   <script>
+	  
+	  function shipOrder(o){
+		  
+		  var logistics_compay = $(o).parents("form").find("#logistics_compay").val()
+		  $('.waitship').find("#logistics_compay").val(logistics_compay)
+		  
+		  
+		  if(logistics_compay==""){
+			  alert("请选择物流公司")
+			  return false;
+		}
+		
+		var logistics_no = $(o).parents("form").find("#logistics_no").val()
+		  $('.waitship').find("#logistics_no").val(logistics_no)
+		if(logistics_no==""){
+			  alert("请填写物流单号")
+			  return false;
+		}
+		
+		  
+		  $('.waitship').submit();
+	  }
 	  
 	  function setNewAmount(o){
 		  jQuery(".setAmountMode").hide();

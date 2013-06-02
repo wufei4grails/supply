@@ -1,3 +1,6 @@
+import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.support.PropertiesLoaderUtils
+def properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource("sysSetting.properties")) 
 dataSource {
     pooled = true
 //    driverClassName = "org.h2.Driver"
@@ -5,9 +8,10 @@ dataSource {
 //    password = ""
 
     
-    driverClassName = "com.mysql.jdbc.Driver"
-    username = "root"
-    password = "111111"
+    driverClassName = properties.getProperty("DB.driverClassName")
+    username = properties.getProperty("DB.username")
+    password = properties.getProperty("DB.password")
+
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -20,8 +24,10 @@ environments {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 //            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-            url = "jdbc:mysql://127.0.0.1:3306/supply?useUnicode=true&characterEncoding=UTF-8"
-            logSql = true 
+//            url = "jdbc:mysql://127.0.0.1:3306/supply?useUnicode=true&characterEncoding=UTF-8"
+            url = properties.getProperty("DB.url")
+           
+			logSql = true 
         }
     }
     test {

@@ -27,7 +27,9 @@
         <ul id="myTab" class="nav nav-tabs">
           <li class="active"><a href="#home" data-toggle="tab">订单信息</a></li>
           <li class=""><a href="#profile" data-toggle="tab">商品信息</a></li>
-          <li class=""><a href="#wuliu" data-toggle="tab">物流跟踪</a></li>
+          <g:if test="${shoppingOrder.status=='waitconfirm'||shoppingOrder.status=='success'}">
+	  <li class=""><a href="#wuliu" data-toggle="tab">物流跟踪</a></li>
+	  </g:if>
           <li class=""><a href="#shouhuo" data-toggle="tab">收货人信息</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
@@ -146,7 +148,24 @@
                     <p class="help-block text-center" ><datetime:getDateTime longtime="${shoppingOrder.confirmTime}"/></p>
                   </div>
                 </div>
-
+<g:if test="${shoppingOrder.status=='waitconfirm'||shoppingOrder.status=='success'}">
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流公司</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_compay}</p>
+			</div>
+		      </div>
+			
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流单号</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_no}</p>
+			</div>
+		      </div>
+			
+		</g:if>
 
 
 
@@ -204,7 +223,38 @@
             </table>
           </div>
           <div class="tab-pane fade" id="wuliu">
-            <table class="table table-hover">
+		  
+		  <form class="form-horizontal">
+		   <fieldset>
+		  <g:if test="${shoppingOrder.status=='waitconfirm'||shoppingOrder.status=='success'}">
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流公司</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_compay}</p>
+			</div>
+		      </div>
+			
+			<div class="control-group">
+			<!-- Text input-->
+			<label class="control-label" for="input01">物流单号</label>
+			<div class="controls">
+			  <p class="help-block text-center" >${shoppingOrder.logistics_no}</p>
+			</div>
+		      </div>
+			
+		</g:if>
+		   </fieldset>
+		  </form>
+		  <g:if test="${grailsApplication.config.Logistics.kuaidi100}">
+			  
+			  <iframe name="kuaidi100" src="http://www.kuaidi100.com/frame/app/index2.html" width="600" height="400" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></iframe>
+			  
+		  </g:if>
+		  
+		 
+		  
+<!--            <table class="table table-hover">
               <thead>
                 <tr>
                   <th>处理时间</th>
@@ -224,7 +274,7 @@
                   <td>快递人员</td>
                 </tr>
               </tbody>
-            </table>
+            </table>-->
           </div>
           <div class="tab-pane fade" id="shouhuo">
             <form class="form-horizontal">

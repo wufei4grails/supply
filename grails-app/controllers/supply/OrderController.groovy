@@ -55,9 +55,12 @@ class OrderController {
 	def companyShipOrder(){
 		ShoppingOrder shoppingOrder = ShoppingOrder.get(params.id)
 		shoppingOrder.status = "waitconfirm";
+		shoppingOrder.logistics_compay = params.logistics_compay
+		shoppingOrder.logistics_no = params.logistics_no
 		shoppingOrder.shipTime = new Date().getTime()
 		def map = [shoppingOrder: shoppingOrder,orderGoods:shoppingOrder.orderGoods]
-		render(view: "/company/order/orderDetail", model:map)
+		
+		redirect(action: "companyOrderDetail", params: params)
 	}
 	
 	//门店收货确认
