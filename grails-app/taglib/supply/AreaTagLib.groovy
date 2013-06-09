@@ -21,7 +21,7 @@ class AreaTagLib {
         out << "<script>"
         out << "function areaSelect(o){"
         out << rf
-        out << "jQuery('#area_id'.val(jQuery(o).val()))"
+        out << "jQuery('#area_id').val(jQuery(o).val())"
         out << "}"
         out << "</script>"
     }

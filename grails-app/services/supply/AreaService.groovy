@@ -17,20 +17,24 @@ class AreaService {
         def area_name = Area.get(id).area_name
         
         def pid,ppid,pppid;
-        
-        pid = id.substring(0,id.length()-3);
+        if(id!=null&&id!="0"){
+            pid = id.substring(0,id.length()-3);
+            if(pid!=null&&pid!="0"){
+                area_name = Area.get(pid).area_name + "-" + area_name
+            }
+        }
         if(pid!=null&&pid!="0"){
-            area_name = Area.get(pid).area_name + "-" + area_name
+            ppid = pid.substring(0,pid.length()-3);
+            if(ppid!=null&&ppid!="0"){
+                area_name = Area.get(ppid).area_name + "-" + area_name
+            }
         }
         
-        ppid = pid.substring(0,pid.length()-3);
         if(ppid!=null&&ppid!="0"){
-            area_name = Area.get(ppid).area_name + "-" + area_name
-        }
-        
-        pppid = ppid.substring(0,ppid.length()-3);
-        if(pppid!=null&&pppid!="0"){
-            area_name = Area.get(pppid).area_name + "-" + area_name
+            pppid = ppid.substring(0,ppid.length()-3);
+            if(pppid!=null&&pppid!="0"){
+                area_name = Area.get(pppid).area_name + "-" + area_name
+            }
         }
         
         
@@ -91,7 +95,7 @@ class AreaService {
         
         def thisAreaSelect = Area.findAllByArea_pid(pid)
         
-        def s = "<select class='input-small' onclick='areaSelect(this)'>"
+        def s = "<select class='input-small' onchange='areaSelect(this)'>"
         s = s + "<option value='"+pid+"'>请选择</option>"
         def sel = ""
         thisAreaSelect.each{
@@ -119,7 +123,7 @@ class AreaService {
         
         def s = ""
         if(childAreaSelect){
-            s = "<select class='input-small' onclick='areaSelect(this)'>"
+            s = "<select class='input-small' onchange='areaSelect(this)'>"
             s = s + "<option value='"+id+"'>请选择</option>"
             childAreaSelect.each{
                 

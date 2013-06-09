@@ -12,7 +12,9 @@
   <body>
 
     <div class="container">
-
+<%
+String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()
+%>
       <g:render template="/layouts/header"/>
 
 
@@ -261,6 +263,17 @@ ${address.person_name} <area:areaName id='${address.area_id}'/> ${address.addres
           }
         
           function updateAddressInfo(address_id,person_name,area_id,address,telphone ){
+            
+            $.ajax({
+            url: '${baseUrl}/area/areaSelect',
+            data: 'id='+area_id,
+            success: function(msg) {
+              $("#areaSelect").html(msg)
+            }
+          });
+    
+    
+    
             $("#doAjaxAddAddress").find("#address_id").val(address_id)
             $("#doAjaxAddAddress").find("#person_name").val(person_name)
 //            $("#doAjaxAddAddress").find("#address_id").val(address_id)
