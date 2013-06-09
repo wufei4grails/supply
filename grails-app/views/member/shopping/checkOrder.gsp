@@ -168,7 +168,7 @@ ${address.person_name} <area:areaName id='${address.area_id}'/> ${address.addres
                 <!-- Text input-->
                 <label class="control-label" for="input01">选择地区<font color="red">&nbsp;*</font></label>
                 <div class="controls" id="areaSelect">
-                  <area:areaSeclect id="" controller="area" action="areaSelect" update="areaSelect"/> 
+                  <area:areaSeclect id="0100" controller="area" action="areaSelect" update="areaSelect"/> 
                   <p class="help-block"></p>
                 </div>
               </div>

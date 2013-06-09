@@ -24,7 +24,7 @@
 	
     <g:render template="/layouts/header"/>
 	<g:if test="${flash.message}">
-		<div class="alert alert-success">
+		<div class="alert ${flash.messagestatus}">
 		    <button type="button" class="close" data-dismiss="alert">&times;</button>
 		    <h3>${flash.message}</h3>
 		    <!--<p>金额：200元</p>-->
@@ -104,6 +104,7 @@
               <th>商品</th>
               <th>商品编号</th>
               <th>价格</th>
+              <th>库存</th>
 	      <th>售出？</th>
               <!--<th>操作</th>-->
             </tr>
@@ -114,9 +115,15 @@
 				  <td class="goods_name">${goods.goods_name}</td>
 				<td>${goods.goods_sn}</td>
 				<td class="goods_price">${goods.price}</td>
+                                <td class="goods_price">${goods.num}</td>
 				<td>
-					<div goods_id="${goods.id}" class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-barcode'></i>待售" >
-					<input type="checkbox" <g:if test="${session.saleTablePOJO?.salePOJOMap?.containsKey(goods.id.toString())}"> checked</g:if> />	
+                                        <g:if test="${goods.num>0}"><div goods_id="${goods.id}" class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-barcode'></i>待售" >
+					</g:if>
+                          
+                                        <g:if test="${goods.num==0}"><div goods_id="${goods.id}" class="switch switch-large" data-on-label="<i class='icon-shopping-cart icon-white'></i>售出" data-off-label="<i class='icon-ban-circle'></i>售完" >
+					</g:if>
+                          
+					<input type="checkbox" <g:if test="${goods.num==0}">disabled</g:if> <g:if test="${session.saleTablePOJO?.salePOJOMap?.containsKey(goods.id.toString())}"> checked</g:if> />	
 </div>
 				</td>
 			      </tr>

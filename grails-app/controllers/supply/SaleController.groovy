@@ -30,9 +30,14 @@ class SaleController {
 		def s = Goods.createCriteria();
 		def results = s.list(params,searchClosure)
 		
-
+                
+		results.each{
+                    
+                    def num = Stock.findByStore_goods_id(it.id).num
+                    it.num = num;
+                }
 		
-		
+        
 		def saleTableList=[];
 		if(session.saleTablePOJO){
 			session.saleTablePOJO.salePOJOMap.each{
@@ -97,20 +102,30 @@ class SaleController {
 		saleOrder.store_id = session.loginPOJO.store.id;
 		
 		def amount = 0.0;
+                
+                def isDone = false;
 		session.saleTablePOJO.salePOJOMap.each{
+                    
+                        def stock_num = Stock.findByStore_goods_id(it.value.goods.id).num
+                        if(it.value.num>stock_num){
+                            isDone = true;
+                            flash.message = "商品"+it.value.goods.goods_name+"库存不够啦(库存"+stock_num+"件),请调整销售数量！"
+                            flash.messagestatus = "alert-error"
+                        }
+            
 			SaleOrderGoods saleOrderGoods = new SaleOrderGoods()
 			saleOrderGoods.goods = it.value.goods;
 			saleOrderGoods.num = it.value.num;
 			saleOrderGoods.price = it.value.goods.price;
 			amount = amount + saleOrderGoods.num * saleOrderGoods.price;
 			saleOrder.addToSaleOrderGoods(saleOrderGoods);
-			
-			
-			
-			
-			
-			
 		}
+                
+                if(isDone){
+                    redirect(action: "saleGoodsList", params: params);
+                                    return;
+                }
+        
 		saleOrder.amount = amount;
 //		println saleOrder as JSON;
 		saleOrder.save();
@@ -138,7 +153,8 @@ class SaleController {
 		
 		
 		session.saleTablePOJO = null;
-		flash.message = "成功卖出商品啦！"
+		flash.message = "成功卖出商品啦，共计："+amount+"元"
+                flash.messagestatus = "alert-success"
 		flash.saleOrder = saleOrder;
 		redirect(action: "saleGoodsList", params: params);
 	}
