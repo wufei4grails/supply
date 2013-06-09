@@ -73,7 +73,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">下单时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >${saleOrder.dateCreated}</p>
+                    <p class="help-block text-center" >${saleOrder.dateCreated.toString()[0..18]}</p>
                   </div>
                 </div>
 

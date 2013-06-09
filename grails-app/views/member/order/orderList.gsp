@@ -57,7 +57,7 @@
 				<td>${order.order_sn}</td>
 				<td>${order.amount}</td>
 				<td><order:orderStatusDic status="${order.status}"/></td>
-				<td>${order.dateCreated}</td>
+				<td>${order.dateCreated.toString()[0..18]}</td>
 				<td>
 					<g:link controller="order" action="storeOrderDetail" id="${order.id}">查看</g:link>
 					<g:if test="${order.status=='waitpay'}">

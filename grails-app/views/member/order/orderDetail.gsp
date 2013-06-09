@@ -121,7 +121,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">下单时间</label>
                   <div class="controls">
-                    <p class="help-block text-center" >${shoppingOrder.dateCreated}</p>
+                    <p class="help-block text-center" >${shoppingOrder.dateCreated.toString()[0..18]}</p>
                   </div>
                 </div>
 
@@ -284,7 +284,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货人姓名</label>
                   <div class="controls">
-                    <p class="help-block text-center" >${shoppingOrder.buy_user}</p>
+                    <p class="help-block text-center" >${shoppingOrder.person_name}</p>
                   </div>
                 </div>
 

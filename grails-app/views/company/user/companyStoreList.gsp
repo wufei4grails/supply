@@ -54,7 +54,7 @@
                 <td>${fieldValue(bean: store, field: "contact_phone")}</td>
                 <td><area:areaName id="${fieldValue(bean: store, field: 'area_id').toString()}"/></td>
                 <td>${fieldValue(bean: store, field: "address")}</td>
-                <td>${fieldValue(bean: store, field: "dateCreated")}</td>
+                <td>${fieldValue(bean: store, field: "dateCreated").toString()[0..18]}</td>
               </tr>
             </g:each>
 

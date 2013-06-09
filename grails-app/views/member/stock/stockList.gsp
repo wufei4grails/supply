@@ -54,8 +54,8 @@
 			  <tr>
 				<td>${stock.goods_name}</td>
 				<td>${stock.num}</td>
-				<td>${stock.dateCreated}</td>
-				<td>${stock.lastUpdated}</td>
+				<td>${stock.dateCreated.toString()[0..18]}</td>
+				<td>${stock.lastUpdated.toString()[0..18]}</td>
 				<td>
 					<g:link controller="stock" action="stocklog" params="[store_goods_id: stock.store_goods_id]">查看</g:link>
 				</td>

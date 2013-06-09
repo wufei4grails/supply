@@ -44,7 +44,7 @@
           <tbody>
 		  <g:each in="${stockLogList}" status="i" var="stocklog">
 			  <tr>
-				<td>${stocklog.dateCreated}</td>
+				<td>${stocklog.dateCreated.toString()[0..18]}</td>
 				<td>
 					<stock:stockType type="${stocklog.stock_type}"/>
 				</td>
