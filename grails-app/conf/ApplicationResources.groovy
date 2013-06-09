@@ -24,6 +24,9 @@ modules = {
     pin {
 	resource url:'resource/jquery.pin.js'
     }
+    unslider{
+        resource url:'resource/unslider.min.js'
+    }
     
     bootstrapSwitch {
 	  resource url:'resource/bootstrap-switch-master/static/js/bootstrapSwitch.js'
@@ -34,4 +37,5 @@ modules = {
 	  resource url:'resource/bootstrap-datetimepicker-master/css/datetimepicker.css'
 	  resource url:'resource/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js'
     }
+    
 }
