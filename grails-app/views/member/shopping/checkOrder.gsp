@@ -130,26 +130,34 @@
                       <div class="well">
 			
 			<g:each in="${addressList}" status="i" var="address">
-				<label class="radio">
+				<label class="radio" id='${address.id}'>
 					<input onclick="checkRadio(this)" value="${address.person_name}"  class="radioinput" type="radio" name="optionsRadios"  person_name="${address.person_name}"  address="${address.address}" area_name="<area:areaName id='${address.area_id}'/>" area_id="${address.area_id}" telphone="${address.telphone}" <g:if test="${address.is_default=='1'}">checked</g:if> >
-				 ${address.person_name} <area:areaName id='${address.area_id}'/> ${address.address} ${address.telphone}
+${address.person_name} <area:areaName id='${address.area_id}'/> ${address.address} ${address.telphone} 
+
+                        <a href="javascript:void(0)" onclick="updateAddressInfo('${address.id}','${address.person_name}','${address.area_id}','${address.address}','${address.telphone}' )">[修改]</a>&nbsp;&nbsp;
+
+                              <g:remoteLink  controller="member" action="delAddress"  id="${address.id}"  onSuccess="delAddress(${address.id})">
+                      [删除]
+                      </g:remoteLink>
+
 			       </label>
 			</g:each>
 			      
-			
-                        <!--<a  href="javascript:void(0)" >[新增收货地址]</a>-->
+			<a href="javascript:void(0)" onclick="addAddressInfo()">[新增收货地址]</a>&nbsp;&nbsp;
+
                       </div>
 
 
-<g:formRemote  name="doAjaxAddAddress" onSuccess="doAjaxAddAddressSuccess(data)" data-validate="parsley" class="form-horizontal" url="[controller: 'member', action: 'doAjaxAddAddress']"  method="post">
-	<g:hiddenField name="is_default" value="1" />
+<g:formRemote style="display:none" id="doAjaxAddAddress"  name="doAjaxAddAddress" onSuccess="doAjaxAddAddressSuccess(data)" data-validate="parsley" class="form-horizontal" url="[controller: 'member', action: 'doAjaxAddAddress']"  method="post">
+	<g:hiddenField id="address_id" name="address_id" value="" />
+        <g:hiddenField name="is_default" value="1" />
 	<fieldset>
 		<div class="control-group">
 
                 <!-- Text input-->
                 <label class="control-label" for="input01">收货人姓名<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input name="person_name" data-error-message="收货人姓名不能为空" data-required="true" value="" type="text" placeholder="请输入收货人姓名" class="input-xlarge">
+                  <input id="person_name" name="person_name" data-error-message="收货人姓名不能为空" data-required="true" value="" type="text" placeholder="请输入收货人姓名" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
@@ -168,7 +176,7 @@
                 <!-- Text input-->
                 <label class="control-label" for="input01">详细地址<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input value="${session.loginPOJO.store.address}" data-error-message="门店地址不能为空" data-required="true" type="text" name="address" placeholder="请输入门店地址" class="input-xlarge">
+                  <input id="address" value="${session.loginPOJO.store.address}" data-error-message="门店地址不能为空" data-required="true" type="text" name="address" placeholder="请输入门店地址" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
@@ -180,7 +188,7 @@
                 <!-- Text input-->
                 <label class="control-label" for="input01">联系电话<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input value="${session.loginPOJO.store.contact_phone}" data-type="number" data-type-number-message="联系电话格式不正确" data-required-message="联系电话不能为空" data-required="true" type="text" name="telphone" placeholder="请输入联系电话" class="input-xlarge">
+                  <input id="telphone" value="${session.loginPOJO.store.contact_phone}" data-type="number" data-type-number-message="联系电话格式不正确" data-required-message="联系电话不能为空" data-required="true" type="text" name="telphone" placeholder="请输入联系电话" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>
@@ -243,7 +251,30 @@
 
     </style>
     <script>
-	    
+          function addAddressInfo(){
+             $("#doAjaxAddAddress").find("#address_id").val("")
+            $("#doAjaxAddAddress").find("#person_name").val("")
+//            $("#doAjaxAddAddress").find("#address_id").val(address_id)
+            $("#doAjaxAddAddress").find("#address").val("")
+            $("#doAjaxAddAddress").find("#telphone").val("")
+            $("#doAjaxAddAddress").show();
+          }
+        
+          function updateAddressInfo(address_id,person_name,area_id,address,telphone ){
+            $("#doAjaxAddAddress").find("#address_id").val(address_id)
+            $("#doAjaxAddAddress").find("#person_name").val(person_name)
+//            $("#doAjaxAddAddress").find("#address_id").val(address_id)
+            $("#doAjaxAddAddress").find("#address").val(address)
+            $("#doAjaxAddAddress").find("#telphone").val(telphone)
+            $("#doAjaxAddAddress").show();
+          }
+      
+      
+	    function delAddress(o){
+              
+              jQuery("#"+o).remove();
+              alert("收货地址已成功删除！");
+            }
 	  function doAjaxAddAddressSuccess(data){
 		  
 		  if(data=="0"){
@@ -337,10 +368,12 @@
       }
 
       function closeUpdateAddress(){
+                jQuery("#doAjaxAddAddress").hide();
 		jQuery("#updateAddress").hide();
 		jQuery("#defaultAddress").show();
 		jQuery("#closeUpdateAddressButton").hide();
 		jQuery("#updateAddressButton").show();
+                
 
 	}
 </script>

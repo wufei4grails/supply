@@ -44,28 +44,49 @@ class MemberController {
 
 	def doAjaxAddAddress(){
 	
-		Address address = new Address(params)
+               
+        
 		
-		if(!address.person_name
-		||!address.address
-		||!address.telphone){
+		if(!params.person_name
+		||!params.address
+		||!params.telphone){
 			render "0"
 			return;//当收货地址有信息没有填写完整时，直接返回0到页面提示。
 		}
+                
+                def address_id = params.address_id;
+                Address address = Address.get(address_id)
 	
-		if(address.is_default=="1"){//如果设置当前的为默认则其它的地址改为非默认
-			def store = Store.get(session.loginPOJO.store.id)
-			def addressList = store.addresses
-			addressList.each{
-				it.is_default='0'
-				it.save()
-			}
-			
-		}
 		
 		
-		address.store = session.loginPOJO.store
-		address.save(flash:true);
+                if(!address){//如果id不存在就是新添一条地址记录否则修改
+                    address = new Address(params)
+                    address.store = session.loginPOJO.store
+                    address.is_default=="1"
+                    address.save(flash:true);
+                }else{
+                    address.person_name = params.person_name;
+                    address.area_id = params.area_id;
+                    address.address = params.address;
+                    address.telphone = params.telphone;
+                    address.is_default=="1"
+                }
+                
+        
+                if(address.is_default=="1"){//如果设置当前的为默认则其它的地址改为非默认
+                                def store = Store.get(session.loginPOJO.store.id)
+                                def addressList = store.addresses
+                                addressList.each{
+                                        if(it.id!=address.id){
+                                           it.is_default='0'
+                                            it.save() 
+                                        }
+                                        
+                                }
+
+                        }
+		
+		
 		render address as JSON;
 	}
     
