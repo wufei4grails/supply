@@ -75,35 +75,44 @@ class OrderController {
 			orderGoods.each{
 				
 			//维护门店自己的商品库
-				Goods goods = it.goods.clone()
-				goods.store_id = session.loginPOJO.store.id;
+                                def store_goods_id ;
+                                Goods storeGoods = Goods.findByHistory_id(it.goods.id);
+                                if(!storeGoods){//第一次采购时记录商品，变成门店自己的商品
+                                    Goods goods = it.goods.clone()
+                                    goods.store_id = session.loginPOJO.store.id;
+
+
+    //				def ctx = ApplicationHolder.application.mainContext
+    //				def sessionFactory = ctx.sessionFactory
+    //				def currentSession = sessionFactory.currentSession
+    //			
+    //				currentSession.clear()
+                                    goods.history_id = it.goods.id
+                                    goods.id=null;
+                                    store_goods_id =  goods.save().id;
+
+                                    def goods_att_list = GoodsAttr.findAllByGoods_id(it.goods.id);
+                                    //维护门店自己商品库的分类属性信息
+                                    goods_att_list.each{
+                                            GoodsAttr goodsAttr = it.clone();
+                                            goodsAttr.id = null;
+                                            goodsAttr.goods_id = store_goods_id;
+                                            goodsAttr.save()
+                                    }
+
+                            //维护门店自己商品库的图片
+                                    def attach_list = Attach.findAllByAttach_id(it.goods.id)
+                                    attach_list.each{
+                                            Attach attach = it.clone();
+                                            attach.id = null;
+                                            attach.attach_id = store_goods_id
+                                            attach.save()
+                                    }
+                                }else{
+                                    store_goods_id = storeGoods.id//
+                                }
+            
 				
-			
-//				def ctx = ApplicationHolder.application.mainContext
-//				def sessionFactory = ctx.sessionFactory
-//				def currentSession = sessionFactory.currentSession
-//			
-//				currentSession.clear()
-				goods.id=null;
-				def store_goods_id =  goods.save().id;
-				
-				def goods_att_list = GoodsAttr.findAllByGoods_id(it.goods.id);
-				//维护门店自己商品库的分类属性信息
-				goods_att_list.each{
-					GoodsAttr goodsAttr = it.clone();
-					goodsAttr.id = null;
-					goodsAttr.goods_id = store_goods_id;
-					goodsAttr.save()
-				}
-				
-			//维护门店自己商品库的图片
-				def attach_list = Attach.findAllByAttach_id(it.goods.id)
-				attach_list.each{
-					Attach attach = it.clone();
-					attach.id = null;
-					attach.attach_id = store_goods_id
-					attach.save()
-				}
 			
 				//库存数据
 				Stock stock = Stock.findByStore_idAndCompany_goods_id(shoppingOrder.store_id,it.goods.id)
