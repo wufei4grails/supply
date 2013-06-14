@@ -77,7 +77,7 @@
                                   
                                   <g:each in="${attachList}" status="i" var="attach">
                                     <li>
-						<a href="#" ><g:img  uri="${attach.url}"/></a>
+						<a href="javascript:void(0)" ><g:img  uri="${attach.url}"/></a>
 						<!--<div class="sb-description">-->
 							<!--<h3>Creative Lifesaver</h3>-->
 						<!--</div>-->
