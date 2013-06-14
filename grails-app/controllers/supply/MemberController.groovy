@@ -43,13 +43,11 @@ class MemberController {
     
 
 	def doAjaxAddAddress(){
-	println params.telphone
-               println params.telphone ==~ /[0-9]/
-        
-		
 		if(!params.person_name
 		||!params.address
-		||!params.telphone){
+		||!params.telphone
+                ||!(params.telphone ==~ /[0-9]*/)  /**联系人手机号码判断是数字 **/
+                ){
 			render "0"
 			return;//当收货地址有信息没有填写完整时，直接返回0到页面提示。
 		}
