@@ -127,6 +127,7 @@ class BootStrap {
 	
 	    def s2 = new Menu(level: 1,menuid:"112", menuname:"统计报表", controller:"report",action:"storeReportManager",menutype:"company",sort:"91")
             def s2_1 = new Menu(level: 2,menuid:"112101", menuname:"门店销售报表", controller:"report",action:"storeOwnerSaleReport",menutype:"store",sort:"1")		
+	    def s2_2 = new Menu(level: 2,menuid:"112102", menuname:"门店进货报表", controller:"report",action:"storeOwnerBuyReport",menutype:"store",sort:"2")		
 			
 			
             def storerole = new Role(rolename:"store");
@@ -137,6 +138,7 @@ class BootStrap {
 	    
 	    storerole.addToMenus(s2);
 	    storerole.addToMenus(s2_1);
+            storerole.addToMenus(s2_2);
 			
 			
             storerole.addToMenus(m4);
