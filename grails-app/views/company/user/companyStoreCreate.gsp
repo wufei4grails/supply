@@ -80,14 +80,27 @@
                   <p class="help-block"></p>
                 </div>
               </div>
-              
+              <div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input01">门店电话</label>
+                <div class="controls">
+                  
+                  <input maxlength="4" value="" data-type="number" data-type-number-message="区号格式不正确，只能为数字"  type="text" name="contact_quhao" placeholder="请输入区号" class="input-small">
+                  
+                  
+                  
+                  <input value="" data-type="number" data-type-number-message="固定电话号码格式不正确，只能为数字"  type="text" name="contact_phone" placeholder="请输入固定电话号码" class="input-large">
+                  <p class="help-block"></p>
+                </div>
+              </div>
               
               <div class="control-group">
 
                 <!-- Text input-->
                 <label class="control-label" for="input01">联系人手机号码<font color="red">&nbsp;*</font></label>
                 <div class="controls">
-                  <input data-type="number" data-type-number-message="联系人手机号码格式不正确" data-required-message="联系人手机号码不能为空" data-required="true" type="text" name="contact_phone" placeholder="请输入联系人手机号码" class="input-xlarge">
+                  <input data-type="number" data-type-number-message="联系人手机号码格式不正确" data-required-message="联系人手机号码不能为空" data-required="true" type="text" name="contact_tel_phone" placeholder="请输入联系人手机号码" class="input-xlarge">
                   <p class="help-block"></p>
                 </div>
               </div>

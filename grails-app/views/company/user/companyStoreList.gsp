@@ -41,7 +41,8 @@
                 <th>门店名称</th>
                 <th>联系人</th>
                 <th>联系电话</th>
-                <th>地区</th>
+                <th>固定电话</th>
+                <!--<th>地区</th>-->
                 <th>地址</th>
                 <th>创建时间</th>
               </tr>
@@ -51,8 +52,9 @@
               <tr>
                 <td>${fieldValue(bean: store, field: "store_name")}</td>
                 <td>${fieldValue(bean: store, field: "contact_person")}</td>
-                <td>${fieldValue(bean: store, field: "contact_phone")}</td>
-                <td><area:areaName id="${fieldValue(bean: store, field: 'area_id').toString()}"/></td>
+                <td>${fieldValue(bean: store, field: "contact_tel_phone")}</td>
+                <td>${store.contact_quhao}-${store.contact_phone}</td>
+                <!--<td><area:areaName id="${fieldValue(bean: store, field: 'area_id').toString()}"/></td>-->
                 <td>${fieldValue(bean: store, field: "address")}</td>
                 <td>${fieldValue(bean: store, field: "dateCreated").toString()[0..18]}</td>
               </tr>
