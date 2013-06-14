@@ -25,7 +25,7 @@
         </div><!--/span-->
         <div class="span9">
 
-          <g:form data-validate="parsley" class="form-horizontal" controller="member" action="doUpdateStoreInfo" method="post">
+          <g:form onSubmit="return fieldValidate(this);" data-validate="parsley" class="form-horizontal" controller="member" action="doUpdateStoreInfo" method="post">
             <fieldset>
               <div id="legend" class="">
                 <legend class="">门店基本资料</legend>
@@ -158,6 +158,26 @@
       <g:render template="/layouts/company_footer"/>
 
     </div> <!-- /container -->
+    <script>
+      function fieldValidate(o){
+      
+	 if($(o).find("#area_id").val().length<10){
+		 var tip = '<ul id="parsley-31664503854699433" class="parsley-error-list" style="display: block;"><li class="min" style="display: list-item;">地区至少选择到第三级</li></ul>'
+		var exittip = $(o).find("#area_id").next();
+		if(!exittip.attr("class")){
+			$(o).find("#area_id").after(tip);
+		}
+	
+		
+		 return false;
+	}else{
+		return true;
+	}
+	 
+    }
+    
+    
+    </script>
 
   </body>
 

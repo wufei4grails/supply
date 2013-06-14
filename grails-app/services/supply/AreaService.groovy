@@ -51,7 +51,7 @@ class AreaService {
         def parentsAreaSelect = parentsAreaSelect(id);
         //用于提交参数area_id到后台
         def area_input = "<input type='hidden' id='area_id' name='area_id' value='"+id+"'/>"
-        return area_input + parentsAreaSelect + thisAreaSelect + childAreaSelect
+        return  parentsAreaSelect + thisAreaSelect + childAreaSelect + area_input
     }
     
     
