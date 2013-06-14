@@ -85,9 +85,14 @@
               <div class="control-group">
 
                 <!-- Text input-->
-                <label class="control-label" for="input01">门店电话<font color="red">&nbsp;*</font></label>
+                <label class="control-label" for="input01">门店电话</label>
                 <div class="controls">
-                  <input value="${session.loginPOJO.store.contact_phone}" data-type="number" data-type-number-message="门店电话格式不正确" data-required-message="门店电话不能为空" data-required="true" type="text" name="contact_phone" placeholder="请输入门店电话" class="input-xlarge">
+                  
+                  <input maxlength="4" value="${session.loginPOJO.store.contact_quhao}" data-type="number" data-type-number-message="区号格式不正确，只能为数字"  type="text" name="contact_quhao" placeholder="请输入区号" class="input-small">
+                  
+                  
+                  
+                  <input value="${session.loginPOJO.store.contact_phone}" data-type="number" data-type-number-message="固定电话号码格式不正确，只能为数字"  type="text" name="contact_phone" placeholder="请输入固定电话号码" class="input-large">
                   <p class="help-block"></p>
                 </div>
               </div>

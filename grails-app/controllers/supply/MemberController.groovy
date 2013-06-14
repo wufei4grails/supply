@@ -43,8 +43,8 @@ class MemberController {
     
 
 	def doAjaxAddAddress(){
-	
-               
+	println params.telphone
+               println params.telphone ==~ /[0-9]/
         
 		
 		if(!params.person_name

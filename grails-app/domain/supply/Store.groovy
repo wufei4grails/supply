@@ -8,6 +8,7 @@ class Store {
         address(blank:true,nullable:true)
         area_id(nullable:true)
         contact_person(blank:true,nullable:true)
+        contact_quhao(blank:true,nullable:true)
         contact_phone(blank:true,nullable:true)
         contact_tel_phone(blank:true,nullable:true)
         bank_name(nullable:true)
@@ -19,6 +20,7 @@ class Store {
     String store_name
     String address
     String contact_person
+    String contact_quhao
     String contact_phone
     String contact_tel_phone //门店联系手机
     String store_type;//company,store

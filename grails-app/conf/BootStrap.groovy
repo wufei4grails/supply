@@ -126,7 +126,7 @@ class BootStrap {
 	    def m10_1_2 = new Menu(level: 3,menuid:"110101102", menuname:"修改商品", controller:"goods",action:"doUpdateStoreGoods",menutype:"store",sort:"2")
 	
 	    def s2 = new Menu(level: 1,menuid:"112", menuname:"统计报表", controller:"report",action:"storeReportManager",menutype:"company",sort:"91")
-            def s2_1 = new Menu(level: 2,menuid:"112101", menuname:"门店销售报表", controller:"report",action:"storeOwnerSaleReport",menutype:"store",sort:"1")		
+            def s2_1 = new Menu(level: 2,menuid:"112101", menuname:"门店销售报表", controller:"report",action:"storeOwnerSaleReport",menutype:"store",sort:"10")		
 	    def s2_2 = new Menu(level: 2,menuid:"112102", menuname:"门店进货报表", controller:"report",action:"storeOwnerBuyReport",menutype:"store",sort:"2")		
 			
 			
