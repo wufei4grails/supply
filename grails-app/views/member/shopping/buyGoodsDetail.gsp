@@ -14,7 +14,7 @@
 
   <div class="container">
     <g:render template="/layouts/header"/>
-
+    <r:require modules="slicebox"/>
 
     <div class="row-fluid">
       <g:render template="/member/shopping/buyGoodsCategory"/>
@@ -40,12 +40,13 @@
         <div class="row-fluid">
           <div class="span12">
             <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#home" data-toggle="tab">商品描述</a></li>
+              <li class="active"><a href="#goodsimg" data-toggle="tab">商品图片</a></li>
+              <li ><a href="#home" data-toggle="tab">商品描述</a></li>
               <li><a href="#profile" data-toggle="tab">商品属性</a></li>
-	      <li><a href="#goodsimg" data-toggle="tab">商品图片</a></li>
+	      
             </ul>
             <div id="myTabContent" class="tab-content">
-              <div class="tab-pane fade in active" id="home">
+              <div class="tab-pane fade " id="home">
 		${goods.goods_text}
               </div>
               <div class="tab-pane fade" id="profile">
@@ -67,30 +68,43 @@
               </div>
 		    
 		    
-		<div class="tab-pane fade" id="goodsimg">
+		<div class="tab-pane fade in active" id="goodsimg">
 		      
 			
-			
-			
-			
-			
-			
-		<g:each in="${attachList}" status="i" var="attach">
-			<g:if test="${i==0}">
-			    <div class="row-fluid">
-			</g:if>
-			  <div class="span4">
-			<g:img  uri="${attach.url}"/>
-			  </div>
-			<g:if test="${i%3==2}">
-			    </div>
-			    <div class="row-fluid">
-			</g:if>
-			<g:if test="${i==attachList.size()-1}">
-			    </div>
-			</g:if>
+			<div class="wrapper" style="position: relative;">
 
-		</g:each>
+				<ul id="sb-slider" class="sb-slider">
+                                  
+                                  <g:each in="${attachList}" status="i" var="attach">
+                                    <li>
+						<a href="#" ><g:img  uri="${attach.url}"/></a>
+						<!--<div class="sb-description">-->
+							<!--<h3>Creative Lifesaver</h3>-->
+						<!--</div>-->
+					</li>
+                                  </g:each>
+                                  
+                                  
+<!--					<li>
+						<a href="http://www.flickr.com/photos/strupler/2969141180" target="_blank"><img src="http://tympanus.net/Development/Slicebox/images/1.jpg" alt="image1"/></a>
+						<div class="sb-description">
+							<h3>Creative Lifesaver</h3>
+						</div>
+					</li>-->
+				</ul>
+
+				<div id="shadow" class="shadow"></div>
+
+                                <div id="nav-arrows" class="nav-arrows" >
+					<a href="#">Next</a>
+					<a href="#">Previous</a>
+				</div>
+
+			</div><!-- /wrapper -->
+			
+			
+			
+			
               </div>
             </div>
           </div>
@@ -167,6 +181,59 @@
 		  window.top.location.reload()
 	  }
   </script>
+  
+  <script type="text/javascript">
+			$(function() {
+				
+				var Page = (function() {
+
+					var $navArrows = $( '#nav-arrows' ).hide(),
+						$shadow = $( '#shadow' ).hide(),
+						slicebox = $( '#sb-slider' ).slicebox( {
+							onReady : function() {
+
+								$navArrows.show();
+								$shadow.show();
+
+							},
+							orientation : 'r',
+							cuboidsRandom : true,
+							disperseFactor : 30
+						} ),
+						
+						init = function() {
+
+							initEvents();
+							
+						},
+						initEvents = function() {
+
+							// add navigation events
+							$navArrows.children( ':first' ).on( 'click', function() {
+
+								slicebox.next();
+								return false;
+
+							} );
+
+							$navArrows.children( ':last' ).on( 'click', function() {
+								
+								slicebox.previous();
+								return false;
+
+							} );
+
+						};
+
+						return { init : init };
+
+				})();
+
+				Page.init();
+
+			});
+		</script>
+  
 </body>
 
 </html>

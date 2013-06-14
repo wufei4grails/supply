@@ -38,4 +38,10 @@ modules = {
 	  resource url:'resource/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js'
     }
     
+    slicebox{
+        resource url:'resource/Slicebox/css/slicebox.css'
+        resource url:'resource/Slicebox/css/custom.css'
+        resource url:'resource/Slicebox/js/modernizr.custom.46884.js'
+        resource url:'resource/Slicebox/js/jquery.slicebox.js'
+    }
 }
