@@ -50,4 +50,8 @@ modules = {
         resource url:'resource/css/taipinghoukui/taipinghoukui.css'
     }
     
+    barcode{
+        resource url:'resource/jquery-barcode-2.0.3/jquery-barcode.min.js'
+    }
+    
 }

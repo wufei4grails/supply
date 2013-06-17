@@ -39,6 +39,7 @@
 
 
           <button type="submit" class="btn">搜索</button>
+          <g:link controller="order" action="orderReport" params="[order_sn:params.order_sn,status:params.status]" target="_blank">导出报表</g:link>
         </g:form>
 
 

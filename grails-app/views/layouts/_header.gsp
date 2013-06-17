@@ -2,7 +2,7 @@
   <div class="row-fluid">
     <div class="span7">
       <h3 class="muted">
-        企业全程供应链管理平台
+        猴坑茶业全程供应链管理平台
 
       </h3>
     </div>

@@ -8,7 +8,7 @@
 <html>
   <head>
     <meta name="layout" content="main"/>
-
+    <r:require modules="barcode"/>
 </head>
 <body>
 
@@ -41,7 +41,8 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">订单号</label>
                   <div class="controls">
-                    <p class="help-block text-center" >${shoppingOrder.order_sn}</p>
+                    <!--<p class="help-block text-center" >${shoppingOrder.order_sn}</p>-->
+                    <p class="help-block text-center" id="barcodeTarget" class="barcodeTarget"></p>
                   </div>
                 </div>
 
@@ -410,6 +411,11 @@
 	  
 	  
 	  $(document).ready(function(){
+            
+                  $("#barcodeTarget").barcode("${shoppingOrder.order_sn}", "int25",{barWidth:2, barHeight:30});
+            
+            
+            
 		  var num = "0";
 		  jQuery(".num").each(function(){
 			  num = parseInt(num) + parseInt(jQuery(this).html());

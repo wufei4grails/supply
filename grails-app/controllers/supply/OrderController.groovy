@@ -237,6 +237,28 @@ class OrderController {
 
 		render(view: "/member/order/saleOrderList", model:map)
 	}
+        
+        def orderReport(){
+            def searchClosure =  {
+                println params.status
+                println session.loginPOJO.store.id
+                    eq('store_id',session.loginPOJO.store.id.toString())
+                 if(params.order_sn) {
+                     like('order_sn',"%"+params.order_sn+"%")
+                 }
+                 if(params.status) {
+                     eq('status',params.status)
+                 }
+            }
+
+            def s = SaleOrder.createCriteria();
+            def results = s.list(params,searchClosure)
+            println results as JSON
+            def map = [orderList: results]
+            render(view: "/company/order/orderReport", model:map)
+        }
+    
+    
 	def storeSaleOrderDetail(){
 		 SaleOrder saleOrder = SaleOrder.get(params.id)
 	    

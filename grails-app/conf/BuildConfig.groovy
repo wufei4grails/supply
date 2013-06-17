@@ -77,5 +77,7 @@ grails.project.dependency.resolution = {
 	
 	compile ':runtime-logging:0.4'
 	//compile ":geoip:0.2"//根据ip获取相关信息
+//        compile ":barcode4j:0.3"
+//        compile ":qrcode:0.3"
     }
 }
