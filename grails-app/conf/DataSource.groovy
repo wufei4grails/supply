@@ -7,9 +7,10 @@ dataSource {
 //    username = "sa"
 //    password = ""
 
-    println properties.getProperty("DB.driverClass")
+//    println properties.getProperty("DB.driverClass")
+//    println properties.getProperty("DB.username")
     
-	 println properties.getProperty("DB.username")
+    
     driverClassName = properties.getProperty("DB.driverClass")
     username = properties.getProperty("DB.username")
     password = properties.getProperty("DB.password")
@@ -22,11 +23,14 @@ hibernate {
 }
 // environment specific settings
 environments {
+    
     development {
+        
         dataSource {
+            
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 //            url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-            url = "jdbc:mysql://127.0.0.1:3306/supply?useUnicode=true&characterEncoding=UTF-8"
+//            url = "jdbc:mysql://127.0.0.1:3306/supply?useUnicode=true&characterEncoding=UTF-8"
             url = properties.getProperty("DB.url")
            
 			logSql = true 
@@ -41,18 +45,19 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            url = properties.getProperty("DB.url")
             pooled = true
-            properties {
-               maxActive = -1
-               minEvictableIdleTimeMillis=1800000
-               timeBetweenEvictionRunsMillis=1800000
-               numTestsPerEvictionRun=3
-               testOnBorrow=true
-               testWhileIdle=true
-               testOnReturn=true
-               validationQuery="SELECT 1"
-            }
+            logSql = true
+//            properties {
+//               maxActive = -1
+//               minEvictableIdleTimeMillis=1800000
+//               timeBetweenEvictionRunsMillis=1800000
+//               numTestsPerEvictionRun=3
+//               testOnBorrow=true
+//               testWhileIdle=true
+//               testOnReturn=true
+//               validationQuery="SELECT 1"
+//            }
         }
     }
 }
