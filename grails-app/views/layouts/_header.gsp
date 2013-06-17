@@ -1,12 +1,12 @@
 <div class="masthead">
   <div class="row-fluid">
-    <div class="span9">
+    <div class="span7">
       <h3 class="muted">
         企业全程供应链管理平台
 
       </h3>
     </div>
-    <div class="span3" >
+    <div class="span5" >
 
       <h5 style="float: right;">
         <g:loginControl/> 
@@ -14,6 +14,20 @@
       </h5>
     </div>
   </div>
+  <div class="row-fluid">
+    <div class="span12">
+      
+      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="900" height="155">
+  <param name="movie" value="http://www.taipinghoukui.com/swf/top_banner.swf">
+  <param name="quality" value="high">
+  <embed src="http://www.taipinghoukui.com/swf/top_banner.swf" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="900" height="155">
+</object>
+      
+    </div>
+  </div>
+  
+   <div class="row-fluid">
+    <div class="span12">
 
 
 
@@ -44,6 +58,8 @@
       </div>
     </div>
   </div><!-- /.navbar -->
+  </div>
+  </div>
 </div>
 <style type="text/css">
   body {

@@ -1,0 +1,42 @@
+body{
+    background-image: url(img/body_bg.gif);
+}
+
+.container{
+    width: 900px;
+    max-width: 900px;
+}
+
+.container .masthead{
+    background-image: url(img/menu_bg.gif);
+}
+
+.container .row-fluid{
+    background-color: #ffffff;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.container .row-fluid .span9{
+    margin-left:15px;
+    margin-bottom: 10px;
+}
+
+/*.container .row-fluid .span3{
+    margin-top: 10px;
+}
+*/
+
+.navbar-inner{
+    /*background-image: url(img/menu_bg.gif);*/
+}
+
+.navbar .nav > li > a{
+    color: black;
+    text-shadow: 0 0px 0 #ffffff;
+}
+
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus{
+    background-color: rgb(173, 217, 140);
+}
+

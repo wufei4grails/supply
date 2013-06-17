@@ -1,6 +1,7 @@
 modules = {
     application {
         resource url:'js/application.js'
+       
     }
     ztree {
         resource url:'ztree/js/jquery.ztree.all-3.5.min.js'
@@ -44,4 +45,9 @@ modules = {
         resource url:'resource/Slicebox/js/modernizr.custom.46884.js'
         resource url:'resource/Slicebox/js/jquery.slicebox.js'
     }
+    
+    taipinghoukui{
+        resource url:'resource/css/taipinghoukui/taipinghoukui.css'
+    }
+    
 }

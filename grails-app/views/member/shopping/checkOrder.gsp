@@ -103,15 +103,15 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
                         </tr>
                         <tr> 
                           <td ></td>
-                          <td  colspan="2" ></td>
-                          <td>
+                          <td   ></td>
+                          <td colspan="2">
 			
 			<g:hiddenField class="totalPrice" name="amount" value="" />
 			<g:hiddenField class="address" name="address" value="" />
 			<g:hiddenField class="area_id" name="area_id" value="" />
 			<g:hiddenField class="telphone" name="telphone" value="" />
 			<g:hiddenField class="person_name" name="person_name" value="" />
-			  <button id="subbotton" type="submit" class="btn btn-primary pull-right" data-loading-text="正在提交..."><i class="icon-tags icon-white"></i>提交订单</button>
+			  <button id="subbotton" type="submit" class="btn  btn-primary pull-right" data-loading-text="正在提交..."><i class="icon-tags icon-white"></i>提交订单</button>
 			  
 			  </td>
                         </tr>
@@ -157,7 +157,7 @@ ${address.person_name} <area:areaName id='${address.area_id}'/> ${address.addres
 		<div class="control-group">
 
                 <!-- Text input-->
-                <label class="control-label" for="input01">收货人姓名<font color="red">&nbsp;*</font></label>
+                <label class="control-label" for="input01">收货人<font color="red">&nbsp;*</font></label>
                 <div class="controls">
                   <input id="person_name" name="person_name" data-error-message="收货人姓名不能为空" data-required="true" value="" type="text" placeholder="请输入收货人姓名" class="input-xlarge">
                   <p class="help-block"></p>
@@ -210,7 +210,7 @@ ${address.person_name} <area:areaName id='${address.area_id}'/> ${address.addres
 
                     <div id="defaultAddress">
                       <div class="row-fluid">
-                        <div class="span2">收货人姓名：</div>
+                        <div class="span2">收货人：</div>
                         <div class="span10" id="person_name"></div>
                       </div>
                       <div class="row-fluid">

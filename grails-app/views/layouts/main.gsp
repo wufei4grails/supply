@@ -4,10 +4,13 @@
       <g:layoutTitle/>
       
       <r:require modules="bootstrap"/>
+      <r:require modules="taipinghoukui"/>
       <r:layoutResources/>
       <r:require modules="parsley"/>
       <r:require modules="highcharts"/>
+     
       <r:layoutResources/>
+      
       <style>
     .pagination-right {
       text-align: right;
@@ -45,7 +48,7 @@
   </style>
    </head>
    <body>
-	   
+      
       <g:layoutBody/>
       
    </body>

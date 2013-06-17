@@ -37,12 +37,12 @@
            <g:render template="/layouts/leftmenu"/>
         </div>-->
 	<div class="btn-group" id="saletable">
-           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; width: 231px;z-index: 1000">
+           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px; width: 208px;z-index: 1000">
 		   <li  >
 			   <a style="height:40px;font-size: 1.5em;" onclick="catchsaletabledetail()" tabindex="-1" href="javascript:void(0)">收银台<i id="hand"  style="float:right;" class="icon-hand-right"></i></a>
 		
 			
-			<ul id="saletabledetail" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: none; position: absolute;top:0px;left:232px; margin-bottom: 5px; width: 300px;z-index: 1000">
+			<ul id="saletabledetail" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display: none; position: absolute;top:0px;left:209px; margin-bottom: 5px; width: 300px;z-index: 1000">
 				<li><a tabindex="-1" href="#">购买数量</a></li>
 				<li class="divider"></li>
 				<li class="salegoodsnum" goods_id=""  style="display:none"><input onchange="changeGoodsNum(this)" style="margin-left: 10px;" class="span6 salegoodsnuminput" type="text"  value="1"></li>

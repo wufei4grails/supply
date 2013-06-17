@@ -28,7 +28,9 @@
           </g:if>
           <div title="${goods.goods_name}" class="span4 item">
             <div style="height:140px;">
+              <g:link  action="buyGoodsDetail" id="${fieldValue(bean: goods, field: "id")}">
               <g:img class="img-rounded" uri="${goods.img}"/>
+              </g:link>
             </div>
             
             <h4 style="height:40px;">${goods.goods_name.size()>16?goods.goods_name[0..9]:goods.goods_name}</h4>
