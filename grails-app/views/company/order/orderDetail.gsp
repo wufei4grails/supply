@@ -32,6 +32,7 @@
 	 </g:if>
           <li class=""><a href="#shouhuo" data-toggle="tab">收货人信息</a></li>
         </ul>
+        
         <div id="myTabContent" class="tab-content">
           <div class="tab-pane fade active in" id="home">
             <form class="form-horizontal">
@@ -41,8 +42,14 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">订单号</label>
                   <div class="controls">
-                    <!--<p class="help-block text-center" >${shoppingOrder.order_sn}</p>-->
-                    <p class="help-block text-center" id="barcodeTarget" class="barcodeTarget"></p>
+                    <p class="help-block text-center" >${shoppingOrder.order_sn}</p>
+                    <!--<p class="help-block text-center" id="barcodeTarget" class="barcodeTarget"></p>-->
+                   
+                    <!--<g:link style="margin-left:5px;" controller="order" action="orderReport" params="[order_sn:shoppingOrder.order_sn]" target="_blank" class="btn btn-primary">打印订单</g:link>-->
+        
+                    
+                    <a style="margin-left:5px;" href="#print" role="button" class="btn btn-primary" data-toggle="modal">打印订单</a>
+          
                   </div>
                 </div>
 
@@ -285,7 +292,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货地址</label>
                   <div class="controls">
-                    <p class="help-block text-center" >${shoppingOrder.address}</p>
+                    <p class="help-block text-center" ><area:areaName id="${shoppingOrder.area_id}"/> ${shoppingOrder.address}</p>
                   </div>
                 </div>
 
@@ -368,6 +375,66 @@
 	</g:form>	
     
     
+    
+    <g:form    id="${shoppingOrder?.id}" class="form-horizontal waitship" controller="order" action="companyShipOrder" method="post">
+	    <g:hiddenField name="logistics_compay" id="logistics_compay" />
+	    <g:hiddenField name="logistics_no" id="logistics_no" />
+	    
+	</g:form>
+	
+    
+	<g:form  data-validate="parsley"  class="form-horizontal" controller="order" action="orderReport" method="post">
+               <g:hiddenField name="order_sn" value="${shoppingOrder.order_sn}" />
+		
+		<div id="print" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">选择打印内容</h3>
+                  </div>
+                  <div class="modal-body" >
+                    <div class="control-group">
+
+                      <!-- Select Basic -->
+                      <label class="checkbox">
+                        <input type="checkbox" value="1"  name="print_order_sn" checked>
+                        订单号
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_barcode" checked>
+                        订单一维条码
+                      </label>
+<!--                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_qcode" checked>
+                        订单二维码
+                      </label>-->
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_order_goods" checked>
+                        商品信息
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_order_person" checked>
+                        收货人信息
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_time" checked>
+                        打印时间
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_user" checked>
+                        打印人
+                      </label>
+
+                    </div>
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                  </div>
+                </div>
+	</g:form>
+    
 
     <g:render template="/layouts/company_footer"/>
 
@@ -424,7 +491,7 @@
 		  
 		  var amount = "0";
 		  jQuery(".amount").each(function(){
-			  amount = parseInt(amount) + parseInt(jQuery(this).html());
+			  amount = parseFloat(amount) + parseFloat(jQuery(this).html());
 		  });
 		  jQuery(".total_amount").html(amount);
 	  });

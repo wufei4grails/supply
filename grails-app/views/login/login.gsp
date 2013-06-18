@@ -14,7 +14,7 @@
   <div class="container">
 
     <g:form onSubmit="checkForm(this)" data-validate="parsley" class="form-signin" action="authenticate" method="post">
-      <h2 class="form-signin-heading">企业全程供应链管理平台</h2>
+      <h2 class="form-signin-heading">猴坑茶业全程供应链管理平台</h2>
       <g:if test="${flash.message}">
         <div class="alert alert-error">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -52,7 +52,7 @@
     }
 
     .form-signin {
-      max-width: 400px;
+      max-width: 500px;
       padding: 19px 29px 29px;
       margin: 0 auto 20px;
       background-color: #fff;

@@ -39,9 +39,65 @@
 
 
           <button type="submit" class="btn">搜索</button>
-          <g:link controller="order" action="orderReport" params="[order_sn:params.order_sn,status:params.status]" target="_blank">导出报表</g:link>
+          
+          <a style="margin-left:5px;" href="#print" role="button" class="btn btn-primary" data-toggle="modal">打印订单</a>
+          
+          
         </g:form>
 
+        
+        <g:form  data-validate="parsley"  class="form-horizontal" controller="order" action="moreOrderReport" method="post">
+                <g:hiddenField name="order_sn" value="${params.order_sn}" />
+		<g:hiddenField name="status" value="${params.status}" />
+		<div id="print" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">选择打印内容</h3>
+                  </div>
+                  <div class="modal-body" >
+                    <div class="control-group">
+
+                      <!-- Select Basic -->
+                      <label class="checkbox">
+                        <input type="checkbox" value="1"  name="print_order_sn" checked>
+                        订单号
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_barcode" checked>
+                        订单一维条码
+                      </label>
+<!--                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_qcode" checked>
+                        订单二维码
+                      </label>-->
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_order_goods" checked>
+                        商品信息
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_order_person" checked>
+                        收货人信息
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_time" checked>
+                        打印时间
+                      </label>
+                      <label class="checkbox">
+                        <input type="checkbox" value="1" name="print_user" checked>
+                        打印人
+                      </label>
+
+                    </div>
+
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                  </div>
+                </div>
+	</g:form>
+        
 
         <table class="table table-hover">
           <thead>

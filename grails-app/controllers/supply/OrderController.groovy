@@ -239,22 +239,27 @@ class OrderController {
 	}
         
         def orderReport(){
-            def searchClosure =  {
-                println params.status
-                println session.loginPOJO.store.id
-                    eq('store_id',session.loginPOJO.store.id.toString())
-                 if(params.order_sn) {
-                     like('order_sn',"%"+params.order_sn+"%")
-                 }
-                 if(params.status) {
-                     eq('status',params.status)
-                 }
-            }
+//            def searchClosure =  {
+//                    if(params.order_sn) {
+//                        like('order_sn',"%${params.order_sn}%")
+//                    }
+//                    if(params.status) {
+//                        eq('status',"${params.status}")
+//                    }
+//               }
+//        
+//            def s = ShoppingOrder.createCriteria();
+//            def results = s.list(params,searchClosure)
+        
+            println params.print_order_goods
+        
+        
+            String printTime = new Date().format('yyyy-MM-dd HH:mm:ss')
 
-            def s = SaleOrder.createCriteria();
-            def results = s.list(params,searchClosure)
-            println results as JSON
-            def map = [orderList: results]
+        
+            ShoppingOrder shoppingOrder = ShoppingOrder.findByOrder_sn(params.order_sn)
+            def map = ["shoppingOrder":shoppingOrder,orderGoods:shoppingOrder.orderGoods,printTime:printTime]
+        
             render(view: "/company/order/orderReport", model:map)
         }
     

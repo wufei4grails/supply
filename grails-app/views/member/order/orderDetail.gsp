@@ -301,7 +301,7 @@
                   <!-- Text input-->
                   <label class="control-label" for="input01">收货地址</label>
                   <div class="controls">
-                    <p class="help-block text-center" >${shoppingOrder.address}</p>
+                    <p class="help-block text-center" > <area:areaName id="${shoppingOrder.area_id}"/>  ${shoppingOrder.address}</p>
                   </div>
                 </div>
 

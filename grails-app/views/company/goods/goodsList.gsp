@@ -74,7 +74,13 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
             
           </tbody>
         </table>
+        
+        
+        
         <div  class="pagination pagination-right new-pagination">
+          
+
+
             <g:if test="${goodsTotal != 0}">
                 <util:remotePaginate total="${goodsTotal}"  params="${params}" controller="goods" action="reqGoodsList"  update="page" />
            </g:if>
@@ -83,6 +89,9 @@ String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPo
 <!--            <util:remoteSortableColumn params="${params}" property="store_name" title="门店名称" update="page" controller="user" action="companyStoreList"/>
             <util:remoteSortableColumn params="${params}" property="dateCreated" title="创建时间" update="page" controller="user" action="companyStoreList"/>-->
           </div>
+        
+        
+        
       </div><!--/span-->
     </div><!--/row-->
 
